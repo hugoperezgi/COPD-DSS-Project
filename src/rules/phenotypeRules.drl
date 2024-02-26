@@ -1,0 +1,8 @@
+rule "Rulename 4 phenotype Rule"
+    dialect "java"
+    when
+        p : Patient(getRespiratorydisease().equals("EPOC"), getEpoc().getCondition_string().equalsIgnoreCase("Severe chronic hypoxemia")==true)
+    then
+        p.addTreatment(Treatment.CHRONIC_OXIGEN_THERAPY);
+        System.out.println("Pulmonary condition: Severe chronic hypoxemia - The patient has to be treated with Chornic home oxygen therapy ");
+end
