@@ -15,7 +15,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("src\\main\\java\\gui\\LoginController.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/LoginController.fxml"));
 		Parent root = loader.load();
 
         Image windowIcon = new Image("img/logo.png");
