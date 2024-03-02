@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     public static void main(String[] args) {
-        System.out.println("PQ no funcionas hijodeputa");
         launch();
     }
 
@@ -21,7 +20,7 @@ public class Main extends Application {
         Image windowIcon = new Image("img/logo.png");
         primaryStage.getIcons().add(windowIcon);	
 
-        primaryStage.setTitle("Client"); 
+        primaryStage.setTitle("COPD Decision Support System"); 
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
