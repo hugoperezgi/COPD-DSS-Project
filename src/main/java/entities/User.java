@@ -1,5 +1,7 @@
 package entities;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import java.io.Serializable;
 
 public class User implements Serializable {
@@ -10,38 +12,34 @@ public class User implements Serializable {
         //Unique key for the db
 
     private String username;
-    private byte[] passwordHash;
+    private String encryptedPassword;
         //User login info
 
-    private Integer role;
+    private String role;
         //0:Admin 1:Doctor 2:Patient	
 
-    public User(Integer id, String uname, byte[] psw, Integer role){
+    public User(Integer id, String uname, String psw, String role) throws Exception {
         this.userID=id;
         this.username=uname;
-        this.passwordHash=psw;
-        this.role=role;
+        this.setPassword(psw);
+        this.setRole(role);
     }
-    public User(String uname, byte[] psw, int role){
+    public User(String uname, String psw, String role) throws Exception {
         this.username=uname;
-        this.passwordHash=psw;
-        this.role=role;
-    }
-    public User(String uname, byte[] psw){
-        this.username=uname;
-        this.passwordHash=psw;
+        this.setPassword(psw);
+        this.setRole(role);
     }
 
-    public byte[] getPasswordHash() {
-        return passwordHash;
+
+    public String getEncryptedPassword() {
+        return encryptedPassword;
     }
-    
-    /**
-     * {@code 0} - Admin<p>
-     * {@code 1} - Doctor<p>
-     * {@code 2} - Patient<p>
-     */
-    public Integer getRole() {
+
+    public static String encryptPassword(String password) {
+        return BCrypt.hashpw(password, BCrypt.gensalt());
+    }
+
+    public String getRole() {
         return role;
     }
     public String getUsername() {
@@ -51,4 +49,25 @@ public class User implements Serializable {
         return userID;
     }
 
+    public String check_user(User user1, User user2) throws Exception {
+        if(user1.getUsername().equalsIgnoreCase(user2.getUsername()) && user1.getEncryptedPassword().equals(user2.getEncryptedPassword())){
+            return user1.getRole();
+        }
+        else throw new Exception("Invalid combination of username and password");
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String psw) {
+        this.encryptedPassword = this.encryptPassword(psw);
+    }
+
+    public void setRole(String role) throws Exception {
+        if(role.equalsIgnoreCase("admin")||role.equalsIgnoreCase("patient")||role.equalsIgnoreCase("doctor")){
+            this.role = role;
+        }
+        else throw new Exception("Invalid role, the available options are: admin, doctor or patient");
+    }
 }
