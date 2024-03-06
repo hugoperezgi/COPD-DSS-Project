@@ -10,7 +10,7 @@ public class test_db {
                 DbManager db = new DbManager();
 
                 // Inserting a new patient
-                db.createUser("user1", "password1".getBytes(), "patient");
+                db.createUser("user1", "password1", "patient");
                 db.insertPatient("John Doe", 123456789, new java.sql.Date(2024,02,29), 1);
 
                 // Getting all patients
@@ -18,7 +18,7 @@ public class test_db {
                 System.out.println(db.getAllPatients().toString());
 
                 // Inserting a new user
-                db.createUser("user2", "password2".getBytes(), "doctor");
+                db.createUser("user2", "password2", "doctor");
 
                 db.deleteUser(2);
                 // Inserting a medical record
