@@ -31,7 +31,7 @@ public class DbManager {
         stmt.execute("CREATE TABLE IF NOT EXISTS Users (" +
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "Username TEXT NOT NULL," +
-                "Password VARBINARY(32) NOT NULL," +
+                "Password TEXT NOT NULL," +
                 "Role TEXT NOT NULL" +
                 ")");
 
@@ -93,14 +93,14 @@ public class DbManager {
         return pstmt.executeQuery();
     }
 
-    public void createUser(String username, byte[] password, String role) throws Exception {
+    public void createUser(String username, String password, String role) throws Exception {
         if (!role.equalsIgnoreCase("admin") && !role.equalsIgnoreCase("doctor") && !role.equalsIgnoreCase("patient")) {
             throw new IllegalArgumentException("Invalid role, the valid options for roles are: admin, doctor or patient");
         }
         String query = "INSERT INTO Users (username, password, role) VALUES (?, ?, ?)";
         PreparedStatement pstmt = c.prepareStatement(query);
         pstmt.setString(1, username);
-        pstmt.setBytes(2, password);
+        pstmt.setString(2, password);
         pstmt.setString(3, role);
         pstmt.executeUpdate();
     }

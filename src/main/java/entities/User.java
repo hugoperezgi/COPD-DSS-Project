@@ -30,13 +30,17 @@ public class User implements Serializable {
         this.setRole(role);
     }
 
+    public User () {
+
+    }
+
 
     public String getEncryptedPassword() {
         return encryptedPassword;
     }
 
-    public static String encryptPassword(String password) {
-        return BCrypt.hashpw(password, BCrypt.gensalt());
+    public String encryptPassword(String password) {
+        return BCrypt.hashpw(password, "$2a$12$1234567890123456789012");
     }
 
     public String getRole() {
