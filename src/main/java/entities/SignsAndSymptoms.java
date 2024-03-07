@@ -6,7 +6,7 @@ import java.util.*;
 public class SignsAndSymptoms implements Serializable{
     static final long serialVersionUID = 42L;
 
-    private int FEV, activityMinutes, hospitalizationCount;
+    private int FEV, activityMinutes, hospitalizationCount, mMCR;
     private int timeBetweenExacerbations;
     private int exacerbationCount;
 
@@ -22,11 +22,20 @@ public class SignsAndSymptoms implements Serializable{
         this.mixed_asthma = ss.isMixed_asthma();
         this.cough = ss.getCough();
         this.chronicExpectoration = ss.getChronicExpectoration();
+        this.mMCR=ss.mMCR;
+        this.COPDScore=ss.COPDScore;
     }
 
     public SignsAndSymptoms() {
+        this.COPDScore=-1;
     }
 
+    public int getmMCR() {
+        return mMCR;
+    }
+    public void setmMCR(int mMCR) {
+        this.mMCR = mMCR;
+    }
 
     public boolean isMixed_asthma() {
         return mixed_asthma;

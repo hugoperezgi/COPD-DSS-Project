@@ -12,12 +12,12 @@ public class MedicalHistory {
     private int id;
 
     private char phenotype;
-    private short severityLevel;
+    private int severityLevel;
 
     private String suggestedTreatment;
     private Date beginDate, endDate;
 
-    private SignsAndSymptoms signsAndSymptoms;
+    public SignsAndSymptoms signsAndSymptoms;
 
     public int getId() {
         return id;
@@ -32,11 +32,11 @@ public class MedicalHistory {
     public void setPhenotype(char phenotype) {
         this.phenotype = phenotype;
     }
-    public short getSeverityLevel() {
+    public int getSeverityLevel() {
         return severityLevel;
     }
     public void setSeverityLevel(int severityLevel) {
-        this.severityLevel = (short)severityLevel;
+        this.severityLevel = severityLevel;
     }
     public String getSuggestedTreatment() {
         return suggestedTreatment;
@@ -64,6 +64,9 @@ public class MedicalHistory {
     public void setSignsAndSymptoms(SignsAndSymptoms signsAndSymptoms) {
         this.signsAndSymptoms = new SignsAndSymptoms(signsAndSymptoms);
     }
+    public void setSignsAndSymptoms(){
+        this.signsAndSymptoms = new SignsAndSymptoms();
+    }
     public byte[] getSignsAndSymptomsBLOB() throws IOException{
         ByteArrayOutputStream b = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(b);
@@ -79,5 +82,9 @@ public class MedicalHistory {
         this.signsAndSymptoms = (SignsAndSymptoms) ois.readObject();
         ois.close();
         bi.close();
+    }
+
+    public MedicalHistory(){
+        this.setSignsAndSymptoms();
     }
 }

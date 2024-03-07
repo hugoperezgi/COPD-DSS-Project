@@ -17,66 +17,95 @@ package entities;
 
 unit MedicalHistory_Unit;
 
-rule "Severity 1 Rule"
+rule "Severity 1 Rule" 
     dialect "java"
     when
-        $MedicalHistory: /mHist [m.getSignsAndSymptoms().getFEV() > 50, m.getSignsAndSymptoms().getActivityMinutes() > 120, m.getSignsAndSymptoms().getHospitalizationCount() == 0, m.getSignsAndSymptoms().getmMCR() < 2]
+        $MedicalHistory: /mHist [signsAndSymptoms.getFEV() > 50, signsAndSymptoms.getActivityMinutes() > 120, signsAndSymptoms.getHospitalizationCount() == 0, signsAndSymptoms.getmMCR() < 2]
     then 
         modify ($MedicalHistory) {setSeverityLevel(1)}
 end
 rule "Severity 2.0 Rule"
     dialect "java"
     when
-        $MedicalHistory: /mHist [m.getSignsAndSymptoms().getFEV() > 50, m.getSignsAndSymptoms().getActivityMinutes() > 30, m.getSignsAndSymptoms().getActivityMinutes() <120, m.getSignsAndSymptoms().getHospitalizationCount() < 2, m.getSignsAndSymptoms().getmMCR()==1]
+        $MedicalHistory: /mHist [signsAndSymptoms.getFEV() > 50, signsAndSymptoms.getActivityMinutes() > 30, signsAndSymptoms.getActivityMinutes() <120, signsAndSymptoms.getHospitalizationCount() < 2, signsAndSymptoms.getmMCR()==1]
     then 
-        modify ($MedicalHistory) {setSeverityLevel(1)}
+        modify ($MedicalHistory) {setSeverityLevel(2)}
 end
 rule "Severity 2.1 Rule"
     dialect "java"
     when
-        $MedicalHistory: /mHist [m.getSignsAndSymptoms().getFEV() > 50, m.getSignsAndSymptoms().getActivityMinutes() > 30, m.getSignsAndSymptoms().getActivityMinutes() <120, m.getSignsAndSymptoms().getHospitalizationCount() < 2, m.getSignsAndSymptoms().getmMCR()==2]
+        $MedicalHistory: /mHist [signsAndSymptoms.getFEV() > 50, signsAndSymptoms.getActivityMinutes() > 30, signsAndSymptoms.getActivityMinutes() <120, signsAndSymptoms.getHospitalizationCount() < 2, signsAndSymptoms.getmMCR()==2]
     then 
-        modify ($MedicalHistory) {setSeverityLevel(1)}
+        modify ($MedicalHistory) {setSeverityLevel(2)}
 end
 rule "Severity 3.0 Rule"
     dialect "java"
     when
-        $MedicalHistory: /mHist [m.getSignsAndSymptoms().getFEV() < 50, m.getSignsAndSymptoms().getActivityMinutes() < 30, m.getSignsAndSymptoms().getHospitalizationCount() == 1, m.getSignsAndSymptoms().getmMCR()==2]
+        $MedicalHistory: /mHist [signsAndSymptoms.getFEV() < 50, signsAndSymptoms.getActivityMinutes() < 30, signsAndSymptoms.getHospitalizationCount() == 1, signsAndSymptoms.getmMCR()==2]
     then 
         modify ($MedicalHistory) {setSeverityLevel(3)}
 end
 rule "Severity 3.1 Rule"
     dialect "java"
     when
-        $MedicalHistory: /mHist [m.getSignsAndSymptoms().getFEV() < 50, m.getSignsAndSymptoms().getActivityMinutes() < 30, m.getSignsAndSymptoms().getHospitalizationCount() == 2, m.getSignsAndSymptoms().getmMCR()==2]
+        $MedicalHistory: /mHist [signsAndSymptoms.getFEV() < 50, signsAndSymptoms.getActivityMinutes() < 30, signsAndSymptoms.getHospitalizationCount() == 2, signsAndSymptoms.getmMCR()==2]
     then 
         modify ($MedicalHistory) {setSeverityLevel(3)}
 end
 rule "Severity 3.2 Rule"
     dialect "java"
     when
-        $MedicalHistory: /mHist [m.getSignsAndSymptoms().getFEV() < 50, m.getSignsAndSymptoms().getActivityMinutes() < 30, m.getSignsAndSymptoms().getHospitalizationCount() == 1, m.getSignsAndSymptoms().getmMCR()==3]
+        $MedicalHistory: /mHist [signsAndSymptoms.getFEV() < 50, signsAndSymptoms.getActivityMinutes() < 30, signsAndSymptoms.getHospitalizationCount() == 1, signsAndSymptoms.getmMCR()==3]
     then 
         modify ($MedicalHistory) {setSeverityLevel(3)}
 end
 rule "Severity 3.3 Rule"
     dialect "java"
     when
-        $MedicalHistory: /mHist [m.getSignsAndSymptoms().getFEV() < 50, m.getSignsAndSymptoms().getActivityMinutes() < 30, m.getSignsAndSymptoms().getHospitalizationCount() == 2, m.getSignsAndSymptoms().getmMCR()==3]
+        $MedicalHistory: /mHist [signsAndSymptoms.getFEV() < 50, signsAndSymptoms.getActivityMinutes() < 30, signsAndSymptoms.getHospitalizationCount() == 2, signsAndSymptoms.getmMCR()==3]
     then 
         modify ($MedicalHistory) {setSeverityLevel(3)}
 end
 rule "Severity 4.0 Rule"
     dialect "java"
     when
-        $MedicalHistory: /mHist [m.getSignsAndSymptoms().getFEV() < 30, m.getSignsAndSymptoms().getActivityMinutes() < 30, m.getSignsAndSymptoms().getHospitalizationCount() > 2, m.getSignsAndSymptoms().getmMCR()==3]
+        $MedicalHistory: /mHist [signsAndSymptoms.getFEV() < 30, signsAndSymptoms.getActivityMinutes() < 30, signsAndSymptoms.getHospitalizationCount() > 2, signsAndSymptoms.getmMCR()==3]
     then 
         modify ($MedicalHistory) {setSeverityLevel(4)}
 end
 rule "Severity 4.1 Rule"
     dialect "java"
     when
-        $MedicalHistory: /mHist [m.getSignsAndSymptoms().getFEV() < 30, m.getSignsAndSymptoms().getActivityMinutes() < 30, m.getSignsAndSymptoms().getHospitalizationCount() > 2, m.getSignsAndSymptoms().getmMCR()==4]
+        $MedicalHistory: /mHist [signsAndSymptoms.getFEV() < 30, signsAndSymptoms.getActivityMinutes() < 30, signsAndSymptoms.getHospitalizationCount() > 2, signsAndSymptoms.getmMCR()==4]
+    then 
+        modify ($MedicalHistory) {setSeverityLevel(4)}
+end
+
+rule "COPD Assessment Test Severity 1 Rule"
+    dialect "java"
+    when
+        $MedicalHistory: /mHist [signsAndSymptoms.getCOPDScore()>=0, signsAndSymptoms.getCOPDScore()<=10]
+    then 
+        modify ($MedicalHistory) {setSeverityLevel(1)}
+end
+rule "COPD Assessment Test Severity 2 Rule"
+    dialect "java"
+    when
+        $MedicalHistory: /mHist [signsAndSymptoms.getCOPDScore()>=0, signsAndSymptoms.getCOPDScore()>10,signsAndSymptoms.getCOPDScore()<21]
+    then 
+        modify ($MedicalHistory) {setSeverityLevel(2)}
+end
+rule "COPD Assessment Test Severity 3 Rule"
+    dialect "java"
+    when
+        $MedicalHistory: /mHist [signsAndSymptoms.getCOPDScore()>=0, signsAndSymptoms.getCOPDScore()>20,signsAndSymptoms.getCOPDScore()<31]
+    then 
+        modify ($MedicalHistory) {setSeverityLevel(3)}
+end
+rule "COPD Assessment Test Severity 4 Rule"
+    dialect "java"
+    when
+        $MedicalHistory: /mHist [signsAndSymptoms.getCOPDScore()>=0, signsAndSymptoms.getCOPDScore()>30]
     then 
         modify ($MedicalHistory) {setSeverityLevel(4)}
 end
