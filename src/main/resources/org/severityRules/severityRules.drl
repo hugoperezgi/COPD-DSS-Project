@@ -14,3 +14,69 @@
 */
 
 package entities;
+
+unit MedicalHistory_Unit;
+
+rule "Severity 1 Rule"
+    dialect "java"
+    when
+        $MedicalHistory: /mHist [m.getSignsAndSymptoms().getFEV() > 50, m.getSignsAndSymptoms().getActivityMinutes() > 120, m.getSignsAndSymptoms().getHospitalizationCount() == 0, m.getSignsAndSymptoms().getmMCR() < 2]
+    then 
+        modify ($MedicalHistory) {setSeverityLevel(1)}
+end
+rule "Severity 2.0 Rule"
+    dialect "java"
+    when
+        $MedicalHistory: /mHist [m.getSignsAndSymptoms().getFEV() > 50, m.getSignsAndSymptoms().getActivityMinutes() > 30, m.getSignsAndSymptoms().getActivityMinutes() <120, m.getSignsAndSymptoms().getHospitalizationCount() < 2, m.getSignsAndSymptoms().getmMCR()==1]
+    then 
+        modify ($MedicalHistory) {setSeverityLevel(1)}
+end
+rule "Severity 2.1 Rule"
+    dialect "java"
+    when
+        $MedicalHistory: /mHist [m.getSignsAndSymptoms().getFEV() > 50, m.getSignsAndSymptoms().getActivityMinutes() > 30, m.getSignsAndSymptoms().getActivityMinutes() <120, m.getSignsAndSymptoms().getHospitalizationCount() < 2, m.getSignsAndSymptoms().getmMCR()==2]
+    then 
+        modify ($MedicalHistory) {setSeverityLevel(1)}
+end
+rule "Severity 3.0 Rule"
+    dialect "java"
+    when
+        $MedicalHistory: /mHist [m.getSignsAndSymptoms().getFEV() < 50, m.getSignsAndSymptoms().getActivityMinutes() < 30, m.getSignsAndSymptoms().getHospitalizationCount() == 1, m.getSignsAndSymptoms().getmMCR()==2]
+    then 
+        modify ($MedicalHistory) {setSeverityLevel(3)}
+end
+rule "Severity 3.1 Rule"
+    dialect "java"
+    when
+        $MedicalHistory: /mHist [m.getSignsAndSymptoms().getFEV() < 50, m.getSignsAndSymptoms().getActivityMinutes() < 30, m.getSignsAndSymptoms().getHospitalizationCount() == 2, m.getSignsAndSymptoms().getmMCR()==2]
+    then 
+        modify ($MedicalHistory) {setSeverityLevel(3)}
+end
+rule "Severity 3.2 Rule"
+    dialect "java"
+    when
+        $MedicalHistory: /mHist [m.getSignsAndSymptoms().getFEV() < 50, m.getSignsAndSymptoms().getActivityMinutes() < 30, m.getSignsAndSymptoms().getHospitalizationCount() == 1, m.getSignsAndSymptoms().getmMCR()==3]
+    then 
+        modify ($MedicalHistory) {setSeverityLevel(3)}
+end
+rule "Severity 3.3 Rule"
+    dialect "java"
+    when
+        $MedicalHistory: /mHist [m.getSignsAndSymptoms().getFEV() < 50, m.getSignsAndSymptoms().getActivityMinutes() < 30, m.getSignsAndSymptoms().getHospitalizationCount() == 2, m.getSignsAndSymptoms().getmMCR()==3]
+    then 
+        modify ($MedicalHistory) {setSeverityLevel(3)}
+end
+rule "Severity 4.0 Rule"
+    dialect "java"
+    when
+        $MedicalHistory: /mHist [m.getSignsAndSymptoms().getFEV() < 30, m.getSignsAndSymptoms().getActivityMinutes() < 30, m.getSignsAndSymptoms().getHospitalizationCount() > 2, m.getSignsAndSymptoms().getmMCR()==3]
+    then 
+        modify ($MedicalHistory) {setSeverityLevel(4)}
+end
+rule "Severity 4.1 Rule"
+    dialect "java"
+    when
+        $MedicalHistory: /mHist [m.getSignsAndSymptoms().getFEV() < 30, m.getSignsAndSymptoms().getActivityMinutes() < 30, m.getSignsAndSymptoms().getHospitalizationCount() > 2, m.getSignsAndSymptoms().getmMCR()==4]
+    then 
+        modify ($MedicalHistory) {setSeverityLevel(4)}
+end
