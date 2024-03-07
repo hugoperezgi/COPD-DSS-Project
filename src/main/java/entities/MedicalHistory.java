@@ -62,7 +62,7 @@ public class MedicalHistory {
         return signsAndSymptoms;
     }
     public void setSignsAndSymptoms(SignsAndSymptoms signsAndSymptoms) {
-        this.signsAndSymptoms = signsAndSymptoms;
+        this.signsAndSymptoms = new SignsAndSymptoms(signsAndSymptoms);
     }
     public byte[] getSignsAndSymptomsBLOB() throws IOException{
         ByteArrayOutputStream b = new ByteArrayOutputStream();
