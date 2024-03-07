@@ -18,7 +18,10 @@ public class SignsAndSymptoms implements Serializable{
         this.activityMinutes = ss.getActivityMinutes();
         this.hospitalizationCount = ss.getHospitalizationCount();
         this.exacerbationCount = ss.getExacerbationCount();
+        this.timeBetweenExacerbations = ss.getTimeBetweenExacerbations();
         this.mixed_asthma = ss.isMixed_asthma();
+        this.cough = ss.getCough();
+        this.chronicExpectoration = ss.getChronicExpectoration();
     }
 
     public SignsAndSymptoms() {

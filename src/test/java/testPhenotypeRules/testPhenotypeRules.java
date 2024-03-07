@@ -38,7 +38,8 @@ public class testPhenotypeRules {
         SignsAndSymptoms ss = new SignsAndSymptoms();
         ss.setExacerbationCount(1);
         ss.setMixed_asthma(true,false,false,false,false,false);
-        System.out.println(ss.isMixed_asthma());
+        ss.setCough(true);
+        ss.setChronicExpectoration(true);
         m.setSignsAndSymptoms(ss);
 
         mHistUnit.getMHist().add(m);
@@ -46,4 +47,91 @@ public class testPhenotypeRules {
 
         Assert.assertEquals('A',m.getPhenotype());
     }
+
+    @Test
+    public void testPhenotypeB1(){
+
+        MedicalHistory m = new MedicalHistory();
+        SignsAndSymptoms ss = new SignsAndSymptoms();
+        ss.setExacerbationCount(0);
+        ss.setMixed_asthma(true,true,false,false,false,false);
+        m.setSignsAndSymptoms(ss);
+
+        mHistUnit.getMHist().add(m);
+        droolsInstance.fire();
+
+        Assert.assertEquals('B',m.getPhenotype());
+    }
+
+    @Test
+    public void testPhenotypeB2(){
+
+        MedicalHistory m = new MedicalHistory();
+        SignsAndSymptoms ss = new SignsAndSymptoms();
+        ss.setExacerbationCount(5);
+        ss.setTimeBetweenExacerbations(7);
+        ss.setMixed_asthma(true,false,false,true,true,false);
+        m.setSignsAndSymptoms(ss);
+
+        mHistUnit.getMHist().add(m);
+        droolsInstance.fire();
+
+        Assert.assertEquals('B',m.getPhenotype());
+    }
+
+    @Test
+    public void testPhenotypeC(){
+
+        MedicalHistory m = new MedicalHistory();
+        SignsAndSymptoms ss = new SignsAndSymptoms();
+        ss.setExacerbationCount(5);
+        ss.setTimeBetweenExacerbations(2);
+        ss.setMixed_asthma(true,false,false,true,false,false);
+        ss.setCough(false);
+        ss.setChronicExpectoration(false);
+        m.setSignsAndSymptoms(ss);
+
+        mHistUnit.getMHist().add(m);
+        droolsInstance.fire();
+
+        Assert.assertEquals('C',m.getPhenotype());
+    }
+
+    @Test
+    public void testPhenotypeD(){
+
+        MedicalHistory m = new MedicalHistory();
+        SignsAndSymptoms ss = new SignsAndSymptoms();
+        ss.setExacerbationCount(4);
+        ss.setTimeBetweenExacerbations(2);
+        ss.setMixed_asthma(true,false,false,true,false,false);
+        ss.setCough(true);
+        ss.setChronicExpectoration(true);
+        m.setSignsAndSymptoms(ss);
+
+        mHistUnit.getMHist().add(m);
+        droolsInstance.fire();
+
+        Assert.assertEquals('D',m.getPhenotype());
+    }
+
+    @Test
+    public void testPhenotypeNonConclusive(){
+
+        MedicalHistory m = new MedicalHistory();
+        SignsAndSymptoms ss = new SignsAndSymptoms();
+        ss.setExacerbationCount(1);
+        ss.setTimeBetweenExacerbations(2);
+        ss.setMixed_asthma(true,false,false,true,false,false);
+        ss.setCough(true);
+        ss.setChronicExpectoration(false);
+        m.setSignsAndSymptoms(ss);
+
+        mHistUnit.getMHist().add(m);
+        droolsInstance.fire();
+
+        Assert.assertEquals(0,m.getPhenotype());
+    }
+
+
 }
