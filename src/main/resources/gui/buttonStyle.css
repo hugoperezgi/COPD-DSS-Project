@@ -1,0 +1,10 @@
+.loginButton{
+    -fx-background-color: #c6d3e3;
+    -fx-text-fill: #112d4e;
+    -fx-border-color: #c6d3e3;
+}
+.loginButton:hover{
+    -fx-background-color: #112d4e;
+    -fx-text-fill: #c6d3e3;
+    -fx-border-color: #112d4e;
+}
