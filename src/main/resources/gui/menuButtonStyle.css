@@ -1,0 +1,22 @@
+.button{
+    -fx-background-color: #5481a4; 
+    -fx-text-fill: #112d4e;
+    -fx-border-color: #DBE2EF;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+.button:hover{
+    -fx-background-color: #112d4e; 
+    -fx-text-fill: #5481a4;
+    -fx-border-color: #DBE2EF;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-underline: true;
+}
+.buttonSelected{
+    -fx-background-color: #112d4e; 
+    -fx-text-fill: #5481a4;
+    -fx-border-color: #DBE2EF;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}

@@ -1,3 +1,21 @@
+.button{
+    -fx-background-color: #112d4e; 
+    -fx-text-fill: #5481a4;
+    -fx-border-color: #DBE2EF;
+}
+.button:hover{
+    -fx-background-color: #5481a4; 
+    -fx-text-fill: #112d4e;
+    -fx-border-color: #DBE2EF;
+}
+.bigButton{
+    -fx-text-fill: #112d4e;
+    -fx-border-color: #f5f5f5;
+}
+.bigButton:hover{
+    -fx-text-fill: #5481a4;
+    -fx-border-color: #f5f5f5;
+}
 .loginButton{
     -fx-background-color: #c6d3e3;
     -fx-text-fill: #112d4e;
