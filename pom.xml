@@ -87,6 +87,13 @@
           <artifactId>javafx-maven-plugin</artifactId>
           <version>0.0.8</version>
           <configuration>
+              <stripDebug>true</stripDebug>
+              <compress>2</compress>
+              <noHeaderFiles>true</noHeaderFiles>
+              <noManPages>true</noManPages>
+              <launcher>App</launcher>
+              <jlinkImageName>App</jlinkImageName>
+              <jlinkZipName>AppZip</jlinkZipName>
               <mainClass>app.Main</mainClass>
           </configuration>
       </plugin>
