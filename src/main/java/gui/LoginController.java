@@ -2,6 +2,7 @@ package gui;
 
 import java.io.IOException;
 
+import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,24 +23,22 @@ public class LoginController {
     private ErrorPopup ErrorPopup = new ErrorPopup();
 
 
-    public void logIn(ActionEvent a) throws IOException, ClassNotFoundException{
+    public void logIn(ActionEvent a) throws Exception{
         
-        Integer control = -1;
-        //control= TODO idk-idc.logIn(username.getText(),psw.getText()); 
-        switch (control) {
-            case -2:
-                ErrorPopup.errorPopup(5);
-                break;
-            case 0:
+        User u = new User("STOP","SHOWING","FUCKINGERRORS");//Ty <3
+        // User u = null;
+        //u= TODO idk-idc.logIn(username.getText(),psw.getText()); 
+        if(u==null){ErrorPopup.errorPopup(5);return;}
+        switch (u.getRole()) {
+            case "admin":
                 loadAdminUI(a);
                 break;
-            case 1:
+            case "doctor":
                 loadDoctUI(a);
                 break;
-            case 2:
-                loadPatientUI(a);
+            case "patient":
+                loadPatientUI(a,u);
                 break;
-        
             default:
                 ErrorPopup.errorPopup(0);
                 break;
@@ -47,48 +46,43 @@ public class LoginController {
     }
     
 
-    private void loadPatientUI(ActionEvent aEvent) throws IOException, ClassNotFoundException{
-		// FXMLLoader loader = new FXMLLoader(getClass().getResource("PatientController.fxml"));
-		// Parent root = loader.load();
+    private void loadPatientUI(ActionEvent aEvent,User u) throws IOException, ClassNotFoundException{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("PatientController.fxml"));
+		Parent root = loader.load();
 
-        // PatientController pc = loader.getController();
-        // pc.setSelf();
-        // if(pc.myself==null){
-        //     ErrorPopup.errorPopup(11); //TODO
-        // } else {
-        //     Stage stage = (Stage) ((Node) aEvent.getSource()).getScene().getWindow();
-        //     Scene scene = new Scene(root);
-        //     stage.setScene(scene);
-        //     stage.show();
-        // }
+        PatientController pc = loader.getController();
+        pc.setSelf(u);
+        if(pc.myself==null){
+            ErrorPopup.errorPopup(11); //TODO
+        } else {
+            Stage stage = (Stage) ((Node) aEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
 
     }
 
     private void loadAdminUI(ActionEvent aEvent) throws IOException{
-		// FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminController.fxml"));
-		// Parent root = loader.load();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminController.fxml"));
+		Parent root = loader.load();
 
-        // Stage stage = (Stage) ((Node) aEvent.getSource()).getScene().getWindow();
-        // Scene scene = new Scene(root);
-        // stage.setScene(scene);
-        // stage.show();
+        Stage stage = (Stage) ((Node) aEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
 
     }
 
     private void loadDoctUI(ActionEvent aEvent) throws IOException, ClassNotFoundException{
-		// FXMLLoader loader = new FXMLLoader(getClass().getResource("WorkerController.fxml"));
-		// Parent root = loader.load();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("DoctorController.fxml"));
+		Parent root = loader.load();
 
-        // DoctorController dc = loader.getController();
-        // dc.setSelf();
-        // if(dc.myself==null){
-        //     ErrorPopup.errorPopup(11);
-        // } else {
-        //     Stage stage = (Stage) ((Node) aEvent.getSource()).getScene().getWindow();
-        //     Scene scene = new Scene(root);
-        //     stage.setScene(scene);
-        //     stage.show();
-        // }
+        Stage stage = (Stage) ((Node) aEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        
 
     }
 
