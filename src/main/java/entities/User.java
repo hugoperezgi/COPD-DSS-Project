@@ -53,12 +53,6 @@ public class User implements Serializable {
         return userID;
     }
 
-    public String check_user(User user1, User user2) throws Exception {
-        if(user1.getUsername().equalsIgnoreCase(user2.getUsername()) && user1.getEncryptedPassword().equals(user2.getEncryptedPassword())){
-            return user1.getRole();
-        }
-        else throw new Exception("Invalid combination of username and password");
-    }
 
     public void setUsername(String username) {
         this.username = username;
