@@ -48,7 +48,7 @@ public class DbManager {
                 ")");
     }
 
-    public static void insertPatient(String name, int medicalCardNumber, Date birthdate, int userId) throws Exception {
+    public static void createPatient(String name, int medicalCardNumber, Date birthdate, int userId) throws Exception {
         String query = "INSERT INTO Patients (Name, medicalCardNumber, birthdate, user_id) VALUES (?, ?, ?, ?)";
         PreparedStatement pstmt = c.prepareStatement(query);
         pstmt.setString(1, name);
@@ -99,7 +99,7 @@ public class DbManager {
 
 
 
-    public static void createUser(String username, String password, String role) throws Exception {
+    public static int createUser(String username, String password, String role) throws Exception {
         if (!role.equalsIgnoreCase("admin") && !role.equalsIgnoreCase("doctor") && !role.equalsIgnoreCase("patient")) {
             throw new IllegalArgumentException("Invalid role, the valid options for roles are: admin, doctor or patient");
         }
@@ -109,6 +109,42 @@ public class DbManager {
         pstmt.setString(2, password);
         pstmt.setString(3, role);
         pstmt.executeUpdate();
+        String query2 = "SELECT ID FROM Users WHERE username = ? AND password = ?";
+        PreparedStatement pstmt2 = c.prepareStatement(query2);
+        pstmt2.setString(1, username);
+        pstmt2.setString(2, password);
+        ResultSet rs = pstmt2.executeQuery();
+        return rs.getInt("ID");
+    }
+
+    public static List<User> getAllUsers() throws Exception {
+        List<User> users = new ArrayList();
+        String query = "SELECT * FROM Users";
+        Statement stmt = c.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        while (rs.next()) {
+            int id = rs.getInt("ID");
+            String username = rs.getString("Username");
+            String password = rs.getString("Password");
+            String role = rs.getString("Role");
+            User user = new User(username,password,role);
+            users.add(user);
+        }
+        return users;
+    }
+
+    public static int check_user (User u) throws Exception {
+        String query = "SELECT * FROM Users WHERE username = ? AND password = ?";
+        PreparedStatement pstmt = c.prepareStatement(query);
+        pstmt.setString(1, u.getUsername());
+        pstmt.setString(2, u.getEncryptedPassword());
+        ResultSet rs = pstmt.executeQuery();
+        int user_id = rs.getInt("ID");
+        if(rs.wasNull()){
+            return -1;
+        }else{
+            return user_id;
+        }
     }
 
     public static void deleteUser(int userId) throws Exception {
