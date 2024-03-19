@@ -28,6 +28,14 @@ public class Patient {
         this.userId = 0;
     }
 
+    public Patient(Patient p) {
+        this.id = p.getId();
+        this.name = p.getName();
+        this.medicalCardNumber = p.getMedicalCardNumber();
+        this.birthDate = p.getBirthDate();
+        this.userId = p.getUserId();
+    }
+
     // Getters and setters
     public int getId() {
         return id;

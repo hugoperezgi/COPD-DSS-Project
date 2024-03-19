@@ -1,5 +1,8 @@
 package entities;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.Slider;
+
 import java.io.Serializable;
 import java.util.*;
 
@@ -122,5 +125,7 @@ public class SignsAndSymptoms implements Serializable{
     public void setCough(boolean cough) {
         this.cough = cough;
     }
+
+
 
 }

@@ -1,6 +1,4 @@
 package sql;
-import java.sql.*;
-import java.util.Date;
 
 public class test_db {
 
@@ -11,7 +9,7 @@ public class test_db {
 
                 // Inserting a new patient
                 db.createUser("user1", "password1", "patient");
-                db.insertPatient("John Doe", 123456789, new java.sql.Date(2024,02,29), 1);
+                db.createPatient("John Doe", 123456789, new java.sql.Date(2024,02,29), 1);
 
                 // Getting all patients
                 System.out.println("All Patients:");

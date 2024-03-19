@@ -42,13 +42,13 @@ public class DbManager {
                 "Severity INTEGER," +
                 "Treatment TEXT," +
                 "BeginDate DATE," +
-                "EndDate DATE," +
+                "Duration INTEGER," +
                 "patient_id INTEGER NOT NULL," +
                 "FOREIGN KEY (patient_id) REFERENCES Patients(ID)" +
                 ")");
     }
 
-    public void insertPatient(String name, int medicalCardNumber, Date birthdate, int userId) throws Exception {
+    public static void createPatient(String name, int medicalCardNumber, Date birthdate, int userId) throws Exception {
         String query = "INSERT INTO Patients (Name, medicalCardNumber, birthdate, user_id) VALUES (?, ?, ?, ?)";
         PreparedStatement pstmt = c.prepareStatement(query);
         pstmt.setString(1, name);
@@ -56,17 +56,16 @@ public class DbManager {
         pstmt.setDate(3, birthdate);
         pstmt.setInt(4, userId);
         pstmt.executeUpdate();
-
     }
 
-    public void deletePatient(int patientId) throws Exception {
+    public static void deletePatient(int patientId) throws Exception {
         String query = "DELETE FROM Patients WHERE ID = ?";
         PreparedStatement pstmt = c.prepareStatement(query);
         pstmt.setInt(1, patientId);
         pstmt.executeUpdate();
     }
 
-    public List<Patient> getAllPatients() throws Exception {
+    public static List<Patient> getAllPatients() throws Exception {
         List<Patient> patients = new ArrayList();
         String query = "SELECT * FROM Patients";
         Statement stmt = c.createStatement();
@@ -77,7 +76,6 @@ public class DbManager {
             int medicalCardNumber = rs.getInt("MedicalCardNumber");
             Date birthDate = rs.getDate("BirthDate");
             int userId = rs.getInt("User_ID");
-
             Patient patient = new Patient(id, name, medicalCardNumber, birthDate, userId);
             patients.add(patient);
         }
@@ -85,15 +83,23 @@ public class DbManager {
         return patients;
     }
 
-    public ResultSet getMedicalHistory(int patientId) throws Exception {
-        //cambiar a medical record cuando este creada la clase
-        String query = "SELECT * FROM MedicalHistory WHERE patient_id = ?";
+    public static Patient getPatientFromUserID(Integer userID) throws Exception {
+        Patient patient;
+        String query = "SELECT * FROM Patients WHERE user_id = ?";
         PreparedStatement pstmt = c.prepareStatement(query);
-        pstmt.setInt(1, patientId);
-        return pstmt.executeQuery();
+        pstmt.setInt(1, userID);
+        ResultSet rs = pstmt.executeQuery(query);
+        int id = rs.getInt("ID");
+        String name = rs.getString("Name");
+        int medicalCardNumber = rs.getInt("MedicalCardNumber");
+        Date birthDate = rs.getDate("BirthDate");
+        patient = new Patient(id,name,medicalCardNumber,birthDate,userID);
+        return patient;
     }
 
-    public void createUser(String username, String password, String role) throws Exception {
+
+
+    public static int createUser(String username, String password, String role) throws Exception {
         if (!role.equalsIgnoreCase("admin") && !role.equalsIgnoreCase("doctor") && !role.equalsIgnoreCase("patient")) {
             throw new IllegalArgumentException("Invalid role, the valid options for roles are: admin, doctor or patient");
         }
@@ -103,9 +109,45 @@ public class DbManager {
         pstmt.setString(2, password);
         pstmt.setString(3, role);
         pstmt.executeUpdate();
+        String query2 = "SELECT ID FROM Users WHERE username = ? AND password = ?";
+        PreparedStatement pstmt2 = c.prepareStatement(query2);
+        pstmt2.setString(1, username);
+        pstmt2.setString(2, password);
+        ResultSet rs = pstmt2.executeQuery();
+        return rs.getInt("ID");
     }
 
-    public void deleteUser(int userId) throws Exception {
+    public static List<User> getAllUsers() throws Exception {
+        List<User> users = new ArrayList();
+        String query = "SELECT * FROM Users";
+        Statement stmt = c.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        while (rs.next()) {
+            int id = rs.getInt("ID");
+            String username = rs.getString("Username");
+            String password = rs.getString("Password");
+            String role = rs.getString("Role");
+            User user = new User(username,password,role);
+            users.add(user);
+        }
+        return users;
+    }
+
+    public static int check_user (User u) throws Exception {
+        String query = "SELECT * FROM Users WHERE username = ? AND password = ?";
+        PreparedStatement pstmt = c.prepareStatement(query);
+        pstmt.setString(1, u.getUsername());
+        pstmt.setString(2, u.getEncryptedPassword());
+        ResultSet rs = pstmt.executeQuery();
+        int user_id = rs.getInt("ID");
+        if(rs.wasNull()){
+            return -1;
+        }else{
+            return user_id;
+        }
+    }
+
+    public static void deleteUser(int userId) throws Exception {
         String query = "DELETE FROM Users WHERE ID = ?";
         PreparedStatement pstmt = c.prepareStatement(query);
         pstmt.setInt(1, userId);
@@ -113,27 +155,45 @@ public class DbManager {
     }
 
 
-    public void createMedicalRecord(int patientId, String phenotype, int severity, String treatment, Date beginDate, Date endDate) throws Exception {
+    public static void createMedicalRecord(int patientId, String phenotype, int severity, String treatment, Date beginDate, int duration) throws Exception {
         if (severity < 1 || severity > 4) {
             throw new IllegalArgumentException("Invalid severity degree, it should be a number between 1 and 4");
         }
         if (!phenotype.matches("[A-D]|Unclear")) {
             throw new IllegalArgumentException("Invalid phenotype, the values allowed are: A, B, C, D or Unclear");
         }
-        String query = "INSERT INTO MedicalHistory (phenotype, severity, treatment, beginDate, endDate, patient_id) VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO MedicalHistory (Phenotype, Severity, Treatment, BeginDate, Duration, patient_id) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement pstmt = c.prepareStatement(query);
         pstmt.setString(1, phenotype);
         pstmt.setInt(2, severity);
         pstmt.setString(3, treatment);
         pstmt.setDate(4, beginDate);
-        pstmt.setDate(5, endDate);
+        pstmt.setInt(5, duration);
         pstmt.setInt(6, patientId);
         pstmt.executeUpdate();
         pstmt.close();
     }
 
+    public static List<MedicalHistory> getMedicalHistory(int patientId) throws Exception {
+        List <MedicalHistory> medicalHistory = new ArrayList<>();
+        String query = "SELECT * FROM MedicalHistory WHERE patient_id = ?";
+        PreparedStatement pstmt = c.prepareStatement(query);
+        pstmt.setInt(1, patientId);
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()) {
+            int id = rs.getInt("Id");
+            char phenotype = rs.getString("Phenotype").charAt(0);
+            int severity = rs.getInt("Severity");
+            String treatment = rs.getString("Treatment");
+            Date beginDate = rs.getDate("BeginDate");
+            int duration = rs.getInt("duration");
+            medicalHistory.add(new MedicalHistory(id,phenotype,severity,treatment,beginDate,duration));
+        }
+        return medicalHistory;
+    }
 
-    public void createMedicalRecord_OnlyPhenotype(int patientId, String phenotype) throws Exception {
+
+    public static void createMedicalRecord_OnlyPhenotype(int patientId, String phenotype) throws Exception {
         if (!phenotype.matches("[A-D]|Unclear")) {
             throw new IllegalArgumentException("Invalid phenotype, the values allowed are: A, B, C, D or Unclear");
         }
@@ -146,7 +206,7 @@ public class DbManager {
     }
 
 
-    public void updateSeverity(int recordId, int severity) throws SQLException {
+    public static void updateSeverity(int recordId, int severity) throws SQLException {
         if (severity < 1 || severity > 4) {
             throw new IllegalArgumentException("Invalid severity degree, it should be a number between 1 and 4");
         }
@@ -158,7 +218,7 @@ public class DbManager {
         pstmt.close();
     }
 
-    public void updateTreatmentAndDates(int recordId, String treatment, Date beginDate, Date endDate) throws Exception {
+    public static void updateTreatmentAndDates(int recordId, String treatment, Date beginDate, Date endDate) throws Exception {
         String query = "UPDATE MedicalHistory SET treatment = ?, beginDate = ?, endDate = ? WHERE ID = ?";
         PreparedStatement pstmt = c.prepareStatement(query);
         pstmt.setString(1, treatment);

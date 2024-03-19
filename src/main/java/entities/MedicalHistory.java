@@ -12,12 +12,26 @@ public class MedicalHistory {
     private int id;
 
     private char phenotype;
-    private int severityLevel;
+    private int severityLevel, duration;
 
     private String suggestedTreatment;
-    private Date beginDate, endDate;
+    private Date beginDate;
 
     public SignsAndSymptoms signsAndSymptoms;
+
+    public MedicalHistory(int id, char phenotype, int severity, String treatment, Date beginDate, int duration) {
+    this.setId(id);
+    this.setPhenotype(phenotype);
+    this.setSeverityLevel(severity);
+    this.setSuggestedTreatment(treatment);
+    this.setBeginDate(beginDate);
+    this.setDuration(duration);
+    }
+
+    private void setDuration(int duration) { this.duration = duration;
+    }
+
+    private int getDuration(){ return this.duration; }
 
     public int getId() {
         return id;
@@ -51,12 +65,6 @@ public class MedicalHistory {
         this.beginDate = beginDate;
     }
 
-    public Date getEndDate() {
-        return endDate;
-    }
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
 
     public SignsAndSymptoms getSignsAndSymptoms() {
         return signsAndSymptoms;

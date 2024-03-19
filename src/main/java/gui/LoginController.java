@@ -49,7 +49,7 @@ public class LoginController {
     }
     
 
-    private void loadPatientUI(ActionEvent aEvent,User u) throws IOException, ClassNotFoundException{
+    private void loadPatientUI(ActionEvent aEvent,User u) throws Exception {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("PatientController.fxml"));
 		Parent root = loader.load();
 
