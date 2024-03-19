@@ -72,8 +72,7 @@ public class AdminController implements Initializable{
         String password = pswFieldPatient.getText();
         String role = "Patient";
         User new_user = new User(username,password,role);
-        int check = DbManager.check_user(new_user);
-        if(check>=0){
+        if(DbManager.check_user(new_user.getUsername(),new_user.getEncryptedPassword()) != null){
             int user_id = DbManager.createUser(new_user.getUsername(),new_user.getEncryptedPassword(),new_user.getRole());
             String patientname = textFieldNamePatient.getText();
             int medicalCardNumber = Integer.getInteger(textFieldMedCardNumPatient.getText());
@@ -93,9 +92,8 @@ public class AdminController implements Initializable{
         String password = pswFieldStaffMember.getText();
         String role = comboBoxRole.getValue();
         User new_user = new User(username,password,role);
-        int check = DbManager.check_user(new_user);
-        if(check>=0) {
-            int user_id = DbManager.createUser(new_user.getUsername(), new_user.getEncryptedPassword(), new_user.getRole());
+        if( DbManager.check_user(new_user.getUsername(),new_user.getEncryptedPassword()) != null) {
+            DbManager.createUser(new_user.getUsername(), new_user.getEncryptedPassword(), new_user.getRole());
         } else {
             //error combinacion username-psw ya esta en la db  @hugo
         }

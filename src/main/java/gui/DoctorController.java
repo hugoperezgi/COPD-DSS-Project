@@ -13,6 +13,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
+import sql.DbManager;
 
 public class DoctorController implements Initializable{
 
@@ -49,6 +50,7 @@ public class DoctorController implements Initializable{
 
     @FXML
     private void logOut(){
+        try{DbManager.close_db();}catch(Exception e){/* And you'll be happy */}
         System.exit(0);
     }
 

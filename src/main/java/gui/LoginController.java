@@ -27,10 +27,8 @@ public class LoginController {
 
 
     public void logIn(ActionEvent a) throws Exception{
-        db=new DbManager();
-        
         User u = null;
-        u= db.checkPassword(username.getText(),User.encryptPassword(psw.getText())); 
+        u= DbManager.check_user(username.getText(),User.encryptPassword(psw.getText())); 
         if(u==null){ErrorPopup.errorPopup(5);return;}
         switch (u.getRole()) {
             case "admin":

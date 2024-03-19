@@ -1,18 +1,19 @@
 package sql;
 import entities.*;
 
+import java.io.File;
 import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
 
 public class DbManager {
     private static Connection c;
-    public DbManager() throws Exception {
-        start_db();
-    }
 
 
-    public void start_db() throws Exception{
+    public static void start_db() throws Exception{
+
+        new File("./db").mkdirs();
+
         String url = "jdbc:sqlite:./db/medical_database.db";
         c = DriverManager.getConnection(url);
         Statement stmt = c.createStatement();
@@ -46,6 +47,10 @@ public class DbManager {
                 "patient_id INTEGER NOT NULL," +
                 "FOREIGN KEY (patient_id) REFERENCES Patients(ID)" +
                 ")");
+
+        createUser("a",User.encryptPassword("a"),"admin");
+        createUser("p",User.encryptPassword("p"),"patient");
+        createUser("d",User.encryptPassword("d"),"doctor");
     }
 
     public static void createPatient(String name, int medicalCardNumber, Date birthdate, int userId) throws Exception {
@@ -133,18 +138,19 @@ public class DbManager {
         return users;
     }
 
-    public static int check_user (User u) throws Exception {
-        String query = "SELECT * FROM Users WHERE username = ? AND password = ?";
-        PreparedStatement pstmt = c.prepareStatement(query);
-        pstmt.setString(1, u.getUsername());
-        pstmt.setString(2, u.getEncryptedPassword());
-        ResultSet rs = pstmt.executeQuery();
-        int user_id = rs.getInt("ID");
-        if(rs.wasNull()){
-            return -1;
-        }else{
-            return user_id;
-        }
+    public static User check_user (String username, String password) throws Exception {
+        String str = "SELECT * FROM Users WHERE username = ? AND password = ?";
+		PreparedStatement p = c.prepareStatement(str);
+		p.setString(1, username);
+		p.setString(2, password);
+		ResultSet rs = p.executeQuery();
+		User u = null;
+		if(rs.next()){
+			u= new User(rs.getInt("ID"),rs.getString("Username"),null,rs.getString("Role"));
+		}
+		p.close();
+		rs.close();
+		return u;
     }
 
     public static void deleteUser(int userId) throws Exception {
@@ -230,7 +236,7 @@ public class DbManager {
     }
 
 
-    public void close_db() throws Exception {
+    public static void close_db() throws Exception {
         if (c != null) {
             c.close();
         }

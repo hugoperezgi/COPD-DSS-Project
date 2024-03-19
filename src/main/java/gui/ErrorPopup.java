@@ -35,15 +35,18 @@ public class ErrorPopup {
 	 * @throws IOException
 	 */
 	public void errorPopup(int errorType) throws IOException {
+		System.out.println("Hello");
 		FXMLLoader loaderError;
 		Parent rootError;
 		Scene sceneError;
 		Stage stageError;
 		Image icon;
 		ErrorPopupController ErrorPopupController;
+		System.out.println("There");
+
 		switch (errorType) {
 		case 0:
-			loaderError = new FXMLLoader(getClass().getResource("errorPopup.fxml"));
+			loaderError = new FXMLLoader(getClass().getResource("ErrorPopup.fxml"));
 			rootError = loaderError.load();
 			ErrorPopupController = loaderError.getController();
 			ErrorPopupController.displayErrorText("Something went wrong, please check everything and try again.");
@@ -59,7 +62,7 @@ public class ErrorPopup {
 			stageError.show();
 			break;
 		case 1:
-			loaderError = new FXMLLoader(getClass().getResource("errorPopup.fxml"));
+			loaderError = new FXMLLoader(getClass().getResource("ErrorPopup.fxml"));
 			rootError = loaderError.load();
 			ErrorPopupController = loaderError.getController();
 			ErrorPopupController.displayErrorText("Please, use a correct date.\nYour birthdate cant be on the future.");
@@ -75,7 +78,7 @@ public class ErrorPopup {
 			stageError.show();
 			break;
 		case 2:
-			loaderError = new FXMLLoader(getClass().getResource("errorPopup.fxml"));
+			loaderError = new FXMLLoader(getClass().getResource("ErrorPopup.fxml"));
 			rootError = loaderError.load();
 			ErrorPopupController = loaderError.getController();
 			ErrorPopupController.displayErrorText("Please, fill all the options.");
@@ -91,7 +94,7 @@ public class ErrorPopup {
 			stageError.show();
 			break;
 		case 4:
-			loaderError = new FXMLLoader(getClass().getResource("errorPopup.fxml"));
+			loaderError = new FXMLLoader(getClass().getResource("ErrorPopup.fxml"));
 			rootError = loaderError.load();
 			ErrorPopupController = loaderError.getController();
 			ErrorPopupController.displayErrorText("No match found.\nPlease try again.");
@@ -106,7 +109,7 @@ public class ErrorPopup {
 			stageError.show();
 			break;
 		case 5:
-			loaderError = new FXMLLoader(getClass().getResource("errorPopup.fxml"));
+			loaderError = new FXMLLoader(getClass().getResource("ErrorPopup.fxml"));
 			rootError = loaderError.load();
 			ErrorPopupController = loaderError.getController();
 			ErrorPopupController.displayErrorText("Wrong username or password.\nPlease try again.");
@@ -122,7 +125,7 @@ public class ErrorPopup {
 			stageError.show();
 			break;
 		case 7:
-			loaderError = new FXMLLoader(getClass().getResource("errorPopup.fxml"));
+			loaderError = new FXMLLoader(getClass().getResource("ErrorPopup.fxml"));
 			rootError = loaderError.load();
 			ErrorPopupController = loaderError.getController();
 			ErrorPopupController.displayErrorText("There are no reports to display");
@@ -138,7 +141,7 @@ public class ErrorPopup {
 			stageError.show();
 			break;
 		case 9:
-			loaderError = new FXMLLoader(getClass().getResource("errorPopup.fxml"));
+			loaderError = new FXMLLoader(getClass().getResource("ErrorPopup.fxml"));
 			rootError = loaderError.load();
 			ErrorPopupController = loaderError.getController();
 			ErrorPopupController.displayErrorText("No current patients for you");
@@ -154,7 +157,7 @@ public class ErrorPopup {
 			stageError.show();
 			break;
 		case 11:
-			loaderError = new FXMLLoader(getClass().getResource("errorPopup.fxml"));
+			loaderError = new FXMLLoader(getClass().getResource("ErrorPopup.fxml"));
 			rootError = loaderError.load();
 			ErrorPopupController = loaderError.getController();
 			ErrorPopupController.displayErrorText("Could not retrieve your profile");
@@ -170,7 +173,7 @@ public class ErrorPopup {
 			stageError.show();
 			break;
 		case 12:
-			loaderError = new FXMLLoader(getClass().getResource("errorPopup.fxml"));
+			loaderError = new FXMLLoader(getClass().getResource("ErrorPopup.fxml"));
 			rootError = loaderError.load();
 			ErrorPopupController = loaderError.getController();
 			ErrorPopupController.displayErrorText("Server Error.");
@@ -186,7 +189,7 @@ public class ErrorPopup {
 			stageError.show();
 			break;
 		case 13:
-			loaderError = new FXMLLoader(getClass().getResource("errorPopup.fxml"));
+			loaderError = new FXMLLoader(getClass().getResource("ErrorPopup.fxml"));
 			rootError = loaderError.load();
 			ErrorPopupController = loaderError.getController();
 			ErrorPopupController.displayErrorText("No medical tests available \nfor the selected patient");
@@ -202,7 +205,7 @@ public class ErrorPopup {
 			stageError.show();
 			break;
 		case 14:
-			loaderError = new FXMLLoader(getClass().getResource("errorPopup.fxml"));
+			loaderError = new FXMLLoader(getClass().getResource("ErrorPopup.fxml"));
 			rootError = loaderError.load();
 			ErrorPopupController = loaderError.getController();
 			ErrorPopupController.displayErrorText("Date must be today or in the future.");
@@ -218,7 +221,7 @@ public class ErrorPopup {
 			stageError.show();
 			break;
 		case 17:
-			loaderError = new FXMLLoader(getClass().getResource("errorPopup.fxml"));
+			loaderError = new FXMLLoader(getClass().getResource("ErrorPopup.fxml"));
 			rootError = loaderError.load();
 			ErrorPopupController = loaderError.getController();
 			ErrorPopupController.displayErrorText("New password and old password are the same");
@@ -234,7 +237,7 @@ public class ErrorPopup {
 			stageError.show();
 			break;
 		case 21:
-			loaderError = new FXMLLoader(getClass().getResource("errorPopup.fxml"));
+			loaderError = new FXMLLoader(getClass().getResource("ErrorPopup.fxml"));
 			rootError = loaderError.load();
 			ErrorPopupController = loaderError.getController();
 			ErrorPopupController.displayErrorText("Admins cannot be edited.");
@@ -250,7 +253,7 @@ public class ErrorPopup {
 			stageError.show();
 			break;
 		case 22:
-			loaderError = new FXMLLoader(getClass().getResource("errorPopup.fxml"));
+			loaderError = new FXMLLoader(getClass().getResource("ErrorPopup.fxml"));
 			rootError = loaderError.load();
 			ErrorPopupController = loaderError.getController();
 			ErrorPopupController.displayErrorText("They're already linked.");
@@ -266,7 +269,7 @@ public class ErrorPopup {
 			stageError.show();
 			break;
 		case 23:
-			loaderError = new FXMLLoader(getClass().getResource("errorPopup.fxml"));
+			loaderError = new FXMLLoader(getClass().getResource("ErrorPopup.fxml"));
 			rootError = loaderError.load();
 			ErrorPopupController = loaderError.getController();
 			ErrorPopupController.displayErrorText("Please finish creating the user.");
@@ -282,7 +285,7 @@ public class ErrorPopup {
 			stageError.show();
 			break;
 		case 24:
-			loaderError = new FXMLLoader(getClass().getResource("errorPopup.fxml"));
+			loaderError = new FXMLLoader(getClass().getResource("ErrorPopup.fxml"));
 			rootError = loaderError.load();
 			ErrorPopupController = loaderError.getController();
 			ErrorPopupController.displayErrorText("Error with Bitalino.");
@@ -311,7 +314,7 @@ public class ErrorPopup {
 		Image icon;
 		ErrorPopupController ErrorPopupController;
 
-		loaderError = new FXMLLoader(getClass().getResource("errorPopup.fxml"));
+		loaderError = new FXMLLoader(getClass().getResource("ErrorPopup.fxml"));
 		rootError = loaderError.load();
 		ErrorPopupController = loaderError.getController();
 		ErrorPopupController.displayErrorText("Error with Bitalino:\n"+errMsg);
