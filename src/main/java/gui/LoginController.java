@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import sql.DbManager;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 
@@ -20,14 +21,16 @@ public class LoginController {
     @FXML
     PasswordField psw;
 
+
+    private DbManager db;
     private ErrorPopup ErrorPopup = new ErrorPopup();
 
 
     public void logIn(ActionEvent a) throws Exception{
+        db=new DbManager();
         
-        User u = new User("STOP","SHOWING","FUCKINGERRORS");//Ty <3
-        // User u = null;
-        //u= TODO idk-idc.logIn(username.getText(),psw.getText()); 
+        User u = null;
+        u= db.checkPassword(username.getText(),User.encryptPassword(psw.getText())); 
         if(u==null){ErrorPopup.errorPopup(5);return;}
         switch (u.getRole()) {
             case "admin":

@@ -39,7 +39,7 @@ public class User implements Serializable {
         return encryptedPassword;
     }
 
-    public String encryptPassword(String password) {
+    static public String encryptPassword(String password) {
         return BCrypt.hashpw(password, "$2a$12$1234567890123456789012");
     }
 
