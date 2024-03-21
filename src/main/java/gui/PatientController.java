@@ -1,6 +1,7 @@
 package gui;
 
 import java.net.URL;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -9,13 +10,17 @@ import entities.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import sql.DbManager;
 
 public class PatientController implements Initializable{
 
     public Patient myself;
     public int medicalHistoryID;
+    public ErrorPopup err = new ErrorPopup();
+    public SuccessPopup succ = new SuccessPopup();
 
     @FXML
     public Pane paneShowMedicalHist;
@@ -23,6 +28,17 @@ public class PatientController implements Initializable{
     public ComboBox<Integer> comboBoxMedicalHistoryIDs;
     @FXML
     public TableView<MedicalHistory> tableMedHistory;
+    @FXML
+    public TableColumn<MedicalHistory,Integer> columnMedHistId;
+    @FXML
+    public TableColumn<MedicalHistory, Date> columnMedHistDate;
+    @FXML
+    public TableColumn<MedicalHistory,Character> columnMedHistPhenotype;
+    @FXML
+    public TableColumn<MedicalHistory,Integer> columnMedHistSeverity;
+    @FXML
+    public TableColumn<MedicalHistory,String> columnMedHistTreatment;
+
     @FXML
     public Button buttonStartTest;
 
@@ -47,6 +63,8 @@ public class PatientController implements Initializable{
     public Slider sliderEnergyScore;
     @FXML
     public Button buttonSendTest;
+    @FXML
+    public Text textProvisionaCATScore;
 
 
     public void setSelf(User u) throws Exception {
@@ -55,6 +73,11 @@ public class PatientController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        columnMedHistId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnMedHistDate.setCellValueFactory(new PropertyValueFactory<>("beginDate"));
+        columnMedHistPhenotype.setCellValueFactory(new PropertyValueFactory<>("phenotype"));
+        columnMedHistSeverity.setCellValueFactory(new PropertyValueFactory<>("severityLevel"));
+        columnMedHistTreatment.setCellValueFactory(new PropertyValueFactory<>("suggestedTreatment"));
     }
 
     @FXML
@@ -67,14 +90,20 @@ public class PatientController implements Initializable{
         hideAll();
         //show pane de la tabla con todos los medical history
         List<MedicalHistory> myMedHistory = new ArrayList<>(DbManager.getMedicalHistory(myself.getId()));
-        //nose añadirlos a la tabla @Hugo para ti guapi y tb falta añadir los ids al combo box para que se pueda elegir :)
+        List<Integer> medhistoryIds = new ArrayList<>();
+        tableMedHistory.getItems().setAll(myMedHistory);
+        int medhistoryCount = myMedHistory.size();
+        for (int i = 0; i<medhistoryCount; i++){
+            medhistoryIds.add(myMedHistory.get(i).getId());
+        }
+        comboBoxMedicalHistoryIDs.getItems().setAll(medhistoryIds);
         resetAndShowPaneMedicalHist();
     }
 
     @FXML
     public void newCATTest(){
         hideAll();
-        medicalHistoryID = comboBoxMedicalHistoryIDs.getValue();
+        medicalHistoryID = comboBoxMedicalHistoryIDs.getSelectionModel().getSelectedItem();
         //show pane del CAT test como tal
         resetAndShowPaneCatTest();
     }
@@ -83,8 +112,14 @@ public class PatientController implements Initializable{
     public void calculateCATTestScore() throws Exception {
         int patient_severity = severityFromCAT(sliderCoughScore.getValue(), sliderMucusScore.getValue(), sliderTightScore.getValue(), sliderBreathlessScore.getValue(), sliderActivityLimitationScore.getValue(), sliderConfidentScore.getValue(), sliderSleepScore.getValue(), sliderEnergyScore.getValue());
         DbManager.updateSeverity(medicalHistoryID,patient_severity);
-        //popup de sucess que nose lanzar y vuelta al inicio @Hugo
-        chooseID();
+        succ.successPopup(0);
+        hideAll();
+    }
+
+    @FXML
+    public void provisionalCATScore(){
+        int prov_score = (int) (sliderCoughScore.getValue()+sliderMucusScore.getValue()+sliderTightScore.getValue()+sliderBreathlessScore.getValue()+sliderActivityLimitationScore.getValue()+sliderConfidentScore.getValue()+sliderSleepScore.getValue()+sliderEnergyScore.getValue());
+        textProvisionaCATScore.setText(String.valueOf(prov_score));
     }
 
     private int severityFromCAT(double cough, double mucus, double tight, double breathless, double activityLimitation, double confident, double sleep, double energy) {
@@ -105,12 +140,6 @@ public class PatientController implements Initializable{
         //panel medical history
         paneShowMedicalHist.setVisible(false);
         paneShowMedicalHist.setDisable(true);
-        tableMedHistory.setVisible(false);
-        tableMedHistory.setDisable(true);
-        comboBoxMedicalHistoryIDs.setVisible(false);
-        comboBoxMedicalHistoryIDs.setDisable(true);
-        buttonStartTest.setVisible(false);
-        buttonStartTest.setDisable(true);
 
         //panel CAT TEST
         paneCATTest.setVisible(false);
@@ -138,12 +167,6 @@ public class PatientController implements Initializable{
     private void resetAndShowPaneMedicalHist(){
         paneShowMedicalHist.setVisible(true);
         paneShowMedicalHist.setDisable(false);
-        tableMedHistory.setVisible(true);
-        tableMedHistory.setDisable(false);
-        comboBoxMedicalHistoryIDs.setVisible(true);
-        comboBoxMedicalHistoryIDs.setDisable(false);
-        buttonStartTest.setVisible(true);
-        buttonStartTest.setDisable(false);
 
         comboBoxMedicalHistoryIDs.getSelectionModel().clearSelection();
     }

@@ -2,17 +2,22 @@ package gui;
 
 import java.net.URL;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import entities.User;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import sql.DbManager;
 
 public class AdminController implements Initializable{
 
+    public ErrorPopup err = new ErrorPopup();
+    public SuccessPopup succ = new SuccessPopup();
 
     @FXML
     public Pane paneNewPatient;
@@ -37,6 +42,7 @@ public class AdminController implements Initializable{
     public TextField textFieldUsernameStaffMember;
     @FXML
     public ComboBox<String> comboBoxRole;
+    public String[] roles = {"Doctor", "Admin"};
     @FXML
     public Button buttonCreateStaffMember;
 
@@ -45,20 +51,26 @@ public class AdminController implements Initializable{
     @FXML
     public TableView<User> tableViewUsers;
     @FXML
+    public TableColumn<User, Integer> columnUserIds;
+    @FXML
+    public TableColumn<User, String> columnUserNames;
+    @FXML
+    public TableColumn<User, String> columnUserRoles;
+    @FXML
     public ComboBox<Integer> comboBoxUsers;
+    public List<Integer> usersIDs = new ArrayList<>();
     @FXML
     public Button buttonDeleteUser;
+
 
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // comboBoxRole.getItems().setAll(roles);
-        // comboBoxBloodType.getItems().setAll(bloodTypeStrings);
+        comboBoxRole.getItems().setAll(roles);
 
-        // columnUserName.setCellValueFactory(new PropertyValueFactory<>("username"));
-        // columnUserRole.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getRoleString()));
-        // columnUserId.setCellValueFactory(new PropertyValueFactory<>("userID"));
-
+        columnUserIds.setCellValueFactory(new PropertyValueFactory<>("userID"));
+        columnUserNames.setCellValueFactory(new PropertyValueFactory<>("username"));
+        columnUserRoles.setCellValueFactory(new PropertyValueFactory<>("role"));
     }     
         
     
@@ -67,43 +79,54 @@ public class AdminController implements Initializable{
     }
 
     public void createPatient() throws Exception {
-        //TODO: comprobacion de que se ha rellenado lo obligatorio y sino lanzar error popup
-        String username = textFieldUsernamePatient.getText();
-        String password = pswFieldPatient.getText();
-        String role = "Patient";
-        User new_user = new User(username,password,role);
-        if(DbManager.check_user(new_user.getUsername(),new_user.getEncryptedPassword()) != null){
-            int user_id = DbManager.createUser(new_user.getUsername(),new_user.getEncryptedPassword(),new_user.getRole());
-            String patientname = textFieldNamePatient.getText();
-            int medicalCardNumber = Integer.getInteger(textFieldMedCardNumPatient.getText());
-            Date birthdate = Date.valueOf(datePickerBirthdate.getValue());
-            DbManager.createPatient(patientname,medicalCardNumber,birthdate,user_id);
-            //lanzar pop up success @hugo
+        if(textFieldUsernamePatient.getText() == "" || pswFieldPatient.getText() =="" || textFieldNamePatient.getText()=="" || textFieldMedCardNumPatient.getText()== ""){
+            //no debe estar vacio pq esta mierda no salta TODO: fix it
+            err.errorPopup("Please, fill in all of the mandatory fields: username, password, name, medical card number");
         } else {
-          //error combinacion username-psw ya esta en la db  @hugo
+            String username = textFieldUsernamePatient.getText();
+            String password = pswFieldPatient.getText();
+            String role = "Patient";
+            User new_user = new User(username, password, role);
+            if (DbManager.check_user(new_user.getUsername(), new_user.getEncryptedPassword()) != null) {
+                int user_id = DbManager.createUser(new_user.getUsername(), new_user.getEncryptedPassword(), new_user.getRole());
+                String patientname = textFieldNamePatient.getText();
+                int medicalCardNumber = Integer.getInteger(textFieldMedCardNumPatient.getText());
+                Date birthdate = Date.valueOf(datePickerBirthdate.getValue());
+                DbManager.createPatient(patientname, medicalCardNumber, birthdate, user_id);
+                succ.successPopup(4);
+            } else {
+                err.errorPopup("The combination of user and password is already in use. Please, try again.");
+                //error combinacion username-psw ya esta en la db
+            }
         }
 
 
     }
 
     public void createStaffMember() throws Exception {
-        //TODO: comprobacion de que se ha rellenado lo obligatorio y sino lanzar error popup
-        String username = textFieldUsernameStaffMember.getText();
-        String password = pswFieldStaffMember.getText();
-        String role = comboBoxRole.getValue();
-        User new_user = new User(username,password,role);
-        if( DbManager.check_user(new_user.getUsername(),new_user.getEncryptedPassword()) != null) {
-            DbManager.createUser(new_user.getUsername(), new_user.getEncryptedPassword(), new_user.getRole());
+        if(textFieldUsernameStaffMember.getText().equalsIgnoreCase("") || pswFieldStaffMember.getText().equalsIgnoreCase("") || comboBoxRole.getSelectionModel().isEmpty()){
+            err.errorPopup("Please, fill in all of the mandatory fields: username, password and role");
         } else {
-            //error combinacion username-psw ya esta en la db  @hugo
+            String username = textFieldUsernameStaffMember.getText();
+            String password = pswFieldStaffMember.getText();
+            String role = comboBoxRole.getSelectionModel().getSelectedItem();
+            User new_user = new User(username, password, role);
+            if (DbManager.check_user(new_user.getUsername(), new_user.getEncryptedPassword()) != null) {
+                DbManager.createUser(new_user.getUsername(), new_user.getEncryptedPassword(), new_user.getRole());
+                succ.successPopup(5);
+            } else {
+                err.errorPopup("The combination of user and password is already in use. Please, try again.");
+                //error combinacion username-psw ya esta en la db  @hugo
+            }
         }
-
     }
 
+
+
     public void deleteUser() throws Exception {
-        int id = comboBoxUsers.getValue();
+        int id = comboBoxUsers.getSelectionModel().getSelectedItem();
         DbManager.deleteUser(id);
-        //pop up de success @hugo
+        succ.successPopup(6);
     }
 
     public void newPatient(){
@@ -116,65 +139,33 @@ public class AdminController implements Initializable{
         showAndResetCreateStaffMemberPane();
     }
 
-    public void deleteUserMenu(){
+    public void deleteUserMenu() throws Exception {
         hideAll();
         showAndResetDeleteUserPane();
-        //añadir a tabla y combobox lista de usuarios e ids en el combo box (no muestro password por motivos obvios, resto esta) @hugo
-
+        List<User> allusers = new ArrayList<>();
+        allusers.addAll(DbManager.getAllUsers());
+        int userCount = allusers.size();
+        for (int i = 0; i<userCount; i++){
+            usersIDs.add(allusers.get(i).getUserID());
+        }
+        comboBoxUsers.getItems().setAll(usersIDs);
+        tableViewUsers.getItems().setAll(allusers);
     }
 
     public void hideAll(){
         paneNewPatient.setVisible(false);
         paneNewPatient.setDisable(true);
-        buttonCreatePatient.setVisible(false);
-        buttonCreatePatient.setDisable(true);
-        pswFieldPatient.setVisible(false);
-        pswFieldPatient.setDisable(true);
-        textFieldMedCardNumPatient.setVisible(false);
-        textFieldMedCardNumPatient.setDisable(true);
-        textFieldNamePatient.setVisible(false);
-        textFieldNamePatient.setDisable(true);
-        textFieldUsernamePatient.setVisible(false);
-        textFieldUsernamePatient.setDisable(true);
-        datePickerBirthdate.setVisible(false);
-        datePickerBirthdate.setDisable(true);
 
         paneNewStaffMember.setVisible(false);
         paneNewStaffMember.setDisable(true);
-        pswFieldStaffMember.setVisible(false);
-        pswFieldStaffMember.setDisable(true);
-        textFieldUsernameStaffMember.setVisible(false);
-        textFieldUsernameStaffMember.setDisable(true);
-        buttonCreateStaffMember.setVisible(false);
-        buttonCreateStaffMember.setDisable(true);
-        comboBoxRole.setVisible(false);
-        comboBoxRole.setDisable(true);
 
         paneDeleteUser.setVisible(false);
         paneDeleteUser.setDisable(true);
-        buttonDeleteUser.setVisible(false);
-        buttonDeleteUser.setDisable(true);
-        tableViewUsers.setVisible(false);
-        tableViewUsers.setDisable(true);
-        comboBoxUsers.setVisible(false);
-        comboBoxUsers.setDisable(true);
     }
 
     public void showAndResetCreatePatientPane(){
         paneNewPatient.setVisible(true);
         paneNewPatient.setDisable(false);
-        buttonCreatePatient.setVisible(true);
-        buttonCreatePatient.setDisable(false);
-        pswFieldPatient.setVisible(true);
-        pswFieldPatient.setDisable(false);
-        textFieldMedCardNumPatient.setVisible(true);
-        textFieldMedCardNumPatient.setDisable(false);
-        textFieldNamePatient.setVisible(true);
-        textFieldNamePatient.setDisable(false);
-        textFieldUsernamePatient.setVisible(true);
-        textFieldUsernamePatient.setDisable(false);
-        datePickerBirthdate.setVisible(true);
-        datePickerBirthdate.setDisable(false);
 
         pswFieldPatient.clear();
         textFieldUsernamePatient.clear();
@@ -186,14 +177,6 @@ public class AdminController implements Initializable{
     public void showAndResetCreateStaffMemberPane(){
         paneNewStaffMember.setVisible(true);
         paneNewStaffMember.setDisable(false);
-        pswFieldStaffMember.setVisible(true);
-        pswFieldStaffMember.setDisable(false);
-        textFieldUsernameStaffMember.setVisible(true);
-        textFieldUsernameStaffMember.setDisable(false);
-        buttonCreateStaffMember.setVisible(true);
-        buttonCreateStaffMember.setDisable(false);
-        comboBoxRole.setVisible(true);
-        comboBoxRole.setDisable(false);
 
         pswFieldStaffMember.clear();
         textFieldUsernameStaffMember.clear();
@@ -203,12 +186,6 @@ public class AdminController implements Initializable{
     public void showAndResetDeleteUserPane(){
         paneDeleteUser.setVisible(true);
         paneDeleteUser.setDisable(false);
-        buttonDeleteUser.setVisible(true);
-        buttonDeleteUser.setDisable(false);
-        tableViewUsers.setVisible(true);
-        tableViewUsers.setDisable(false);
-        comboBoxUsers.setVisible(true);
-        comboBoxUsers.setDisable(false);
 
         comboBoxUsers.getSelectionModel().clearSelection();
     }

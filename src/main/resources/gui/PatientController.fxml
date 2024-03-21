@@ -27,16 +27,16 @@
                         <Image url="@../img/logo.png" />
                      </image>
                   </ImageView>
-                  <Pane fx:id="paneCATTest" disable="true" layoutY="-4.0" prefHeight="727.0" prefWidth="1200.0" style="-fx-background-color: #f5f5f5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-4.0">
+                  <Pane fx:id="paneCATTest" disable="true" layoutY="-4.0" prefHeight="722.6666666666666" prefWidth="1200.0" style="-fx-background-color: #f5f5f5;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#5481a4" height="34.0" layoutX="200.0" layoutY="533.0" stroke="TRANSPARENT" strokeType="INSIDE" width="800.0" />
-                        <Text fill="WHITE" layoutX="206.0" layoutY="554.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CAT Score:" wrappingWidth="788.0000610351562">
+                        <Text fill="WHITE" layoutX="206.0" layoutY="554.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Provisional CAT Score:" wrappingWidth="788.0000610351562">
                            <font>
                               <Font name="Arial" size="18.0" />
                            </font>
                         </Text>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dbe2ef" height="34.0" layoutX="200.0" layoutY="561.0" stroke="TRANSPARENT" strokeType="INSIDE" width="800.0" />
-                        <Text fx:id="textPatientName" layoutX="206.0" layoutY="584.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Placeholder CAT Score" textAlignment="CENTER" wrappingWidth="788.0">
+                        <Text fx:id="textProvisionaCATScore" layoutX="206.0" layoutY="584.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Placeholder CAT Score" textAlignment="CENTER" wrappingWidth="788.0">
                            <font>
                               <Font name="Arial" size="18.0" />
                            </font>
@@ -48,7 +48,7 @@
                            </font>
                         </Text>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dbe2ef" height="436.0" layoutX="200.0" layoutY="83.0" stroke="TRANSPARENT" strokeType="INSIDE" width="800.0" />
-                        <Button fx:id="buttonSendTest" layoutX="550.0" layoutY="630.0" mnemonicParsing="false" onAction="#calculateCATTestScore" stylesheets="@buttonStyle.css" text="Send Test">
+                        <Button fx:id="buttonSendTest" layoutX="560.0" layoutY="630.0" mnemonicParsing="false" onAction="#calculateCATTestScore" stylesheets="@buttonStyle.css" text="Send Test">
                            <font>
                               <Font name="Gill Sans MT Bold" size="14.0" />
                            </font>
@@ -155,31 +155,31 @@
                         </Text>
                         <Group layoutX="445.0" layoutY="129.0">
                            <children>
-                              <Slider fx:id="sleepScore" blockIncrement="1.0" layoutY="293.0" max="5.0" prefHeight="37.0" prefWidth="319.0" showTickLabels="true" showTickMarks="true" value="3.0" />
-                              <Slider fx:id="mucusScore" blendMode="DIFFERENCE" blockIncrement="1.0" layoutX="4.0" layoutY="45.0" max="5.0" prefHeight="37.0" prefWidth="314.0" showTickLabels="true" showTickMarks="true" value="3.0" />
-                              <Slider fx:id="tightScore" blendMode="COLOR_DODGE" blockIncrement="1.0" layoutX="4.0" layoutY="100.0" max="5.0" prefHeight="37.0" prefWidth="315.0" showTickLabels="true" showTickMarks="true" value="3.0" />
-                              <Slider fx:id="breathlessScore" blendMode="DIFFERENCE" blockIncrement="1.0" layoutX="6.0" layoutY="150.0" max="5.0" prefHeight="37.0" prefWidth="313.0" showTickLabels="true" showTickMarks="true" value="3.0" />
-                              <Slider fx:id="activityLimitationScore" blendMode="COLOR_DODGE" blockIncrement="1.0" layoutX="3.0" layoutY="198.0" max="5.0" prefHeight="37.0" prefWidth="317.0" showTickLabels="true" showTickMarks="true" value="3.0" />
-                              <Slider fx:id="confidentScore" blendMode="DIFFERENCE" blockIncrement="1.0" layoutX="1.0" layoutY="241.0" max="5.0" prefHeight="37.0" prefWidth="319.0" showTickLabels="true" showTickMarks="true" value="3.0" />
-                              <Slider fx:id="coughScore" blendMode="COLOR_DODGE" blockIncrement="1.0" layoutY="1.0" max="5.0" prefHeight="37.0" prefWidth="320.0" showTickLabels="true" showTickMarks="true" value="3.0" />
-                              <Slider fx:id="energyScore" blendMode="DIFFERENCE" blockIncrement="1.0" layoutY="343.0" max="5.0" prefHeight="39.0" prefWidth="321.0" showTickLabels="true" showTickMarks="true" value="3.0" />
+                              <Slider fx:id="sliderSleepScore" blockIncrement="1.0" layoutY="293.0" max="5.0" onMouseDragReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="319.0" showTickLabels="true" showTickMarks="true" value="3.0" />
+                              <Slider fx:id="sliderMucusScore" blendMode="DIFFERENCE" blockIncrement="1.0" layoutX="4.0" layoutY="45.0" max="5.0" onMouseDragReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="314.0" showTickLabels="true" showTickMarks="true" value="3.0" />
+                              <Slider fx:id="sliderTightScore" blendMode="COLOR_DODGE" blockIncrement="1.0" layoutX="4.0" layoutY="100.0" max="5.0" onMouseDragReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="315.0" showTickLabels="true" showTickMarks="true" value="3.0" />
+                              <Slider fx:id="sliderBreathlessScore" blendMode="DIFFERENCE" blockIncrement="1.0" layoutX="6.0" layoutY="150.0" max="5.0" onMouseDragReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="313.0" showTickLabels="true" showTickMarks="true" value="3.0" />
+                              <Slider fx:id="sliderActivityLimitationScore" blendMode="COLOR_DODGE" blockIncrement="1.0" layoutX="3.0" layoutY="198.0" max="5.0" onMouseDragReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="317.0" showTickLabels="true" showTickMarks="true" value="3.0" />
+                              <Slider fx:id="sliderConfidentScore" blendMode="DIFFERENCE" blockIncrement="1.0" layoutX="1.0" layoutY="241.0" max="5.0" onMouseDragReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="319.0" showTickLabels="true" showTickMarks="true" value="3.0" />
+                              <Slider fx:id="sliderCoughScore" blendMode="COLOR_DODGE" blockIncrement="1.0" layoutY="1.0" max="5.0" onMouseDragReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="320.0" showTickLabels="true" showTickMarks="true" value="3.0" />
+                              <Slider fx:id="sliderEnergyScore" blendMode="DIFFERENCE" blockIncrement="1.0" layoutY="343.0" max="5.0" onMouseDragReleased="#provisionalCATScore" prefHeight="39.0" prefWidth="321.0" showTickLabels="true" showTickMarks="true" value="3.0" />
                            </children>
                         </Group>
                      </children>
                   </Pane>
-                  <Pane fx:id="paneShowMedicalHist" prefHeight="723.0" prefWidth="1201.0" visible="false">
+                  <Pane fx:id="paneShowMedicalHist" prefHeight="722.6666666666666" prefWidth="1200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <TableView fx:id="tableMedHistory" layoutX="23.0" layoutY="46.0" prefHeight="480.0" prefWidth="1146.0">
                           <columns>
-                            <TableColumn prefWidth="74.66668701171875" text="ID" />
-                            <TableColumn prefWidth="130.66668701171875" text="DATE" />
-                              <TableColumn prefWidth="105.333251953125" text="PHENOTYPE" />
-                              <TableColumn prefWidth="119.9998779296875" text="SEVERITY" />
-                              <TableColumn prefWidth="632.0001220703125" text="TREATMENT" />
+                            <TableColumn fx:id="columnMedHistId" prefWidth="74.66668701171875" text="ID" />
+                            <TableColumn fx:id="columnMedHistDate" prefWidth="201.55552673339844" text="DATE" />
+                              <TableColumn fx:id="columnMedHistPhenotype" prefWidth="133.77780151367188" text="PHENOTYPE" />
+                              <TableColumn fx:id="columnMedHistSeverity" prefWidth="102.6666259765625" text="SEVERITY" />
+                              <TableColumn fx:id="columnMedHistTreatment" prefWidth="632.6666870117188" text="TREATMENT" />
                           </columns>
                         </TableView>
-                        <ComboBox fx:id="medicalHistoryIDs" layoutX="466.0" layoutY="591.0" prefHeight="25.0" prefWidth="100.0" promptText=" Choose ID" />
-                        <Button fx:id="startTest" layoutX="633.0" layoutY="590.0" mnemonicParsing="false" onAction="#newCATTest" stylesheets="@buttonStyle.css" text="Start TEST" />
+                        <ComboBox fx:id="comboBoxMedicalHistoryIDs" layoutX="466.0" layoutY="591.0" prefHeight="25.0" prefWidth="100.0" promptText=" Choose ID" />
+                        <Button fx:id="buttonStartTest" layoutX="633.0" layoutY="590.0" mnemonicParsing="false" onAction="#newCATTest" stylesheets="@buttonStyle.css" text="Start TEST" />
                      </children>
                   </Pane>
                </children>
