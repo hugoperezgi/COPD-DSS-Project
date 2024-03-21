@@ -3,6 +3,7 @@ import entities.*;
 
 import java.io.File;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -12,8 +13,14 @@ public class DbManager {
 
     public static void start_db() throws Exception{
 
-        new File("./db").mkdirs();
-
+        try{
+            if(!new File("./db").mkdirs()){throw new Exception();}
+        }catch(Exception e){
+            String url = "jdbc:sqlite:./db/medical_database.db";
+            c = DriverManager.getConnection(url);    
+            return;
+        }
+        
         String url = "jdbc:sqlite:./db/medical_database.db";
         c = DriverManager.getConnection(url);
         Statement stmt = c.createStatement();
@@ -49,7 +56,7 @@ public class DbManager {
                 ")");
 
         createUser("a",User.encryptPassword("a"),"admin");
-        createUser("p",User.encryptPassword("p"),"patient");
+        createPatient("p",0,Date.valueOf(LocalDate.now()),createUser("p",User.encryptPassword("p"),"patient"));
         createUser("d",User.encryptPassword("d"),"doctor");
     }
 

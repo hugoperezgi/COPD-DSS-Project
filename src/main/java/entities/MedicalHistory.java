@@ -31,7 +31,7 @@ public class MedicalHistory {
     private void setDuration(int duration) { this.duration = duration;
     }
 
-    private int getDuration(){ return this.duration; }
+    public int getDuration(){ return this.duration; }
 
     public int getId() {
         return id;

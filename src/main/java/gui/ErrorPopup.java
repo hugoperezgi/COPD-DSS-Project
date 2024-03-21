@@ -317,7 +317,7 @@ public class ErrorPopup {
 		loaderError = new FXMLLoader(getClass().getResource("ErrorPopup.fxml"));
 		rootError = loaderError.load();
 		ErrorPopupController = loaderError.getController();
-		ErrorPopupController.displayErrorText("Error with Bitalino:\n"+errMsg);
+		ErrorPopupController.displayErrorText(errMsg);
 		sceneError = new Scene(rootError);
 		stageError = new Stage();
 		stageError.setScene(sceneError);
