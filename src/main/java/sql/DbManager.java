@@ -100,7 +100,7 @@ public class DbManager {
         String query = "SELECT * FROM Patients WHERE user_id = ?";
         PreparedStatement pstmt = c.prepareStatement(query);
         pstmt.setInt(1, userID);
-        ResultSet rs = pstmt.executeQuery(query);
+        ResultSet rs = pstmt.executeQuery();
         int id = rs.getInt("ID");
         String name = rs.getString("Name");
         int medicalCardNumber = rs.getInt("MedicalCardNumber");
@@ -169,12 +169,12 @@ public class DbManager {
 
 
     public static void createMedicalRecord(int patientId, String phenotype, int severity, String treatment, Date beginDate, int duration) throws Exception {
-        if (severity < 1 || severity > 4) {
-            throw new IllegalArgumentException("Invalid severity degree, it should be a number between 1 and 4");
-        }
-        if (!phenotype.matches("[A-D]|Unclear")) {
-            throw new IllegalArgumentException("Invalid phenotype, the values allowed are: A, B, C, D or Unclear");
-        }
+        // if (severity < 1 || severity > 4) {
+        //     throw new IllegalArgumentException("Invalid severity degree, it should be a number between 1 and 4");
+        // }
+        // if (!phenotype.matches("[A-D]|Unclear")) {
+        //     throw new IllegalArgumentException("Invalid phenotype, the values allowed are: A, B, C, D or Unclear");
+        // }Fucking chatgpt peice of shit
         String query = "INSERT INTO MedicalHistory (Phenotype, Severity, Treatment, BeginDate, Duration, patient_id) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement pstmt = c.prepareStatement(query);
         pstmt.setString(1, phenotype);
@@ -195,7 +195,7 @@ public class DbManager {
         ResultSet rs = pstmt.executeQuery();
         while (rs.next()) {
             int id = rs.getInt("Id");
-            char phenotype = rs.getString("Phenotype").charAt(0);
+            String phenotype = rs.getString("Phenotype");
             int severity = rs.getInt("Severity");
             String treatment = rs.getString("Treatment");
             Date beginDate = rs.getDate("BeginDate");
@@ -220,9 +220,7 @@ public class DbManager {
 
 
     public static void updateSeverity(int recordId, int severity) throws SQLException {
-        if (severity < 1 || severity > 4) {
-            throw new IllegalArgumentException("Invalid severity degree, it should be a number between 1 and 4");
-        }
+//PUTOCHATGPTDEMIERDA
         String query = "UPDATE MedicalHistory SET severity = ? WHERE ID = ?";
         PreparedStatement pstmt = c.prepareStatement(query);
         pstmt.setInt(1, severity);
@@ -231,12 +229,12 @@ public class DbManager {
         pstmt.close();
     }
 
-    public static void updateTreatmentAndDates(int recordId, String treatment, Date beginDate, Date endDate) throws Exception {
-        String query = "UPDATE MedicalHistory SET treatment = ?, beginDate = ?, endDate = ? WHERE ID = ?";
+    public static void updateTreatmentAndDates(int recordId, String treatment, Date beginDate, Integer duration) throws Exception {
+        String query = "UPDATE MedicalHistory SET treatment = ?, beginDate = ?, Duration = ? WHERE ID = ?";
         PreparedStatement pstmt = c.prepareStatement(query);
         pstmt.setString(1, treatment);
         pstmt.setDate(2, beginDate);
-        pstmt.setDate(3, endDate);
+        pstmt.setInt(3, duration);
         pstmt.setInt(4, recordId);
         pstmt.executeUpdate();
         pstmt.close();

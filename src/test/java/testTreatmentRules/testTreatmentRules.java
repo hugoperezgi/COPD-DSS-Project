@@ -1,5 +1,8 @@
 package testTreatmentRules;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 import org.drools.ruleunits.api.RuleUnitInstance;
 import org.drools.ruleunits.api.RuleUnitProvider;
 import org.junit.After;
@@ -194,5 +197,35 @@ public class testTreatmentRules {
 
         Assert.assertEquals(m.getSuggestedTreatment(),"LAMA + LABA + (CI / IPE4) or LAMA + LABA + CI + IPE4, and consider adding Carbocisteine/Antibiotics");
     }
-    
+    @Test
+    public void testDate(){
+        MedicalHistory m = new MedicalHistory();
+        m.setPhenotype('A');
+        m.setSeverityLevel(1);
+        mHistUnit.getMHist().add(m);
+        droolsInstance.fire();
+
+        Assert.assertEquals(m.getBeginDate().toString(),Date.valueOf(LocalDate.now()).toString());
+    }
+    @Test
+    public void testDuration(){
+        MedicalHistory m = new MedicalHistory();
+        m.setPhenotype('A');
+        m.setSeverityLevel(1);
+        mHistUnit.getMHist().add(m);
+        droolsInstance.fire();
+
+        Assert.assertEquals(m.getDuration(),21);
+    }
+    @Test
+    public void testUnknown(){
+        MedicalHistory m = new MedicalHistory();
+        m.setPhenotype(null);
+        m.setSeverityLevel(0);
+        mHistUnit.getMHist().add(m);
+        droolsInstance.fire();
+
+        Assert.assertEquals(m.getDuration(),0);
+    }
+
 }

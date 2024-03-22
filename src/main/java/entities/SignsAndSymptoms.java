@@ -1,13 +1,7 @@
 package entities;
-
-import javafx.fxml.FXML;
-import javafx.scene.control.Slider;
-
-import java.io.Serializable;
 import java.util.*;
 
-public class SignsAndSymptoms implements Serializable{
-    static final long serialVersionUID = 42L;
+public class SignsAndSymptoms{
 
     private int FEV, activityMinutes, hospitalizationCount, mMCR;
     private int timeBetweenExacerbations;

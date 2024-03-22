@@ -340,4 +340,27 @@ public class SuccessPopup {
                 break;
         }
     }
+    
+    public void successPopup(String scssMsg) throws IOException {
+        FXMLLoader loaderSuccess;
+        Parent rootSuccess;
+        Scene sceneSuccess;
+        Stage stageSuccess;
+        Image icon;
+        SuccessPopupController successPopupController;
+        loaderSuccess = new FXMLLoader(getClass().getResource("SuccessPopup.fxml")); 
+        rootSuccess = loaderSuccess.load(); 
+        successPopupController = loaderSuccess.getController();
+        successPopupController.displaySuccessText(scssMsg);
+        sceneSuccess = new Scene(rootSuccess);
+        stageSuccess = new Stage();
+        stageSuccess.setScene(sceneSuccess);
+
+        icon = new Image("img/successIcon.png");
+        stageSuccess.getIcons().add(icon);
+
+        stageSuccess.setTitle("Success");
+        stageSuccess.show();
+    }
+
 }

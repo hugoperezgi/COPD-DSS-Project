@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import org.drools.ruleunits.api.RuleUnitInstance;
+import org.drools.ruleunits.api.RuleUnitProvider;
+
 import entities.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -76,7 +79,7 @@ public class PatientController implements Initializable{
         columnMedHistId.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnMedHistDate.setCellValueFactory(new PropertyValueFactory<>("beginDate"));
         columnMedHistPhenotype.setCellValueFactory(new PropertyValueFactory<>("phenotype"));
-        columnMedHistSeverity.setCellValueFactory(new PropertyValueFactory<>("severityLevel"));
+        columnMedHistSeverity.setCellValueFactory(new PropertyValueFactory<>("stringSever"));
         columnMedHistTreatment.setCellValueFactory(new PropertyValueFactory<>("suggestedTreatment"));
     }
 
@@ -84,12 +87,12 @@ public class PatientController implements Initializable{
     private void logOut(){
         System.exit(0);
     }
-
+    private List<MedicalHistory> myMedHistory;
     @FXML
     public void chooseID() throws Exception {
         hideAll();
         //show pane de la tabla con todos los medical history
-        List<MedicalHistory> myMedHistory = new ArrayList<>(DbManager.getMedicalHistory(myself.getId()));
+        myMedHistory = new ArrayList<>(DbManager.getMedicalHistory(myself.getMedicalCardNumber()));
         List<Integer> medhistoryIds = new ArrayList<>();
         tableMedHistory.getItems().setAll(myMedHistory);
         int medhistoryCount = myMedHistory.size();
@@ -109,9 +112,25 @@ public class PatientController implements Initializable{
     }
 
     @FXML
-    public void calculateCATTestScore() throws Exception {
-        int patient_severity = severityFromCAT(sliderCoughScore.getValue(), sliderMucusScore.getValue(), sliderTightScore.getValue(), sliderBreathlessScore.getValue(), sliderActivityLimitationScore.getValue(), sliderConfidentScore.getValue(), sliderSleepScore.getValue(), sliderEnergyScore.getValue());
-        DbManager.updateSeverity(medicalHistoryID,patient_severity);
+    public void calculateCATTestScore() throws Exception { 
+        SignsAndSymptoms ss = new SignsAndSymptoms();
+        ss.setCOPDScore(severityFromCAT(sliderCoughScore.getValue(), sliderMucusScore.getValue(), sliderTightScore.getValue(), sliderBreathlessScore.getValue(), sliderActivityLimitationScore.getValue(), sliderConfidentScore.getValue(), sliderSleepScore.getValue(), sliderEnergyScore.getValue()));
+        MedicalHistory m = null;
+        for (MedicalHistory medicalHistory : myMedHistory) {
+            if(medicalHistory.getId()==medicalHistoryID){m=medicalHistory;}
+        }
+        m.setSignsAndSymptoms(ss);
+        try {
+            MedicalHistory_Unit mu = new MedicalHistory_Unit();
+            RuleUnitInstance<MedicalHistory_Unit> drl = RuleUnitProvider.get().createRuleUnitInstance(mu);
+            mu.getMHist().add(m);
+            drl.fire();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        DbManager.updateSeverity(medicalHistoryID,m.getSeverityLevel());
+        DbManager.updateTreatmentAndDates(medicalHistoryID, m.getSuggestedTreatment(),m.getBeginDate(),m.getDuration());
         succ.successPopup(0);
         hideAll();
     }
@@ -123,17 +142,7 @@ public class PatientController implements Initializable{
     }
 
     private int severityFromCAT(double cough, double mucus, double tight, double breathless, double activityLimitation, double confident, double sleep, double energy) {
-        int overall_score = (int) (cough + mucus + tight + breathless + activityLimitation + confident + sleep + energy);
-        if (overall_score < 10) {
-            return 1;
-        } else if (overall_score < 20) {
-            return 2;
-        } else if (overall_score < 30) {
-            return 3;
-        } else {
-            return 4;
-        }
-
+        return (int) (cough + mucus + tight + breathless + activityLimitation + confident + sleep + energy);
     }
 
     private void hideAll(){

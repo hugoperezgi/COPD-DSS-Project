@@ -59,7 +59,7 @@ public class User implements Serializable {
     }
 
     public void setPassword(String psw) {
-        this.encryptedPassword = this.encryptPassword(psw);
+        this.encryptedPassword = encryptPassword(psw);
     }
 
     public void setRole(String role) throws Exception {

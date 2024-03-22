@@ -45,7 +45,7 @@ public class testPhenotypeRules {
         mHistUnit.getMHist().add(m);
         droolsInstance.fire();
 
-        Assert.assertEquals('A',m.getPhenotype());
+        Assert.assertEquals("A",m.getPhenotype());
     }
 
     @Test
@@ -60,7 +60,7 @@ public class testPhenotypeRules {
         mHistUnit.getMHist().add(m);
         droolsInstance.fire();
 
-        Assert.assertEquals('B',m.getPhenotype());
+        Assert.assertEquals("B",m.getPhenotype());
     }
 
     @Test
@@ -76,7 +76,7 @@ public class testPhenotypeRules {
         mHistUnit.getMHist().add(m);
         droolsInstance.fire();
 
-        Assert.assertEquals('B',m.getPhenotype());
+        Assert.assertEquals("B",m.getPhenotype());
     }
 
     @Test
@@ -94,7 +94,7 @@ public class testPhenotypeRules {
         mHistUnit.getMHist().add(m);
         droolsInstance.fire();
 
-        Assert.assertEquals('C',m.getPhenotype());
+        Assert.assertEquals("C",m.getPhenotype());
     }
 
     @Test
@@ -112,7 +112,7 @@ public class testPhenotypeRules {
         mHistUnit.getMHist().add(m);
         droolsInstance.fire();
 
-        Assert.assertEquals('D',m.getPhenotype());
+        Assert.assertEquals("D",m.getPhenotype());
     }
 
     @Test
@@ -130,7 +130,7 @@ public class testPhenotypeRules {
         mHistUnit.getMHist().add(m);
         droolsInstance.fire();
 
-        Assert.assertEquals(0,m.getPhenotype());
+        Assert.assertEquals("?",m.getPhenotype());
     }
 
 

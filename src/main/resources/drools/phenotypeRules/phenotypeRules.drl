@@ -23,7 +23,7 @@ rule "PhenotypeD Rule"
     //exacerbations per year >= 2, time between exacerbations < 4, mixed_asthma = FALSE, cough = TRUE, CHRONIC_EXPECT = TRUE
         $MedicalHistory: /mHist [signsAndSymptoms.getExacerbationCount()>=2, signsAndSymptoms.getTimeBetweenExacerbations()<4, !signsAndSymptoms.isMixed_asthma(), signsAndSymptoms.getCough(), signsAndSymptoms.getChronicExpectoration()]
     then
-        modify ($MedicalHistory) {setPhenotype('D')}
+        modify ($MedicalHistory) {setPhenotype("D")}
 end
 
 rule "PhenotypeC Rule"
@@ -32,7 +32,7 @@ rule "PhenotypeC Rule"
     //exacerbations per year >= 2, time between exacerbations < 4, mixed_asthma = FALSE, cough = FALSE, CHRONIC_EXPECT = FALSE
         $MedicalHistory: /mHist [signsAndSymptoms.getExacerbationCount()>=2, signsAndSymptoms.getTimeBetweenExacerbations()<4, !signsAndSymptoms.isMixed_asthma(), !signsAndSymptoms.getCough(), !signsAndSymptoms.getChronicExpectoration()]
     then
-        modify ($MedicalHistory) {setPhenotype('C')}
+        modify ($MedicalHistory) {setPhenotype("C")}
 end
 
 rule "PhenotypeB Rule 1"
@@ -41,7 +41,7 @@ rule "PhenotypeB Rule 1"
     //exacerbations per year >= 2, time between exacerbations >=4, mixed_asthma = TRUE
         $MedicalHistory: /mHist [signsAndSymptoms.getExacerbationCount()>=2, signsAndSymptoms.getTimeBetweenExacerbations()>=4, signsAndSymptoms.isMixed_asthma()]
     then
-        modify ($MedicalHistory) {setPhenotype('B')}
+        modify ($MedicalHistory) {setPhenotype("B")}
 end
 
 rule "PhenotypeA Rule"
@@ -50,7 +50,7 @@ rule "PhenotypeA Rule"
     //exacerbations per year <2 and mixed_asthma = FALSE and cough=TRUE, chronicExpect = TRUE
         $MedicalHistory: /mHist [signsAndSymptoms.getExacerbationCount()<2, !signsAndSymptoms.isMixed_asthma(), signsAndSymptoms.getCough(), signsAndSymptoms.getChronicExpectoration()]
     then
-        modify ($MedicalHistory) {setPhenotype('A')}
+        modify ($MedicalHistory) {setPhenotype("A")}
 end
 
 rule "PhenotypeB Rule 2"
@@ -59,7 +59,7 @@ rule "PhenotypeB Rule 2"
     //exacerbations per year <2 and mixed_asthma = TRUE
         $MedicalHistory: /mHist [signsAndSymptoms.getExacerbationCount()<2, signsAndSymptoms.isMixed_asthma()]
     then
-        modify ($MedicalHistory) {setPhenotype('B')}
+        modify ($MedicalHistory) {setPhenotype("B")}
 end
 
 

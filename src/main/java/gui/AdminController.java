@@ -79,24 +79,22 @@ public class AdminController implements Initializable{
     }
 
     public void createPatient() throws Exception {
-        if(textFieldUsernamePatient.getText() == "" || pswFieldPatient.getText() =="" || textFieldNamePatient.getText()=="" || textFieldMedCardNumPatient.getText()== ""){
-            //no debe estar vacio pq esta mierda no salta TODO: fix it
+        if(textFieldUsernamePatient.getText().isEmpty() || pswFieldPatient.getText().isEmpty() || textFieldNamePatient.getText().isEmpty() || textFieldMedCardNumPatient.getText().isEmpty()){
             err.errorPopup("Please, fill in all of the mandatory fields: username, password, name, medical card number");
         } else {
             String username = textFieldUsernamePatient.getText();
             String password = pswFieldPatient.getText();
-            String role = "Patient";
+            String role = "patient";
             User new_user = new User(username, password, role);
-            if (DbManager.check_user(new_user.getUsername(), new_user.getEncryptedPassword()) != null) {
-                int user_id = DbManager.createUser(new_user.getUsername(), new_user.getEncryptedPassword(), new_user.getRole());
+            if (DbManager.check_user(new_user.getUsername(), new_user.getEncryptedPassword()) == null) {
                 String patientname = textFieldNamePatient.getText();
-                int medicalCardNumber = Integer.getInteger(textFieldMedCardNumPatient.getText());
+                int medicalCardNumber = Integer.parseInt(textFieldMedCardNumPatient.getText());
                 Date birthdate = Date.valueOf(datePickerBirthdate.getValue());
+                int user_id = DbManager.createUser(new_user.getUsername(), new_user.getEncryptedPassword(), new_user.getRole());
                 DbManager.createPatient(patientname, medicalCardNumber, birthdate, user_id);
                 succ.successPopup(4);
             } else {
                 err.errorPopup("The combination of user and password is already in use. Please, try again.");
-                //error combinacion username-psw ya esta en la db
             }
         }
 
@@ -104,19 +102,18 @@ public class AdminController implements Initializable{
     }
 
     public void createStaffMember() throws Exception {
-        if(textFieldUsernameStaffMember.getText().equalsIgnoreCase("") || pswFieldStaffMember.getText().equalsIgnoreCase("") || comboBoxRole.getSelectionModel().isEmpty()){
+        if(textFieldUsernameStaffMember.getText().isEmpty() || pswFieldStaffMember.getText().isEmpty() || comboBoxRole.getSelectionModel().isEmpty()){
             err.errorPopup("Please, fill in all of the mandatory fields: username, password and role");
         } else {
             String username = textFieldUsernameStaffMember.getText();
             String password = pswFieldStaffMember.getText();
             String role = comboBoxRole.getSelectionModel().getSelectedItem();
             User new_user = new User(username, password, role);
-            if (DbManager.check_user(new_user.getUsername(), new_user.getEncryptedPassword()) != null) {
+            if (DbManager.check_user(new_user.getUsername(), new_user.getEncryptedPassword()) == null) {
                 DbManager.createUser(new_user.getUsername(), new_user.getEncryptedPassword(), new_user.getRole());
                 succ.successPopup(5);
             } else {
                 err.errorPopup("The combination of user and password is already in use. Please, try again.");
-                //error combinacion username-psw ya esta en la db  @hugo
             }
         }
     }

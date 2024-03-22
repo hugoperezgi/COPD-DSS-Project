@@ -56,7 +56,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button cancelButton="true" layoutX="56.0" layoutY="29.0" mnemonicParsing="false" onAction="#goBackToSelectReport" prefHeight="55.0" prefWidth="61.0" style="-fx-background-color: #f5f5f5;" styleClass="bigButton" stylesheets="@buttonStyle.css" text="&lt;" textFill="#705697">
+                        <Button cancelButton="true" layoutX="56.0" layoutY="29.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="61.0" style="-fx-background-color: #f5f5f5;" styleClass="bigButton" stylesheets="@buttonStyle.css" text="&lt;" textFill="#705697">
                            <font>
                               <Font name="Gill Sans MT Bold" size="48.0" />
                            </font>
@@ -155,14 +155,14 @@
                         </Text>
                         <Group layoutX="445.0" layoutY="129.0">
                            <children>
-                              <Slider fx:id="sliderSleepScore" blockIncrement="1.0" layoutY="293.0" max="5.0" onMouseDragReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="319.0" showTickLabels="true" showTickMarks="true" value="3.0" />
-                              <Slider fx:id="sliderMucusScore" blendMode="DIFFERENCE" blockIncrement="1.0" layoutX="4.0" layoutY="45.0" max="5.0" onMouseDragReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="314.0" showTickLabels="true" showTickMarks="true" value="3.0" />
-                              <Slider fx:id="sliderTightScore" blendMode="COLOR_DODGE" blockIncrement="1.0" layoutX="4.0" layoutY="100.0" max="5.0" onMouseDragReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="315.0" showTickLabels="true" showTickMarks="true" value="3.0" />
-                              <Slider fx:id="sliderBreathlessScore" blendMode="DIFFERENCE" blockIncrement="1.0" layoutX="6.0" layoutY="150.0" max="5.0" onMouseDragReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="313.0" showTickLabels="true" showTickMarks="true" value="3.0" />
-                              <Slider fx:id="sliderActivityLimitationScore" blendMode="COLOR_DODGE" blockIncrement="1.0" layoutX="3.0" layoutY="198.0" max="5.0" onMouseDragReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="317.0" showTickLabels="true" showTickMarks="true" value="3.0" />
-                              <Slider fx:id="sliderConfidentScore" blendMode="DIFFERENCE" blockIncrement="1.0" layoutX="1.0" layoutY="241.0" max="5.0" onMouseDragReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="319.0" showTickLabels="true" showTickMarks="true" value="3.0" />
-                              <Slider fx:id="sliderCoughScore" blendMode="COLOR_DODGE" blockIncrement="1.0" layoutY="1.0" max="5.0" onMouseDragReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="320.0" showTickLabels="true" showTickMarks="true" value="3.0" />
-                              <Slider fx:id="sliderEnergyScore" blendMode="DIFFERENCE" blockIncrement="1.0" layoutY="343.0" max="5.0" onMouseDragReleased="#provisionalCATScore" prefHeight="39.0" prefWidth="321.0" showTickLabels="true" showTickMarks="true" value="3.0" />
+                              <Slider fx:id="sliderSleepScore" blockIncrement="1.0" layoutY="293.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" onMouseDragReleased="#provisionalCATScore" onMouseReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="319.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0" />
+                              <Slider fx:id="sliderMucusScore" blendMode="DIFFERENCE" blockIncrement="1.0" layoutX="4.0" layoutY="45.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" onMouseDragReleased="#provisionalCATScore" onMouseReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="314.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0" />
+                              <Slider fx:id="sliderTightScore" blendMode="COLOR_DODGE" blockIncrement="1.0" layoutX="4.0" layoutY="100.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" onMouseDragReleased="#provisionalCATScore" onMouseReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="315.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0" />
+                              <Slider fx:id="sliderBreathlessScore" blendMode="DIFFERENCE" blockIncrement="1.0" layoutX="6.0" layoutY="150.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" onMouseDragReleased="#provisionalCATScore" onMouseReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="313.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0" />
+                              <Slider fx:id="sliderActivityLimitationScore" blendMode="COLOR_DODGE" blockIncrement="1.0" layoutX="3.0" layoutY="198.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" onMouseDragReleased="#provisionalCATScore" onMouseReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="317.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0" />
+                              <Slider fx:id="sliderConfidentScore" blendMode="DIFFERENCE" blockIncrement="1.0" layoutX="1.0" layoutY="241.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" onMouseDragReleased="#provisionalCATScore" onMouseReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="319.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0" />
+                              <Slider fx:id="sliderCoughScore" blendMode="COLOR_DODGE" blockIncrement="1.0" layoutY="1.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" onMouseDragReleased="#provisionalCATScore" onMouseReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="320.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0" />
+                              <Slider fx:id="sliderEnergyScore" blendMode="DIFFERENCE" blockIncrement="1.0" layoutY="343.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" onMouseDragReleased="#provisionalCATScore" onMouseReleased="#provisionalCATScore" prefHeight="39.0" prefWidth="321.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0" />
                            </children>
                         </Group>
                      </children>

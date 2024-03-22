@@ -6,29 +6,41 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class MedicalHistory {
 
     private int id;
 
-    private char phenotype;
-    private int severityLevel, duration;
+    private String phenotype;
+    private int severityLevel=1, duration;
 
-    private String suggestedTreatment;
+    private String suggestedTreatment,stringSever;
     private Date beginDate;
 
     public SignsAndSymptoms signsAndSymptoms;
 
-    public MedicalHistory(int id, char phenotype, int severity, String treatment, Date beginDate, int duration) {
+    public MedicalHistory(int id, String phenotype, int severity, String treatment, Date beginDate, int duration) {
     this.setId(id);
     this.setPhenotype(phenotype);
     this.setSeverityLevel(severity);
     this.setSuggestedTreatment(treatment);
     this.setBeginDate(beginDate);
     this.setDuration(duration);
+    if(severity==-1){this.stringSever="Pending CAT";}else{this.stringSever=Integer.toString(severity);}
     }
+    public MedicalHistory(int id, char phenotype, int severity, String treatment, Date beginDate, int duration) {
+        this.setId(id);
+        this.setPhenotype(phenotype);
+        this.setSeverityLevel(severity);
+        this.setSuggestedTreatment(treatment);
+        this.setBeginDate(beginDate);
+        this.setDuration(duration);
+        if(severity==-1){this.stringSever="Pending CAT";}else{this.stringSever=Integer.toString(severity);}
+        }
+    
 
-    private void setDuration(int duration) { this.duration = duration;
+    public void setDuration(int duration) { this.duration = duration;
     }
 
     public int getDuration(){ return this.duration; }
@@ -40,11 +52,14 @@ public class MedicalHistory {
         this.id = id;
     }
 
-    public char getPhenotype() {
-        return phenotype;
+    public String getPhenotype() {
+        if(phenotype==null){return "?";}return phenotype;
+    }
+    public void setPhenotype(String phenotype) {
+        this.phenotype = phenotype;
     }
     public void setPhenotype(char phenotype) {
-        this.phenotype = phenotype;
+        this.phenotype = "" + phenotype;
     }
     public int getSeverityLevel() {
         return severityLevel;
@@ -61,11 +76,19 @@ public class MedicalHistory {
     public Date getBeginDate() {
         return beginDate;
     }
+    public void setBeginDate() {
+        this.beginDate = Date.valueOf(LocalDate.now());
+    }
     public void setBeginDate(Date beginDate) {
         this.beginDate = beginDate;
     }
 
-
+    public String getStringSever() {
+        return stringSever;
+    }
+    public void setStringSever(String stringSever) {
+        this.stringSever = stringSever;
+    }
     public SignsAndSymptoms getSignsAndSymptoms() {
         return signsAndSymptoms;
     }
@@ -75,23 +98,6 @@ public class MedicalHistory {
     public void setSignsAndSymptoms(){
         this.signsAndSymptoms = new SignsAndSymptoms();
     }
-    public byte[] getSignsAndSymptomsBLOB() throws IOException{
-        ByteArrayOutputStream b = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(b);
-        oos.writeObject(signsAndSymptoms);
-        byte[] rtn = b.toByteArray();
-        oos.close();
-        b.close();
-        return rtn;
-    }
-    public void loadSignsAndSymptomsBLOB(byte[] b) throws ClassNotFoundException, IOException{
-        ByteArrayInputStream bi = new ByteArrayInputStream(b);
-        ObjectInputStream ois = new ObjectInputStream(bi);
-        this.signsAndSymptoms = (SignsAndSymptoms) ois.readObject();
-        ois.close();
-        bi.close();
-    }
-
     public MedicalHistory(){
         this.setSignsAndSymptoms();
     }

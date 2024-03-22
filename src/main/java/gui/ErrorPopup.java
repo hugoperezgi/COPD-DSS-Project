@@ -35,14 +35,12 @@ public class ErrorPopup {
 	 * @throws IOException
 	 */
 	public void errorPopup(int errorType) throws IOException {
-		System.out.println("Hello");
 		FXMLLoader loaderError;
 		Parent rootError;
 		Scene sceneError;
 		Stage stageError;
 		Image icon;
 		ErrorPopupController ErrorPopupController;
-		System.out.println("There");
 
 		switch (errorType) {
 		case 0:

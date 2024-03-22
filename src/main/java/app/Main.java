@@ -10,9 +10,9 @@ import sql.DbManager;
 
 public class Main extends Application {
     public static void main(String[] args) throws Exception{
-        DbManager.start_db();
-        // try {  } catch (Exception e) {/* Nope */}
-        launch();
+        
+        try {DbManager.start_db(); launch();} catch (Exception e) {/* Nope */}
+        
     }
 
     @Override
