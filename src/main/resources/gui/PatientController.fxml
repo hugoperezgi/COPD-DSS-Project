@@ -4,6 +4,7 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TableColumn?>
@@ -36,7 +37,7 @@
                            </font>
                         </Text>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dbe2ef" height="34.0" layoutX="200.0" layoutY="561.0" stroke="TRANSPARENT" strokeType="INSIDE" width="800.0" />
-                        <Text fx:id="textProvisionaCATScore" layoutX="206.0" layoutY="584.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Placeholder CAT Score" textAlignment="CENTER" wrappingWidth="788.0">
+                        <Text fx:id="textProvisionaCATScore" layoutX="206.0" layoutY="584.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="788.0">
                            <font>
                               <Font name="Arial" size="18.0" />
                            </font>
@@ -155,31 +156,147 @@
                         </Text>
                         <Group layoutX="445.0" layoutY="129.0">
                            <children>
-                              <Slider fx:id="sliderSleepScore" blockIncrement="1.0" layoutY="293.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" onMouseDragReleased="#provisionalCATScore" onMouseReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="319.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0" />
-                              <Slider fx:id="sliderMucusScore" blendMode="DIFFERENCE" blockIncrement="1.0" layoutX="4.0" layoutY="45.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" onMouseDragReleased="#provisionalCATScore" onMouseReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="314.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0" />
-                              <Slider fx:id="sliderTightScore" blendMode="COLOR_DODGE" blockIncrement="1.0" layoutX="4.0" layoutY="100.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" onMouseDragReleased="#provisionalCATScore" onMouseReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="315.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0" />
-                              <Slider fx:id="sliderBreathlessScore" blendMode="DIFFERENCE" blockIncrement="1.0" layoutX="6.0" layoutY="150.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" onMouseDragReleased="#provisionalCATScore" onMouseReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="313.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0" />
-                              <Slider fx:id="sliderActivityLimitationScore" blendMode="COLOR_DODGE" blockIncrement="1.0" layoutX="3.0" layoutY="198.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" onMouseDragReleased="#provisionalCATScore" onMouseReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="317.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0" />
-                              <Slider fx:id="sliderConfidentScore" blendMode="DIFFERENCE" blockIncrement="1.0" layoutX="1.0" layoutY="241.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" onMouseDragReleased="#provisionalCATScore" onMouseReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="319.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0" />
-                              <Slider fx:id="sliderCoughScore" blendMode="COLOR_DODGE" blockIncrement="1.0" layoutY="1.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" onMouseDragReleased="#provisionalCATScore" onMouseReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="320.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0" />
-                              <Slider fx:id="sliderEnergyScore" blendMode="DIFFERENCE" blockIncrement="1.0" layoutY="343.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" onMouseDragReleased="#provisionalCATScore" onMouseReleased="#provisionalCATScore" prefHeight="39.0" prefWidth="321.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0" />
+                              <Slider fx:id="sliderSleepScore" blockIncrement="1.0" layoutY="293.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" onMouseDragReleased="#provisionalCATScore" onMouseReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="319.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                              <Slider fx:id="sliderMucusScore" blendMode="DIFFERENCE" blockIncrement="1.0" layoutX="4.0" layoutY="45.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" onMouseDragReleased="#provisionalCATScore" onMouseReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="314.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                              <Slider fx:id="sliderTightScore" blendMode="COLOR_DODGE" blockIncrement="1.0" layoutX="4.0" layoutY="100.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" onMouseDragReleased="#provisionalCATScore" onMouseReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="315.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                              <Slider fx:id="sliderBreathlessScore" blendMode="DIFFERENCE" blockIncrement="1.0" layoutX="6.0" layoutY="150.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" onMouseDragReleased="#provisionalCATScore" onMouseReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="313.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                              <Slider fx:id="sliderActivityLimitationScore" blendMode="COLOR_DODGE" blockIncrement="1.0" layoutX="3.0" layoutY="198.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" onMouseDragReleased="#provisionalCATScore" onMouseReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="317.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                              <Slider fx:id="sliderConfidentScore" blendMode="DIFFERENCE" blockIncrement="1.0" layoutX="1.0" layoutY="241.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" onMouseDragReleased="#provisionalCATScore" onMouseReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="319.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                              <Slider fx:id="sliderCoughScore" blendMode="COLOR_DODGE" blockIncrement="1.0" layoutY="1.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" onMouseDragReleased="#provisionalCATScore" onMouseReleased="#provisionalCATScore" prefHeight="37.0" prefWidth="320.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                              <Slider fx:id="sliderEnergyScore" blendMode="DIFFERENCE" blockIncrement="1.0" layoutY="343.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" onMouseDragReleased="#provisionalCATScore" onMouseReleased="#provisionalCATScore" prefHeight="39.0" prefWidth="321.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
                            </children>
                         </Group>
                      </children>
                   </Pane>
-                  <Pane fx:id="paneShowMedicalHist" prefHeight="722.6666666666666" prefWidth="1200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Pane fx:id="paneShowMedicalHist" disable="true" prefHeight="722.6666666666666" prefWidth="1200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <TableView fx:id="tableMedHistory" layoutX="23.0" layoutY="46.0" prefHeight="480.0" prefWidth="1146.0">
                           <columns>
                             <TableColumn fx:id="columnMedHistId" prefWidth="74.66668701171875" text="ID" />
                             <TableColumn fx:id="columnMedHistDate" prefWidth="201.55552673339844" text="DATE" />
-                              <TableColumn fx:id="columnMedHistPhenotype" prefWidth="133.77780151367188" text="PHENOTYPE" />
-                              <TableColumn fx:id="columnMedHistSeverity" prefWidth="102.6666259765625" text="SEVERITY" />
-                              <TableColumn fx:id="columnMedHistTreatment" prefWidth="632.6666870117188" text="TREATMENT" />
+                              <TableColumn fx:id="columnMedHistPhenotype" prefWidth="168.0" text="PHENOTYPE" />
+                              <TableColumn fx:id="columnMedHistSeverity" prefWidth="90.0" text="SEVERITY" />
+                              <TableColumn fx:id="columnMedHistTreatment" prefWidth="612.0" text="TREATMENT" />
                           </columns>
                         </TableView>
                         <ComboBox fx:id="comboBoxMedicalHistoryIDs" layoutX="466.0" layoutY="591.0" prefHeight="25.0" prefWidth="100.0" promptText=" Choose ID" />
                         <Button fx:id="buttonStartTest" layoutX="633.0" layoutY="590.0" mnemonicParsing="false" onAction="#newCATTest" stylesheets="@buttonStyle.css" text="Start TEST" />
+                        <Label layoutX="428.0" layoutY="49.0" onMouseClicked="#toggleDetailedPheno" style="-fx-border-color: Black; -fx-border-radius: 5; -fx-border-width: 2;" text="❓">
+                           <font>
+                              <Font name="Gill Sans MT Bold" size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Label>
+                        <Group fx:id="grpDetailedPheno" disable="true" layoutX="215.0" layoutY="81.0" visible="false">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dbe2ef" height="433.0" layoutX="-180.0" opacity="0.85" stroke="#5481a4" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeType="INSIDE" strokeWidth="2.0" width="1121.0" />
+                              <Text fill="#112d4e" layoutX="-167.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[COPD Phenotype A] Non-exacerbator phenotype with emphysema or chronic bronchitis:" wrappingWidth="1060.0">
+                                 <font>
+                                    <Font name="Arial Bold" size="18.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#112d4e" layoutX="-156.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This phenotype represents COPD patients who typically do not experience frequent exacerbations. They may primarily exhibit symptoms related to emphysema (such as dyspnea and reduced exercise tolerance due to decreased lung function) or chronic bronchitis (including chronic cough and excessive sputum production). These patients often have stable disease with gradual progression over time." wrappingWidth="1060.0">
+                                 <font>
+                                    <Font name="Arial" size="18.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#112d4e" layoutX="-167.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[COPD Phenotype B] Mixed COPD-asthma phenotype:" wrappingWidth="1060.0">
+                                 <font>
+                                    <Font name="Arial Bold" size="18.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#112d4e" layoutX="-156.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patients with this phenotype exhibit features of both COPD and asthma. They may experience airflow limitation and symptoms such as cough, wheezing, and shortness of breath that are characteristic of both conditions. This phenotype often requires careful management to address both inflammatory components and bronchial hyperresponsiveness." wrappingWidth="1060.0">
+                                 <font>
+                                    <Font name="Arial" size="18.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#112d4e" layoutX="-167.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[COPD Phenotype C] Exacerbator phenotype with emphysema:" wrappingWidth="1060.0">
+                                 <font>
+                                    <Font name="Arial Bold" size="18.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#112d4e" layoutX="-156.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="COPD patients with this phenotype have a higher propensity for exacerbations, characterized by periods of acute worsening of symptoms beyond day-to-day variation. They may also present with features of emphysema, such as destruction of lung tissue leading to airflow limitation and gas exchange abnormalities. Exacerbations in these patients can lead to more rapid disease progression and increased risk of hospitalization." wrappingWidth="1060.0">
+                                 <font>
+                                    <Font name="Arial" size="18.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#112d4e" layoutX="-167.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[COPD Phenotype D] Exacerbator phenotype with chronic bronchitis:" wrappingWidth="1060.0">
+                                 <font>
+                                    <Font name="Arial Bold" size="18.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#112d4e" layoutX="-156.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This phenotype encompasses COPD patients who experience frequent exacerbations along with symptoms of chronic bronchitis, such as persistent cough and sputum production. These exacerbations can be triggered by various factors such as respiratory infections or environmental pollutants. Patients with this phenotype often have poorer outcomes, including more rapid decline in lung function and higher mortality rates compared to other phenotypes." wrappingWidth="1060.0">
+                                 <font>
+                                    <Font name="Arial" size="18.0" />
+                                 </font>
+                              </Text>
+                              <Label layoutX="900.0" layoutY="11.0" onMouseClicked="#hideDetailedPheno" text="Close" underline="true">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Label>
+                           </children>
+                        </Group>
+                        <Group fx:id="grpDetailedTrtmnt" layoutX="215.0" layoutY="81.0" visible="false">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dbe2ef" height="318.0" layoutX="-180.0" opacity="0.85" stroke="#5481a4" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeType="INSIDE" strokeWidth="2.0" width="1121.0" />
+                              <Text fill="#112d4e" layoutX="-167.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[SAMA/LAMA] (Short/Long)-Acting Muscarinic Antagonist" wrappingWidth="1060.0">
+                                 <font>
+                                    <Font name="Arial Bold" size="18.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#112d4e" layoutX="-156.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SAMAs work by blocking the action of acetylcholine, a neurotransmitter that can cause constriction of the airways. This leads to bronchodilation and helps improve airflow. LAMAs are similar to SAMAs but have a longer duration of action, providing sustained bronchodilation over a longer period." wrappingWidth="1060.0">
+                                 <font>
+                                    <Font name="Arial" size="18.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#112d4e" layoutX="-167.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[SABA/LABA] (Short/Long)-Acting Beta Agonist:" wrappingWidth="1060.0">
+                                 <font>
+                                    <Font name="Arial Bold" size="18.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#112d4e" layoutX="-156.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SABAs provide quick relief of COPD symptoms by relaxing the muscles around the airways, making it easier to breathe. While LABAs work similarly to SABAs but have a longer duration of action, providing sustained bronchodilation over several hours." wrappingWidth="1060.0">
+                                 <font>
+                                    <Font name="Arial" size="18.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#112d4e" layoutX="-167.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" [ICS] Inhaled corticosteroids:" wrappingWidth="1060.0">
+                                 <font>
+                                    <Font name="Arial Bold" size="18.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#112d4e" layoutX="-156.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ICs are often used to reduce inflammation in the airways and are often used in combination with a long-acting bronchodilator." wrappingWidth="1060.0">
+                                 <font>
+                                    <Font name="Arial" size="18.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#112d4e" layoutX="-167.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[PDE4] Phosphodiesterase-4 Inhibitor:" wrappingWidth="1060.0">
+                                 <font>
+                                    <Font name="Arial Bold" size="18.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#112d4e" layoutX="-156.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="They reduce lung inflammation, improving airflow and symptoms like coughing and shortness of breath. They're typically prescribed for those with chronic bronchitis and frequent exacerbations." wrappingWidth="1060.0">
+                                 <font>
+                                    <Font name="Arial" size="18.0" />
+                                 </font>
+                              </Text>
+                              <Label layoutX="900.0" layoutY="11.0" onMouseClicked="#hideDetailedTrtmnt" text="Close" underline="true">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Label>
+                           </children>
+                        </Group>
+                        <Label layoutX="906.0" layoutY="49.0" onMouseClicked="#toggleDetailedTrtmnt" style="-fx-border-color: Black; -fx-border-radius: 5; -fx-border-width: 2;" text="❓">
+                           <font>
+                              <Font name="Gill Sans MT Bold" size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Label>
                      </children>
                   </Pane>
                </children>

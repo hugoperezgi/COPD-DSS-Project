@@ -12,6 +12,7 @@ import org.drools.ruleunits.api.RuleUnitProvider;
 import entities.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
@@ -171,6 +172,8 @@ public class PatientController implements Initializable{
         sliderTightScore.setDisable(true);
         buttonSendTest.setVisible(false);
         buttonSendTest.setDisable(true);
+        hideDetailedPheno();
+        hideDetailedTrtmnt();
     }
 
     private void resetAndShowPaneMedicalHist(){
@@ -204,5 +207,33 @@ public class PatientController implements Initializable{
 
     }
 
-    
-}
+    @FXML
+    private Group grpDetailedPheno;
+        @FXML
+        private void hideDetailedPheno(){
+            grpDetailedPheno.setDisable(true);
+            grpDetailedPheno.setVisible(false);
+        }
+        @FXML
+        private void toggleDetailedPheno(){
+            hideDetailedTrtmnt();
+            if(grpDetailedPheno.isVisible()){hideDetailedPheno();}else{
+                grpDetailedPheno.setVisible(true);grpDetailedPheno.setDisable(false);
+            }
+        }
+
+    @FXML
+    private Group grpDetailedTrtmnt;
+        @FXML
+        private void hideDetailedTrtmnt(){
+            grpDetailedTrtmnt.setDisable(true);
+            grpDetailedTrtmnt.setVisible(false);
+        }
+        @FXML
+        private void toggleDetailedTrtmnt(){
+            hideDetailedPheno();
+            if(grpDetailedTrtmnt.isVisible()){hideDetailedTrtmnt();}else{
+                grpDetailedTrtmnt.setVisible(true);grpDetailedTrtmnt.setDisable(false);
+            }
+        }
+    }

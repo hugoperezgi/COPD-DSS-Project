@@ -62,7 +62,7 @@ rule "PhenotypeB Severity1 Rule"
     when
         $MedicalHistory: /mHist [phenotype == 'B', severityLevel == 1]
     then 
-        modify ($MedicalHistory) {setSuggestedTreatment("LABA + CI")}
+        modify ($MedicalHistory) {setSuggestedTreatment("LABA + ICS")}
         modify ($MedicalHistory){setBeginDate()}
         modify ($MedicalHistory){setDuration(21)}
 end
@@ -72,7 +72,7 @@ rule "PhenotypeB Severity2 Rule"
     when
         $MedicalHistory: /mHist [phenotype == 'B', severityLevel == 2]
     then 
-        modify ($MedicalHistory) {setSuggestedTreatment("LABA + CI")}
+        modify ($MedicalHistory) {setSuggestedTreatment("LABA + ICS")}
         modify ($MedicalHistory){setBeginDate()}
         modify ($MedicalHistory){setDuration(21)}
 end
@@ -82,7 +82,7 @@ rule "PhenotypeB Severity3 Rule"
     when
         $MedicalHistory: /mHist [phenotype == 'B', severityLevel == 3]
     then 
-        modify ($MedicalHistory) {setSuggestedTreatment("LAMA + LABA + CI")}
+        modify ($MedicalHistory) {setSuggestedTreatment("LAMA + LABA + ICS")}
         modify ($MedicalHistory){setBeginDate()}
         modify ($MedicalHistory){setDuration(21)}
 end
@@ -92,7 +92,7 @@ rule "PhenotypeB Severity4 Rule"
     when
         $MedicalHistory: /mHist [phenotype == 'B', severityLevel == 4]
     then 
-        modify ($MedicalHistory) {setSuggestedTreatment("LAMA + LABA + CI, Consider adding Teofiline/IPE4 with expectoration")}
+        modify ($MedicalHistory) {setSuggestedTreatment("LAMA + LABA + ICS, Consider adding Teofiline/PDE4 with expectoration")}
         modify ($MedicalHistory){setBeginDate()}
         modify ($MedicalHistory){setDuration(21)}
 end
@@ -112,7 +112,7 @@ rule "PhenotypeC Severity2 Rule"
     when
         $MedicalHistory: /mHist [phenotype == 'C', severityLevel == 2]
     then 
-        modify ($MedicalHistory) {setSuggestedTreatment("(LAMA / LABA) + CI or LAMA + LABA or LAMA/LABA")}
+        modify ($MedicalHistory) {setSuggestedTreatment("(LAMA / LABA) + ICS or LAMA + LABA or LAMA/LABA")}
         modify ($MedicalHistory){setBeginDate()}
         modify ($MedicalHistory){setDuration(21)}
 end
@@ -122,7 +122,7 @@ rule "PhenotypeC Severity3 Rule"
     when
         $MedicalHistory: /mHist [phenotype == 'C', severityLevel == 3]
     then 
-        modify ($MedicalHistory) {setSuggestedTreatment("LAMA + LABA + CI")}
+        modify ($MedicalHistory) {setSuggestedTreatment("LAMA + LABA + ICS")}
         modify ($MedicalHistory){setBeginDate()}
         modify ($MedicalHistory){setDuration(21)}
 end
@@ -132,7 +132,7 @@ rule "PhenotypeC Severity4 Rule"
     when
         $MedicalHistory: /mHist [phenotype == 'C', severityLevel == 4]
     then 
-        modify ($MedicalHistory) {setSuggestedTreatment("LAMA + LABA + CI, Consider adding Teofiline")}
+        modify ($MedicalHistory) {setSuggestedTreatment("LAMA + LABA + ICS, Consider adding Teofiline")}
         modify ($MedicalHistory){setBeginDate()}
         modify ($MedicalHistory){setDuration(21)}
 end
@@ -152,7 +152,7 @@ rule "PhenotypeD Severity2 Rule"
     when
         $MedicalHistory: /mHist [phenotype == 'D', severityLevel == 2]
     then 
-        modify ($MedicalHistory) {setSuggestedTreatment("(LAMA / LABA) + (CI / IPE4) or LAMA + LABA or  LAMA / LABA")}
+        modify ($MedicalHistory) {setSuggestedTreatment("(LAMA / LABA) + (ICS / PDE4) or LAMA + LABA or  LAMA / LABA")}
         modify ($MedicalHistory){setBeginDate()}
         modify ($MedicalHistory){setDuration(21)}
 end
@@ -162,7 +162,7 @@ rule "PhenotypeD Severity3 Rule"
     when
         $MedicalHistory: /mHist [phenotype == 'D', severityLevel == 3]
     then 
-        modify ($MedicalHistory) {setSuggestedTreatment("LAMA + LABA + (CI / IPE4) or (LAMA / LABA) + CI + IPE4, and consider adding Carbocisteine")}
+        modify ($MedicalHistory) {setSuggestedTreatment("LAMA + LABA + (ICS / PDE4) or (LAMA / LABA) + ICS + PDE4, and consider adding Carbocisteine")}
         modify ($MedicalHistory){setBeginDate()}
         modify ($MedicalHistory){setDuration(21)}
 end
@@ -172,7 +172,7 @@ rule "PhenotypeD Severity4 Rule"
     when
         $MedicalHistory: /mHist [phenotype == 'D', severityLevel == 4]
     then 
-        modify ($MedicalHistory) {setSuggestedTreatment("LAMA + LABA + (CI / IPE4) or LAMA + LABA + CI + IPE4, and consider adding Carbocisteine/Antibiotics")}
+        modify ($MedicalHistory) {setSuggestedTreatment("LAMA + LABA + (ICS / PDE4) or LAMA + LABA + ICS + PDE4, and consider adding Carbocisteine/Antibiotics")}
         modify ($MedicalHistory){setBeginDate()}
         modify ($MedicalHistory){setDuration(21)}
 end
@@ -180,7 +180,7 @@ end
 rule "HUH"
     dialect "java"
     when
-        $MedicalHistory: /mHist [phenotype == null, severityLevel == 0]
+        $MedicalHistory: /mHist [phenotype == "?"]
     then 
         modify ($MedicalHistory) {setSuggestedTreatment("Unknown COPD Phenotype - No treatment available")}
         modify ($MedicalHistory){setBeginDate()}
