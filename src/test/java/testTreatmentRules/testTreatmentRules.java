@@ -85,7 +85,7 @@ public class testTreatmentRules {
         mHistUnit.getMHist().add(m);
         droolsInstance.fire();
 
-        Assert.assertEquals(m.getSuggestedTreatment(),"LABA + CI");
+        Assert.assertEquals(m.getSuggestedTreatment(),"LABA + ICS");
     }
     @Test
     public void testPhenotypeBSeverity2(){
@@ -95,7 +95,7 @@ public class testTreatmentRules {
         mHistUnit.getMHist().add(m);
         droolsInstance.fire();
 
-        Assert.assertEquals(m.getSuggestedTreatment(),"LABA + CI");
+        Assert.assertEquals(m.getSuggestedTreatment(),"LABA + ICS");
     }
     @Test
     public void testPhenotypeBSeverity3(){
@@ -105,7 +105,7 @@ public class testTreatmentRules {
         mHistUnit.getMHist().add(m);
         droolsInstance.fire();
 
-        Assert.assertEquals(m.getSuggestedTreatment(),"LAMA + LABA + CI");
+        Assert.assertEquals(m.getSuggestedTreatment(),"LAMA + LABA + ICS");
     }
     @Test
     public void testPhenotypeBSeverity4(){
@@ -115,7 +115,7 @@ public class testTreatmentRules {
         mHistUnit.getMHist().add(m);
         droolsInstance.fire();
 
-        Assert.assertEquals(m.getSuggestedTreatment(),"LAMA + LABA + CI, Consider adding Teofiline/IPE4 with expectoration");
+        Assert.assertEquals(m.getSuggestedTreatment(),"LAMA + LABA + ICS, Consider adding Teofiline/PDE4 with expectoration");
     }
     @Test
     public void testPhenotypeCSeverity1(){
@@ -135,7 +135,7 @@ public class testTreatmentRules {
         mHistUnit.getMHist().add(m);
         droolsInstance.fire();
 
-        Assert.assertEquals(m.getSuggestedTreatment(),"(LAMA / LABA) + CI or LAMA + LABA or LAMA/LABA");
+        Assert.assertEquals(m.getSuggestedTreatment(),"(LAMA / LABA) + ICS or LAMA + LABA or LAMA/LABA");
     }
     @Test
     public void testPhenotypeCSeverity3(){
@@ -145,7 +145,7 @@ public class testTreatmentRules {
         mHistUnit.getMHist().add(m);
         droolsInstance.fire();
 
-        Assert.assertEquals(m.getSuggestedTreatment(),"LAMA + LABA + CI");
+        Assert.assertEquals(m.getSuggestedTreatment(),"LAMA + LABA + ICS");
     }
     @Test
     public void testPhenotypeCSeverity4(){
@@ -155,7 +155,7 @@ public class testTreatmentRules {
         mHistUnit.getMHist().add(m);
         droolsInstance.fire();
 
-        Assert.assertEquals(m.getSuggestedTreatment(),"LAMA + LABA + CI, Consider adding Teofiline");
+        Assert.assertEquals(m.getSuggestedTreatment(),"LAMA + LABA + ICS, Consider adding Teofiline");
     }
     @Test
     public void testPhenotypeDSeverity1(){
@@ -175,7 +175,7 @@ public class testTreatmentRules {
         mHistUnit.getMHist().add(m);
         droolsInstance.fire();
 
-        Assert.assertEquals(m.getSuggestedTreatment(),"(LAMA / LABA) + (CI / IPE4) or LAMA + LABA or  LAMA / LABA");
+        Assert.assertEquals(m.getSuggestedTreatment(),"(LAMA / LABA) + (ICS / PDE4) or LAMA + LABA or  LAMA / LABA");
     }
     @Test
     public void testPhenotypeDSeverity3(){
@@ -185,7 +185,7 @@ public class testTreatmentRules {
         mHistUnit.getMHist().add(m);
         droolsInstance.fire();
 
-        Assert.assertEquals(m.getSuggestedTreatment(),"LAMA + LABA + (CI / IPE4) or (LAMA / LABA) + CI + IPE4, and consider adding Carbocisteine");
+        Assert.assertEquals(m.getSuggestedTreatment(),"LAMA + LABA + (ICS / PDE4) or (LAMA / LABA) + ICS + PDE4, and consider adding Carbocisteine");
     }
     @Test
     public void testPhenotypeDSeverity4(){
@@ -195,7 +195,7 @@ public class testTreatmentRules {
         mHistUnit.getMHist().add(m);
         droolsInstance.fire();
 
-        Assert.assertEquals(m.getSuggestedTreatment(),"LAMA + LABA + (CI / IPE4) or LAMA + LABA + CI + IPE4, and consider adding Carbocisteine/Antibiotics");
+        Assert.assertEquals(m.getSuggestedTreatment(),"LAMA + LABA + (ICS / PDE4) or LAMA + LABA + ICS + PDE4, and consider adding Carbocisteine/Antibiotics");
     }
     @Test
     public void testDate(){
