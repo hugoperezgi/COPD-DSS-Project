@@ -68,7 +68,11 @@
       <version>0.4</version>
       <scope>compile</scope>
     </dependency>
-
+  <dependency>
+      <groupId>org.drools</groupId>
+      <artifactId>drools-wiring-dynamic</artifactId>
+      <scope>compile</scope>
+  </dependency>
   </dependencies>
 
   <build>
