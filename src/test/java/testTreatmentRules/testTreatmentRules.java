@@ -227,5 +227,16 @@ public class testTreatmentRules {
 
         Assert.assertEquals(m.getDuration(),0);
     }
+    @Test
+    public void testAATD(){
+        MedicalHistory m = new MedicalHistory();
+        SignsAndSymptoms s = new SignsAndSymptoms();
+        s.setAatd(true);
+        m.setSignsAndSymptoms(s);
+        mHistUnit.getMHist().add(m);
+        droolsInstance.fire();
+
+        Assert.assertEquals(m.getSuggestedTreatment(),"Alpha-1-Antitrypsin (AAT) therapy");
+    }
 
 }

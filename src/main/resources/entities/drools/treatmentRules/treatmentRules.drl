@@ -20,7 +20,7 @@ unit MedicalHistory_Unit;
 rule "PhenotypeA Severity1 Rule"
     dialect "java"
     when
-        $MedicalHistory: /mHist [phenotype == 'A', severityLevel == 1]
+        $MedicalHistory: /mHist [!signsAndSymptoms.isAatd(), phenotype == 'A', severityLevel == 1]
     then 
         modify ($MedicalHistory) {setSuggestedTreatment("SABA / SAMA or LAMA / LABA")}
         modify ($MedicalHistory){setBeginDate()}
@@ -30,7 +30,7 @@ end
 rule "PhenotypeA Severity2 Rule"
     dialect "java"
     when
-        $MedicalHistory: /mHist [phenotype == 'A', severityLevel == 2]
+        $MedicalHistory: /mHist [!signsAndSymptoms.isAatd(), phenotype == 'A', severityLevel == 2]
     then 
         modify ($MedicalHistory) {setSuggestedTreatment("LAMA / LABA or LAMA + LABA")}
         modify ($MedicalHistory){setBeginDate()}
@@ -40,7 +40,7 @@ end
 rule "PhenotypeA Severity3 Rule"
     dialect "java"
     when
-        $MedicalHistory: /mHist [phenotype == 'A', severityLevel == 3]
+        $MedicalHistory: /mHist [!signsAndSymptoms.isAatd(), phenotype == 'A', severityLevel == 3]
     then 
         modify ($MedicalHistory) {setSuggestedTreatment("LAMA + LABA")}
         modify ($MedicalHistory){setBeginDate()}
@@ -50,7 +50,7 @@ end
 rule "PhenotypeA Severity4 Rule"
     dialect "java"
     when
-        $MedicalHistory: /mHist [phenotype == 'A', severityLevel == 4]
+        $MedicalHistory: /mHist [!signsAndSymptoms.isAatd(), phenotype == 'A', severityLevel == 4]
     then 
         modify ($MedicalHistory) {setSuggestedTreatment("LAMA + LABA or LAMA + LABA + Teofiline")}
         modify ($MedicalHistory){setBeginDate()}
@@ -60,7 +60,7 @@ end
 rule "PhenotypeB Severity1 Rule"
     dialect "java"
     when
-        $MedicalHistory: /mHist [phenotype == 'B', severityLevel == 1]
+        $MedicalHistory: /mHist [!signsAndSymptoms.isAatd(), phenotype == 'B', severityLevel == 1]
     then 
         modify ($MedicalHistory) {setSuggestedTreatment("LABA + ICS")}
         modify ($MedicalHistory){setBeginDate()}
@@ -70,7 +70,7 @@ end
 rule "PhenotypeB Severity2 Rule"
     dialect "java"
     when
-        $MedicalHistory: /mHist [phenotype == 'B', severityLevel == 2]
+        $MedicalHistory: /mHist [!signsAndSymptoms.isAatd(), phenotype == 'B', severityLevel == 2]
     then 
         modify ($MedicalHistory) {setSuggestedTreatment("LABA + ICS")}
         modify ($MedicalHistory){setBeginDate()}
@@ -80,7 +80,7 @@ end
 rule "PhenotypeB Severity3 Rule"
     dialect "java"
     when
-        $MedicalHistory: /mHist [phenotype == 'B', severityLevel == 3]
+        $MedicalHistory: /mHist [!signsAndSymptoms.isAatd(), phenotype == 'B', severityLevel == 3]
     then 
         modify ($MedicalHistory) {setSuggestedTreatment("LAMA + LABA + ICS")}
         modify ($MedicalHistory){setBeginDate()}
@@ -90,7 +90,7 @@ end
 rule "PhenotypeB Severity4 Rule"
     dialect "java"
     when
-        $MedicalHistory: /mHist [phenotype == 'B', severityLevel == 4]
+        $MedicalHistory: /mHist [!signsAndSymptoms.isAatd(), phenotype == 'B', severityLevel == 4]
     then 
         modify ($MedicalHistory) {setSuggestedTreatment("LAMA + LABA + ICS, Consider adding Teofiline/PDE4 with expectoration")}
         modify ($MedicalHistory){setBeginDate()}
@@ -100,7 +100,7 @@ end
 rule "PhenotypeC Severity1 Rule"
     dialect "java"
     when
-        $MedicalHistory: /mHist [phenotype == 'C', severityLevel == 1]
+        $MedicalHistory: /mHist [!signsAndSymptoms.isAatd(), phenotype == 'C', severityLevel == 1]
     then 
         modify ($MedicalHistory) {setSuggestedTreatment("LAMA / LABA")}
         modify ($MedicalHistory){setBeginDate()}
@@ -110,7 +110,7 @@ end
 rule "PhenotypeC Severity2 Rule"
     dialect "java"
     when
-        $MedicalHistory: /mHist [phenotype == 'C', severityLevel == 2]
+        $MedicalHistory: /mHist [!signsAndSymptoms.isAatd(), phenotype == 'C', severityLevel == 2]
     then 
         modify ($MedicalHistory) {setSuggestedTreatment("(LAMA / LABA) + ICS or LAMA + LABA or LAMA/LABA")}
         modify ($MedicalHistory){setBeginDate()}
@@ -120,7 +120,7 @@ end
 rule "PhenotypeC Severity3 Rule"
     dialect "java"
     when
-        $MedicalHistory: /mHist [phenotype == 'C', severityLevel == 3]
+        $MedicalHistory: /mHist [!signsAndSymptoms.isAatd(), phenotype == 'C', severityLevel == 3]
     then 
         modify ($MedicalHistory) {setSuggestedTreatment("LAMA + LABA + ICS")}
         modify ($MedicalHistory){setBeginDate()}
@@ -130,7 +130,7 @@ end
 rule "PhenotypeC Severity4 Rule"
     dialect "java"
     when
-        $MedicalHistory: /mHist [phenotype == 'C', severityLevel == 4]
+        $MedicalHistory: /mHist [!signsAndSymptoms.isAatd(), phenotype == 'C', severityLevel == 4]
     then 
         modify ($MedicalHistory) {setSuggestedTreatment("LAMA + LABA + ICS, Consider adding Teofiline")}
         modify ($MedicalHistory){setBeginDate()}
@@ -140,7 +140,7 @@ end
 rule "PhenotypeD Severity1 Rule"
     dialect "java"
     when
-        $MedicalHistory: /mHist [phenotype == 'D', severityLevel == 1]
+        $MedicalHistory: /mHist [!signsAndSymptoms.isAatd(), phenotype == 'D', severityLevel == 1]
     then 
         modify ($MedicalHistory) {setSuggestedTreatment("LAMA / LABA")}
         modify ($MedicalHistory){setBeginDate()}
@@ -150,7 +150,7 @@ end
 rule "PhenotypeD Severity2 Rule"
     dialect "java"
     when
-        $MedicalHistory: /mHist [phenotype == 'D', severityLevel == 2]
+        $MedicalHistory: /mHist [!signsAndSymptoms.isAatd(), phenotype == 'D', severityLevel == 2]
     then 
         modify ($MedicalHistory) {setSuggestedTreatment("(LAMA / LABA) + (ICS / PDE4) or LAMA + LABA or  LAMA / LABA")}
         modify ($MedicalHistory){setBeginDate()}
@@ -160,7 +160,7 @@ end
 rule "PhenotypeD Severity3 Rule"
     dialect "java"
     when
-        $MedicalHistory: /mHist [phenotype == 'D', severityLevel == 3]
+        $MedicalHistory: /mHist [!signsAndSymptoms.isAatd(), phenotype == 'D', severityLevel == 3]
     then 
         modify ($MedicalHistory) {setSuggestedTreatment("LAMA + LABA + (ICS / PDE4) or (LAMA / LABA) + ICS + PDE4, and consider adding Carbocisteine")}
         modify ($MedicalHistory){setBeginDate()}
@@ -170,7 +170,7 @@ end
 rule "PhenotypeD Severity4 Rule"
     dialect "java"
     when
-        $MedicalHistory: /mHist [phenotype == 'D', severityLevel == 4]
+        $MedicalHistory: /mHist [!signsAndSymptoms.isAatd(), phenotype == 'D', severityLevel == 4]
     then 
         modify ($MedicalHistory) {setSuggestedTreatment("LAMA + LABA + (ICS / PDE4) or LAMA + LABA + ICS + PDE4, and consider adding Carbocisteine/Antibiotics")}
         modify ($MedicalHistory){setBeginDate()}
@@ -183,6 +183,16 @@ rule "HUH"
         $MedicalHistory: /mHist [phenotype == "?"]
     then 
         modify ($MedicalHistory) {setSuggestedTreatment("Unknown COPD Phenotype - No treatment available")}
+        modify ($MedicalHistory){setBeginDate()}
+        modify ($MedicalHistory){setDuration(0)}
+end
+
+rule "AATD"
+    dialect "java"
+    when
+        $MedicalHistory: /mHist [signsAndSymptoms.isAatd()]
+    then 
+        modify ($MedicalHistory) {setSuggestedTreatment("Alpha-1-Antitrypsin (AAT) therapy")}
         modify ($MedicalHistory){setBeginDate()}
         modify ($MedicalHistory){setDuration(0)}
 end

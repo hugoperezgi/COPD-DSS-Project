@@ -8,7 +8,7 @@ public class SignsAndSymptoms{
     private int exacerbationCount;
 
     private int COPDScore;
-    private boolean cough, chronicExpectoration, mixed_asthma;
+    private boolean cough, chronicExpectoration, mixed_asthma,aatd;
 
     public SignsAndSymptoms(SignsAndSymptoms ss) {
         this.FEV = ss.getFEV();
@@ -21,6 +21,7 @@ public class SignsAndSymptoms{
         this.chronicExpectoration = ss.getChronicExpectoration();
         this.mMCR=ss.mMCR;
         this.COPDScore=ss.COPDScore;
+        this.aatd=ss.aatd;
     }
 
     public SignsAndSymptoms() {
@@ -37,7 +38,12 @@ public class SignsAndSymptoms{
     public boolean isMixed_asthma() {
         return mixed_asthma;
     }
-
+    public boolean isAatd() {
+        return aatd;
+    }
+    public void setAatd(boolean aatd) {
+        this.aatd = aatd;
+    }
     public void setMixed_asthma(boolean critMajor1,boolean critMajor2,boolean critMajor3, boolean critMinor1, boolean critMinor2, boolean critMinor3) {
         List<Boolean> critMajor = new ArrayList<Boolean>();
         critMajor.add(critMajor1);
