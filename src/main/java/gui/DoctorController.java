@@ -231,6 +231,8 @@ public class DoctorController implements Initializable{
             rbChronExY.setSelected(false);;
             rbCoughY.setSelected(false);
             rbCoughN.setSelected(false);
+            rbAATDN.setSelected(false);
+            rbAATDY.setSelected(false);
             tFieldExaC.clear();
             tFieldExaT.clear();
             tFieldActivityperDayJEJ.clear();

@@ -57,6 +57,21 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
+        <groupId>org.drools</groupId>
+        <artifactId>drools-engine</artifactId>
+        <scope>compile</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.drools</groupId>
+        <artifactId>drools-model-compiler</artifactId>
+        <scope>compile</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.drools</groupId>
+        <artifactId>drools-wiring-dynamic</artifactId>
+        <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>${junit-version}</version>
@@ -68,11 +83,6 @@
       <version>0.4</version>
       <scope>compile</scope>
     </dependency>
-  <dependency>
-      <groupId>org.drools</groupId>
-      <artifactId>drools-wiring-dynamic</artifactId>
-      <scope>compile</scope>
-  </dependency>
   </dependencies>
 
   <build>
