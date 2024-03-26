@@ -2,11 +2,7 @@ package entities;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-import java.io.Serializable;
-
-public class User implements Serializable {
-    static final long serialVersionUID = 42L;
-
+public class User {
 
     private Integer userID;
         //Unique key for the db

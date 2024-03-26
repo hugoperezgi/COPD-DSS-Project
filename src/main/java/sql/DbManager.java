@@ -169,12 +169,6 @@ public class DbManager {
 
 
     public static void createMedicalRecord(int patientId, String phenotype, int severity, String treatment, Date beginDate, int duration) throws Exception {
-        // if (severity < 1 || severity > 4) {
-        //     throw new IllegalArgumentException("Invalid severity degree, it should be a number between 1 and 4");
-        // }
-        // if (!phenotype.matches("[A-D]|Unclear")) {
-        //     throw new IllegalArgumentException("Invalid phenotype, the values allowed are: A, B, C, D or Unclear");
-        // }Fucking chatgpt peice of shit
         String query = "INSERT INTO MedicalHistory (Phenotype, Severity, Treatment, BeginDate, Duration, patient_id) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement pstmt = c.prepareStatement(query);
         pstmt.setString(1, phenotype);
@@ -220,7 +214,6 @@ public class DbManager {
 
 
     public static void updateSeverity(int recordId, int severity) throws SQLException {
-//PUTOCHATGPTDEMIERDA
         String query = "UPDATE MedicalHistory SET severity = ? WHERE ID = ?";
         PreparedStatement pstmt = c.prepareStatement(query);
         pstmt.setInt(1, severity);

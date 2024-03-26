@@ -429,12 +429,10 @@ public class DoctorController implements Initializable{
                 mHist.setSuggestedTreatment(txtTreatmnt.getText());
             }
             buttonSaveChange.setDisable(true);
-            //Change thingys on db
             try{
                 DbManager.updateSeverity(mHist.getId(),mHist.getSeverityLevel());
                 DbManager.updateTreatmentAndDates(mHist.getId(),mHist.getSuggestedTreatment(),mHist.getBeginDate(),mHist.getDuration());
             }catch(Exception e){e.printStackTrace();ErrorPopup.errorPopup(0);return;}
-            //Go back to patient view
             hideAll();
             resetAll();
             SuccessPopup.successPopup("Report edited successfully!");
