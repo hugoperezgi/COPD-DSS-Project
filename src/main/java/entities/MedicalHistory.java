@@ -22,7 +22,7 @@ public class MedicalHistory {
     this.setSuggestedTreatment(treatment);
     this.setBeginDate(beginDate);
     this.setDuration(duration);
-    if(severity==-1){this.stringSever="Pending CAT";}else{this.stringSever=Integer.toString(severity);}
+    if(severity==-1){this.stringSever="Pending CAT";}else if(severity==0){this.stringSever="-";}else{this.stringSever=Integer.toString(severity);}
     }
     public MedicalHistory(int id, char phenotype, int severity, String treatment, Date beginDate, int duration) {
         this.setId(id);

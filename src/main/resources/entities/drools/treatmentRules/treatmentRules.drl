@@ -193,6 +193,8 @@ rule "AATD"
         $MedicalHistory: /mHist [signsAndSymptoms.isAatd()]
     then 
         modify ($MedicalHistory) {setSuggestedTreatment("Alpha-1-Antitrypsin (AAT) therapy")}
+        modify ($MedicalHistory) {setPhenotype("AATD")}
+        modify ($MedicalHistory) {setSeverityLevel(0)}
         modify ($MedicalHistory){setBeginDate()}
         modify ($MedicalHistory){setDuration(0)}
 end

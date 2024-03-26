@@ -112,7 +112,7 @@ public class DoctorController implements Initializable{
 
     }
     private void resetAll(){
-
+        trtmntModified=false;dateModified=false;durationModified=false;
         pList=null;mhList=null;mHist=null;p=null;plId=null;ptId=null;
         textPatientName.setText(null);;textBDate.setText(null);;;
         cbBoxSelectReport.getSelectionModel().clearSelection();
@@ -407,6 +407,9 @@ public class DoctorController implements Initializable{
             buttonSaveChange.setDisable(false);
             dateModified=true;
         }
+        private boolean trtmntModified=false;
+        @FXML
+        private void txtModified(){if(!trtmntModified){trtmntModified=true;buttonSaveChange.setDisable(false);}}
         @FXML
         private void saveChanges() throws Exception{
             
@@ -421,6 +424,9 @@ public class DoctorController implements Initializable{
                     e.printStackTrace();
                     ErrorPopup.errorPopup("Fuck my life 🫠");    
                 }
+            }
+            if(trtmntModified){ 
+                mHist.setSuggestedTreatment(txtTreatmnt.getText());
             }
             buttonSaveChange.setDisable(true);
             //Change thingys on db
@@ -467,8 +473,10 @@ public class DoctorController implements Initializable{
         private RadioButton rbChronExN;
         @FXML
         private Slider sliderDyspneaScale;
-        //TODO you fucking moron make this shiet decent
-
+        @FXML
+        private RadioButton rbAATDY;
+        @FXML
+        private RadioButton rbAATDN;
         @FXML
         private TextField tFieldActivityperDayJEJ;
         @FXML
@@ -540,11 +548,16 @@ public class DoctorController implements Initializable{
         @FXML
         private void toggleChroExpN(){if(rbChronExY.isSelected()){rbChronExY.setSelected(false);}}
         @FXML
+        private void toggleAATDY(){if(rbAATDN.isSelected()){rbAATDN.setSelected(false);}}
+        @FXML
+        private void toggleAATDN(){if(rbAATDY.isSelected()){rbAATDY.setSelected(false);}}
+        @FXML
         private void execCreateReport() throws IOException{
 
             if(tFieldExaC.getText().isEmpty()||tFieldExaT.getText().isEmpty()){ErrorPopup.errorPopup("Fill all the options.");return;}
             if(!(rbCoughY.isSelected()||rbCoughN.isSelected())){ErrorPopup.errorPopup("Fill all the options.");return;}
             if(!(rbChronExY.isSelected()||rbChronExN.isSelected())){ErrorPopup.errorPopup("Fill all the options.");return;}
+            if(!(rbAATDY.isSelected()||rbAATDN.isSelected())){ErrorPopup.errorPopup("Fill all the options.");return;}
             if(checkSeverGrp.isSelected()&&(tFieldFEV.getText().isEmpty()||tFieldActivityperDayJEJ.getText().isEmpty()||tFieldHospitalizationCount.getText().isEmpty())){ErrorPopup.errorPopup("Fill all the options.");return;}
 
             SignsAndSymptoms ss = new SignsAndSymptoms();
@@ -552,7 +565,8 @@ public class DoctorController implements Initializable{
             ss.setChronicExpectoration(rbChronExY.isSelected());
             ss.setExacerbationCount(Integer.parseInt(tFieldExaC.getText()));
             ss.setTimeBetweenExacerbations(Integer.parseInt(tFieldExaT.getText()));
-            ss.setMixed_asthma(checkMayor2.isArmed(),checkMayor0.isArmed(),checkMayor1.isArmed(),checkMinor0.isArmed(),checkMinor2.isArmed(),checkMinor1.isArmed());
+            ss.setMixed_asthma(checkMayor2.isSelected(),checkMayor0.isSelected(),checkMayor1.isSelected(),checkMinor0.isSelected(),checkMinor2.isSelected(),checkMinor1.isSelected());
+            ss.setAatd(rbAATDY.isSelected());
             if(checkSeverGrp.isSelected()){
                 ss.setmMCR((int)sliderDyspneaScale.getValue());
                 ss.setHospitalizationCount(Integer.parseInt(tFieldHospitalizationCount.getText()));
@@ -561,6 +575,7 @@ public class DoctorController implements Initializable{
             }
             MedicalHistory m = new MedicalHistory();
             m.setSignsAndSymptoms(ss);
+            
             if(!checkSeverGrp.isSelected()){m.setSeverityLevel(-1);}
 
             try {

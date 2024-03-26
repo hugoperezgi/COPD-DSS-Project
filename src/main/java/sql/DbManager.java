@@ -130,7 +130,7 @@ public class DbManager {
     }
 
     public static List<User> getAllUsers() throws Exception {
-        List<User> users = new ArrayList();
+        List<User> users = new ArrayList<User>();
         String query = "SELECT * FROM Users";
         Statement stmt = c.createStatement();
         ResultSet rs = stmt.executeQuery(query);
@@ -139,7 +139,7 @@ public class DbManager {
             String username = rs.getString("Username");
             String password = rs.getString("Password");
             String role = rs.getString("Role");
-            User user = new User(username,password,role);
+            User user = new User(id,username,null,role);
             users.add(user);
         }
         return users;
