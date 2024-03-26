@@ -21,10 +21,7 @@ public class LoginController {
     @FXML
     PasswordField psw;
 
-
-    private DbManager db;
     private ErrorPopup ErrorPopup = new ErrorPopup();
-
 
     public void logIn(ActionEvent a) throws Exception{
         User u = null;
@@ -54,7 +51,7 @@ public class LoginController {
         PatientController pc = loader.getController();
         pc.setSelf(u);
         if(pc.myself==null){
-            ErrorPopup.errorPopup(11); //TODO
+            ErrorPopup.errorPopup(11); 
         } else {
             Stage stage = (Stage) ((Node) aEvent.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);

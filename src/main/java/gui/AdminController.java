@@ -57,7 +57,7 @@ public class AdminController implements Initializable{
     @FXML
     public TableColumn<User, String> columnUserRoles;
     @FXML
-    public ComboBox<Integer> comboBoxUsers;
+    public ComboBox<String> comboBoxUsers;
     public List<Integer> usersIDs = new ArrayList<>();
     @FXML
     public Button buttonDeleteUser;
@@ -121,8 +121,8 @@ public class AdminController implements Initializable{
 
 
     public void deleteUser() throws Exception {
-        int id = comboBoxUsers.getSelectionModel().getSelectedItem();
-        DbManager.deleteUser(id);
+        String id = comboBoxUsers.getSelectionModel().getSelectedItem();
+        DbManager.deleteUser(Integer.parseInt(id));
         succ.successPopup(6);
     }
 
@@ -139,13 +139,14 @@ public class AdminController implements Initializable{
     public void deleteUserMenu() throws Exception {
         hideAll();
         showAndResetDeleteUserPane();
-        List<User> allusers = new ArrayList<>();
-        allusers.addAll(DbManager.getAllUsers());
+        List<User> allusers = DbManager.getAllUsers();
         int userCount = allusers.size();
-        for (int i = 0; i<userCount; i++){
-            usersIDs.add(allusers.get(i).getUserID());
+        String aaaa[] = new String[userCount];
+        int i=0;
+        for (User f : allusers) {
+            aaaa[i]=f.getUserID().toString();i++;
         }
-        comboBoxUsers.getItems().setAll(usersIDs);
+        comboBoxUsers.getItems().setAll(aaaa);
         tableViewUsers.getItems().setAll(allusers);
     }
 
