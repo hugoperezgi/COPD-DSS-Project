@@ -166,7 +166,7 @@ public class DoctorController implements Initializable{
             }
 
             plId=cbBoxSelectPatient.getSelectionModel().getSelectedIndex();
-            ptId=pList.get(plId).getMedicalCardNumber();
+            ptId=pList.get(plId).getId();
             mhList=DbManager.getMedicalHistory(ptId);
             p=pList.get(cbBoxSelectPatient.getSelectionModel().getSelectedIndex());
             textPatientName.setText(p.getName());

@@ -35,7 +35,7 @@ public class DbManager {
                 ")");
         // Create Patients table
         stmt.execute("CREATE TABLE IF NOT EXISTS Patients (" +
-                "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "patient_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "Name TEXT NOT NULL," +
                 "MedicalCardNumber INTEGER NOT NULL," +
                 "BirthDate DATE NOT NULL," +
@@ -52,7 +52,7 @@ public class DbManager {
                 "Treatment TEXT," +
                 "BeginDate DATE," +
                 "Duration INTEGER," +
-                "patient_id INTEGER NOT NULL REFERENCES Patients(ID) ON UPDATE CASCADE ON DELETE CASCADE" +
+                "patient_id INTEGER REFERENCES Patients(patient_id) ON UPDATE CASCADE ON DELETE CASCADE" +
                 ")");
 
         createUser("a",User.encryptPassword("a"),"admin");
@@ -71,19 +71,19 @@ public class DbManager {
     }
 
     public static void deletePatient(int patientId) throws Exception {
-        String query = "DELETE FROM Patients WHERE ID = ?";
+        String query = "DELETE FROM Patients WHERE patient_id = ?";
         PreparedStatement pstmt = c.prepareStatement(query);
         pstmt.setInt(1, patientId);
         pstmt.executeUpdate();
     }
 
     public static List<Patient> getAllPatients() throws Exception {
-        List<Patient> patients = new ArrayList();
+        List<Patient> patients = new ArrayList<Patient>();
         String query = "SELECT * FROM Patients";
         Statement stmt = c.createStatement();
         ResultSet rs = stmt.executeQuery(query);
         while (rs.next()) {
-            int id = rs.getInt("ID");
+            int id = rs.getInt("patient_id");
             String name = rs.getString("Name");
             int medicalCardNumber = rs.getInt("MedicalCardNumber");
             Date birthDate = rs.getDate("BirthDate");
@@ -101,7 +101,7 @@ public class DbManager {
         PreparedStatement pstmt = c.prepareStatement(query);
         pstmt.setInt(1, userID);
         ResultSet rs = pstmt.executeQuery();
-        int id = rs.getInt("ID");
+        int id = rs.getInt("patient_id");
         String name = rs.getString("Name");
         int medicalCardNumber = rs.getInt("MedicalCardNumber");
         Date birthDate = rs.getDate("BirthDate");
@@ -189,7 +189,7 @@ public class DbManager {
         pstmt.setInt(1, patientId);
         ResultSet rs = pstmt.executeQuery();
         while (rs.next()) {
-            int id = rs.getInt("Id");
+            int id = rs.getInt("ID");
             String phenotype = rs.getString("Phenotype");
             int severity = rs.getInt("Severity");
             String treatment = rs.getString("Treatment");
