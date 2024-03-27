@@ -227,12 +227,11 @@ public class DoctorController implements Initializable{
             checkSeverGrp.setSelected(false);
             sliderDyspneaScale.setValue(0);
             severityGroup.setDisable(true);
-            rbChronExN.setSelected(false);
-            rbChronExY.setSelected(false);;
-            rbCoughY.setSelected(false);
-            rbCoughN.setSelected(false);
-            rbAATDN.setSelected(false);
-            rbAATDY.setSelected(false);
+            rbChronExN.setSelected(false);rbChronExY.setSelected(false);
+            rbCoughY.setSelected(false);rbCoughN.setSelected(false);
+            rbAATDN.setSelected(false);rbAATDY.setSelected(false);
+            checkMinor0.setSelected(false);checkMinor1.setSelected(false);checkMinor2.setSelected(false);
+            checkMayor0.setSelected(false);checkMayor1.setSelected(false);checkMayor2.setSelected(false);
             tFieldExaC.clear();
             tFieldExaT.clear();
             tFieldActivityperDayJEJ.clear();

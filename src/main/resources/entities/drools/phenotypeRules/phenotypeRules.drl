@@ -21,7 +21,7 @@ rule "PhenotypeD Rule"
     dialect "java"
     when
     //exacerbations per year >= 2, time between exacerbations < 4, mixed_asthma = FALSE, cough = TRUE, CHRONIC_EXPECT = TRUE
-        $MedicalHistory: /mHist [signsAndSymptoms.getExacerbationCount()>=2, signsAndSymptoms.getTimeBetweenExacerbations()<4, !signsAndSymptoms.isMixed_asthma(), signsAndSymptoms.getCough(), signsAndSymptoms.getChronicExpectoration()]
+        $MedicalHistory: /mHist [!signsAndSymptoms.isAatd(), signsAndSymptoms.getExacerbationCount()>=2, signsAndSymptoms.getTimeBetweenExacerbations()<4, !signsAndSymptoms.isMixed_asthma(), signsAndSymptoms.getCough(), signsAndSymptoms.getChronicExpectoration()]
     then
         modify ($MedicalHistory) {setPhenotype("D")}
 end
@@ -30,7 +30,7 @@ rule "PhenotypeC Rule"
     dialect "java"
     when
     //exacerbations per year >= 2, time between exacerbations < 4, mixed_asthma = FALSE, cough = FALSE, CHRONIC_EXPECT = FALSE
-        $MedicalHistory: /mHist [signsAndSymptoms.getExacerbationCount()>=2, signsAndSymptoms.getTimeBetweenExacerbations()<4, !signsAndSymptoms.isMixed_asthma(), !signsAndSymptoms.getCough(), !signsAndSymptoms.getChronicExpectoration()]
+        $MedicalHistory: /mHist [!signsAndSymptoms.isAatd(), signsAndSymptoms.getExacerbationCount()>=2, signsAndSymptoms.getTimeBetweenExacerbations()<4, !signsAndSymptoms.isMixed_asthma(), !signsAndSymptoms.getCough(), !signsAndSymptoms.getChronicExpectoration()]
     then
         modify ($MedicalHistory) {setPhenotype("C")}
 end
@@ -39,7 +39,7 @@ rule "PhenotypeB Rule 1"
     dialect "java"
     when
     //exacerbations per year >= 2, time between exacerbations >=4, mixed_asthma = TRUE
-        $MedicalHistory: /mHist [signsAndSymptoms.getExacerbationCount()>=2, signsAndSymptoms.getTimeBetweenExacerbations()>=4, signsAndSymptoms.isMixed_asthma()]
+        $MedicalHistory: /mHist [!signsAndSymptoms.isAatd(), signsAndSymptoms.getExacerbationCount()>=2, signsAndSymptoms.getTimeBetweenExacerbations()>=4, signsAndSymptoms.isMixed_asthma()]
     then
         modify ($MedicalHistory) {setPhenotype("B")}
 end
@@ -48,7 +48,7 @@ rule "PhenotypeA Rule"
     dialect "java"
     when
     //exacerbations per year <2 and mixed_asthma = FALSE and cough=TRUE, chronicExpect = TRUE
-        $MedicalHistory: /mHist [signsAndSymptoms.getExacerbationCount()<2, !signsAndSymptoms.isMixed_asthma(), signsAndSymptoms.getCough(), signsAndSymptoms.getChronicExpectoration()]
+        $MedicalHistory: /mHist [!signsAndSymptoms.isAatd(), signsAndSymptoms.getExacerbationCount()<2, !signsAndSymptoms.isMixed_asthma(), signsAndSymptoms.getCough(), signsAndSymptoms.getChronicExpectoration()]
     then
         modify ($MedicalHistory) {setPhenotype("A")}
 end
@@ -57,19 +57,15 @@ rule "PhenotypeB Rule 2"
     dialect "java"
     when
     //exacerbations per year <2 and mixed_asthma = TRUE
-        $MedicalHistory: /mHist [signsAndSymptoms.getExacerbationCount()<2, signsAndSymptoms.isMixed_asthma()]
+        $MedicalHistory: /mHist [!signsAndSymptoms.isAatd(), signsAndSymptoms.getExacerbationCount()<2, signsAndSymptoms.isMixed_asthma()]
     then
         modify ($MedicalHistory) {setPhenotype("B")}
 end
 
-
-
-
-
-
-
-
-
-
-
-
+rule "AATD_Pheno"
+    dialect "java"
+    when
+        $MedicalHistory: /mHist [signsAndSymptoms.isAatd()]
+    then 
+        modify ($MedicalHistory) {setPhenotype("AATD")}
+end
