@@ -13,51 +13,49 @@ public class DbManager {
 
     public static void start_db() throws Exception{
 
-        try{
-            if(!new File("./db").mkdirs()){throw new Exception();}
-        }catch(Exception e){
+        if (!new File("./db/medical_database.db").exists()) {
+
             String url = "jdbc:sqlite:./db/medical_database.db";
-            c = DriverManager.getConnection(url);    
-            return;
+            c = DriverManager.getConnection(url);
+            Statement stmt = c.createStatement();
+
+            // Create Patients table
+            stmt.execute("CREATE TABLE Patients (" +
+                    "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "Name TEXT NOT NULL," +
+                    "MedicalCardNumber INTEGER NOT NULL," +
+                    "BirthDate DATE NOT NULL," +
+                    "user_id INTEGER," +
+                    "FOREIGN KEY (user_id) REFERENCES Users(ID) ON DELETE CASCADE" +
+                    ")");
+
+            // Create Users table
+            stmt.execute("CREATE TABLE Users (" +
+                    "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "Username TEXT NOT NULL," +
+                    "Password TEXT NOT NULL," +
+                    "Role TEXT NOT NULL" +
+                    ")");
+
+            // Create MedicalHistory table
+            stmt.execute("CREATE TABLE MedicalHistory (" +
+                    "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "Phenotype CHAR," +
+                    "Severity INTEGER," +
+                    "Treatment TEXT," +
+                    "BeginDate DATE," +
+                    "Duration INTEGER," +
+                    "patient_id INTEGER NOT NULL," +
+                    "FOREIGN KEY (patient_id) REFERENCES Patients(ID) ON DELETE CASCADE" +
+                    ")");
+
+            createUser("a", User.encryptPassword("a"), "admin");
+            createPatient("p", 0, Date.valueOf(LocalDate.now()), createUser("p", User.encryptPassword("p"), "patient"));
+            createUser("d", User.encryptPassword("d"), "doctor");
+        } else{
+            String url = "jdbc:sqlite:./db/medical_database.db";
+            c = DriverManager.getConnection(url);
         }
-        
-        String url = "jdbc:sqlite:./db/medical_database.db";
-        c = DriverManager.getConnection(url);
-        Statement stmt = c.createStatement();
-
-        // Create Patients table
-        stmt.execute("CREATE TABLE IF NOT EXISTS Patients (" +
-                "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "Name TEXT NOT NULL," +
-                "MedicalCardNumber INTEGER NOT NULL," +
-                "BirthDate DATE NOT NULL," +
-                "user_id INTEGER," +
-                "FOREIGN KEY (user_id) REFERENCES Users(ID)" +
-                ")");
-
-        // Create Users table
-        stmt.execute("CREATE TABLE IF NOT EXISTS Users (" +
-                "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "Username TEXT NOT NULL," +
-                "Password TEXT NOT NULL," +
-                "Role TEXT NOT NULL" +
-                ")");
-
-        // Create MedicalHistory table
-        stmt.execute("CREATE TABLE IF NOT EXISTS MedicalHistory (" +
-                "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "Phenotype CHAR," +
-                "Severity INTEGER," +
-                "Treatment TEXT," +
-                "BeginDate DATE," +
-                "Duration INTEGER," +
-                "patient_id INTEGER NOT NULL," +
-                "FOREIGN KEY (patient_id) REFERENCES Patients(ID)" +
-                ")");
-
-        createUser("a",User.encryptPassword("a"),"admin");
-        createPatient("p",0,Date.valueOf(LocalDate.now()),createUser("p",User.encryptPassword("p"),"patient"));
-        createUser("d",User.encryptPassword("d"),"doctor");
     }
 
     public static void createPatient(String name, int medicalCardNumber, Date birthdate, int userId) throws Exception {
@@ -165,6 +163,7 @@ public class DbManager {
         PreparedStatement pstmt = c.prepareStatement(query);
         pstmt.setInt(1, userId);
         pstmt.executeUpdate();
+
     }
 
 

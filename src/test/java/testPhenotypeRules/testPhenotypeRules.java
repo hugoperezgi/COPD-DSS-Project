@@ -53,8 +53,11 @@ public class testPhenotypeRules {
 
         MedicalHistory m = new MedicalHistory();
         SignsAndSymptoms ss = new SignsAndSymptoms();
-        ss.setExacerbationCount(0);
+        ss.setExacerbationCount(1);
+        ss.setTimeBetweenExacerbations(7);
         ss.setMixed_asthma(true,true,false,false,false,false);
+        ss.setCough(false);
+        ss.setChronicExpectoration(false);
         m.setSignsAndSymptoms(ss);
 
         mHistUnit.getMHist().add(m);
