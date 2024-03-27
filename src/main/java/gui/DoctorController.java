@@ -255,7 +255,7 @@ public class DoctorController implements Initializable{
             txtDuration.setVisible(false);txtDuration.setDisable(true);
             dateSdate.setVisible(false);dateSdate.setDisable(true);
             txtPName.setText(p.getName());
-            if(mHist.getPhenotype()!="?"){txtPheno.setText(mHist.getPhenotype());}else{txtPheno.setText("NonConclusive Phenotype");}
+            if(mHist.getPhenotype().equalsIgnoreCase("?")){txtPheno.setText("NonConclusive Phenotype");}else{txtPheno.setText(mHist.getPhenotype());}
             txtSever.setText(mHist.getStringSever());
             if(mHist.getSuggestedTreatment()!=null){txtTreatmnt.setText(mHist.getSuggestedTreatment());}
             if(mHist.getBeginDate()==null){txtDur.setText("Test not completed yet - Unknown duration");txtSDate.setText("Test not completed yet - Start date not available");buttonModifySever.setDisable(false);}

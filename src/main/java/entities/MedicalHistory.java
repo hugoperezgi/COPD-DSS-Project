@@ -7,7 +7,7 @@ public class MedicalHistory {
 
     private int id;
 
-    private String phenotype;
+    private String phenotype=null;
     private int severityLevel=1, duration;
 
     private String suggestedTreatment,stringSever;

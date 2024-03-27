@@ -179,6 +179,7 @@ end
 
 rule "HUH"
     dialect "java"
+    salience -100 
     when
         $MedicalHistory: /mHist [phenotype == "?"]
     then 
