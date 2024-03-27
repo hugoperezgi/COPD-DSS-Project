@@ -17,31 +17,32 @@ public class DbManager {
             if(!new File("./db").mkdirs()){throw new Exception();}
         }catch(Exception e){
             String url = "jdbc:sqlite:./db/medical_database.db";
-            c = DriverManager.getConnection(url);    
+            c = DriverManager.getConnection(url);  
+            c.createStatement().execute("PRAGMA foreign_keys=ON");  
             return;
         }
         
         String url = "jdbc:sqlite:./db/medical_database.db";
         c = DriverManager.getConnection(url);
+        c.createStatement().execute("PRAGMA foreign_keys=ON");
         Statement stmt = c.createStatement();
 
+        stmt.execute("CREATE TABLE IF NOT EXISTS Users (" +
+                "user_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Username TEXT NOT NULL," +
+                "Password TEXT NOT NULL," +
+                "Role TEXT NOT NULL" +
+                ")");
         // Create Patients table
         stmt.execute("CREATE TABLE IF NOT EXISTS Patients (" +
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "Name TEXT NOT NULL," +
                 "MedicalCardNumber INTEGER NOT NULL," +
                 "BirthDate DATE NOT NULL," +
-                "user_id INTEGER," +
-                "FOREIGN KEY (user_id) REFERENCES Users(ID)" +
+                "user_id INTEGER REFERENCES Users(user_id) ON UPDATE CASCADE ON DELETE CASCADE" +
                 ")");
 
         // Create Users table
-        stmt.execute("CREATE TABLE IF NOT EXISTS Users (" +
-                "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "Username TEXT NOT NULL," +
-                "Password TEXT NOT NULL," +
-                "Role TEXT NOT NULL" +
-                ")");
 
         // Create MedicalHistory table
         stmt.execute("CREATE TABLE IF NOT EXISTS MedicalHistory (" +
@@ -51,8 +52,7 @@ public class DbManager {
                 "Treatment TEXT," +
                 "BeginDate DATE," +
                 "Duration INTEGER," +
-                "patient_id INTEGER NOT NULL," +
-                "FOREIGN KEY (patient_id) REFERENCES Patients(ID)" +
+                "patient_id INTEGER NOT NULL REFERENCES Patients(ID) ON UPDATE CASCADE ON DELETE CASCADE" +
                 ")");
 
         createUser("a",User.encryptPassword("a"),"admin");
@@ -121,12 +121,12 @@ public class DbManager {
         pstmt.setString(2, password);
         pstmt.setString(3, role);
         pstmt.executeUpdate();
-        String query2 = "SELECT ID FROM Users WHERE username = ? AND password = ?";
+        String query2 = "SELECT user_id FROM Users WHERE username = ? AND password = ?";
         PreparedStatement pstmt2 = c.prepareStatement(query2);
         pstmt2.setString(1, username);
         pstmt2.setString(2, password);
         ResultSet rs = pstmt2.executeQuery();
-        return rs.getInt("ID");
+        return rs.getInt("user_id");
     }
 
     public static List<User> getAllUsers() throws Exception {
@@ -135,7 +135,7 @@ public class DbManager {
         Statement stmt = c.createStatement();
         ResultSet rs = stmt.executeQuery(query);
         while (rs.next()) {
-            int id = rs.getInt("ID");
+            int id = rs.getInt("user_id");
             String username = rs.getString("Username");
             String password = rs.getString("Password");
             String role = rs.getString("Role");
@@ -153,7 +153,7 @@ public class DbManager {
 		ResultSet rs = p.executeQuery();
 		User u = null;
 		if(rs.next()){
-			u= new User(rs.getInt("ID"),rs.getString("Username"),null,rs.getString("Role"));
+			u= new User(rs.getInt("user_id"),rs.getString("Username"),null,rs.getString("Role"));
 		}
 		p.close();
 		rs.close();
@@ -161,7 +161,7 @@ public class DbManager {
     }
 
     public static void deleteUser(int userId) throws Exception {
-        String query = "DELETE FROM Users WHERE ID = ?";
+        String query = "DELETE FROM Users WHERE user_id = ?";
         PreparedStatement pstmt = c.prepareStatement(query);
         pstmt.setInt(1, userId);
         pstmt.executeUpdate();
