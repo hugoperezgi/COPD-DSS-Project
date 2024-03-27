@@ -165,6 +165,7 @@ public class DbManager {
         PreparedStatement pstmt = c.prepareStatement(query);
         pstmt.setInt(1, userId);
         pstmt.executeUpdate();
+
     }
 
 
