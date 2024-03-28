@@ -3,8 +3,8 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>group3</groupId>
-  <artifactId>dssproject_copd</artifactId>
-  <version>1.1</version>
+  <artifactId>copd_dss</artifactId>
+  <version>2.0</version>
   <packaging>kjar</packaging>
 
   <name>dssproject_copd</name>

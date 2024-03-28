@@ -31,17 +31,20 @@ public class testSeverityRules {
 
     @Test
     public void testSeverity1(){
-        MedicalHistory m = new MedicalHistory();
-        m.getSignsAndSymptoms().setBodex(2);
+        MedicalHistory m0 = new MedicalHistory();
+        m0.getSignsAndSymptoms().setBodex(0);
+        mHistUnit.getMHist().add(m0);
 
+        MedicalHistory m = new MedicalHistory();
+        m.getSignsAndSymptoms().setBodex(1);
         mHistUnit.getMHist().add(m);
-        
+
         MedicalHistory m2 = new MedicalHistory();
-        m2.getSignsAndSymptoms().setBodex(1);
-        
+        m2.getSignsAndSymptoms().setBodex(2);
         mHistUnit.getMHist().add(m2);
         
         droolsInstance.fire();
+        Assert.assertEquals(m0.getSeverityLevel(),1);
         Assert.assertEquals(m.getSeverityLevel(),1);
         Assert.assertEquals(m2.getSeverityLevel(),1);
     }
@@ -49,13 +52,12 @@ public class testSeverityRules {
     public void testSeverity2(){
         MedicalHistory m = new MedicalHistory();
         m.getSignsAndSymptoms().setBodex(3);
-
         mHistUnit.getMHist().add(m);
+
         MedicalHistory m2 = new MedicalHistory();
         m2.getSignsAndSymptoms().setBodex(4);
-        m2.getSignsAndSymptoms().setmMCR(1);
-
         mHistUnit.getMHist().add(m2);
+
         droolsInstance.fire();
         Assert.assertEquals(m.getSeverityLevel(),2);
         Assert.assertEquals(m2.getSeverityLevel(),2);
@@ -69,16 +71,17 @@ public class testSeverityRules {
         MedicalHistory m2 = new MedicalHistory();
         m2.getSignsAndSymptoms().setBodex(6);         
         mHistUnit.getMHist().add(m2);
+
         droolsInstance.fire();
         Assert.assertEquals(m.getSeverityLevel(),3);
         Assert.assertEquals(m2.getSeverityLevel(),3);
     }
     @Test
-
     public void testSeverity4(){
         MedicalHistory m = new MedicalHistory();
         m.getSignsAndSymptoms().setBodex(7);
         mHistUnit.getMHist().add(m);
+
         droolsInstance.fire();
         Assert.assertEquals(m.getSeverityLevel(),4);
     }

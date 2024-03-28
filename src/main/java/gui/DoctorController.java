@@ -561,8 +561,8 @@ public class DoctorController implements Initializable{
                 ss.setBmi(cbBmiCreate.getSelectionModel().isSelected(1));
                 ss.setActivityMinutes(Integer.parseInt(tFieldActivityperDayJEJ.getText()));
                 ss.setFEV(Integer.parseInt(tFieldFEV.getText()));
+                ss.calculateBODEx();
             }
-            ss.calculateBODEx();
             MedicalHistory m = new MedicalHistory();
             m.setSignsAndSymptoms(ss);
             
