@@ -10,19 +10,18 @@ public class MedicalHistory {
     private String phenotype=null;
     private int severityLevel=1, duration;
 
-    private String suggestedTreatment,stringSever;
+    private String suggestedTreatment;
     private Date beginDate;
 
     public SignsAndSymptoms signsAndSymptoms;
 
     public MedicalHistory(int id, String phenotype, int severity, String treatment, Date beginDate, int duration) {
-    this.setId(id);
-    this.setPhenotype(phenotype);
-    this.setSeverityLevel(severity);
-    this.setSuggestedTreatment(treatment);
-    this.setBeginDate(beginDate);
-    this.setDuration(duration);
-    if(severity==-1){this.stringSever="Pending CAT";}else if(severity==0){this.stringSever="-";}else{this.stringSever=Integer.toString(severity);}
+        this.setId(id);
+        this.setPhenotype(phenotype);
+        this.setSeverityLevel(severity);
+        this.setSuggestedTreatment(treatment);
+        this.setBeginDate(beginDate);
+        this.setDuration(duration);
     }
     public MedicalHistory(int id, char phenotype, int severity, String treatment, Date beginDate, int duration) {
         this.setId(id);
@@ -31,8 +30,7 @@ public class MedicalHistory {
         this.setSuggestedTreatment(treatment);
         this.setBeginDate(beginDate);
         this.setDuration(duration);
-        if(severity==-1){this.stringSever="Pending CAT";}else{this.stringSever=Integer.toString(severity);}
-        }
+    }
     
 
     public void setDuration(int duration) { this.duration = duration;
@@ -79,10 +77,7 @@ public class MedicalHistory {
     }
 
     public String getStringSever() {
-        return stringSever;
-    }
-    public void setStringSever(String stringSever) {
-        this.stringSever = stringSever;
+        if(this.severityLevel==-1){return "Pending CAT";}else if(this.severityLevel==0){return "-";}else{return Integer.toString(this.severityLevel);}
     }
     public SignsAndSymptoms getSignsAndSymptoms() {
         return signsAndSymptoms;

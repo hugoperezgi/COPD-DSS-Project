@@ -377,12 +377,14 @@ public class DoctorController implements Initializable{
                 RuleUnitInstance<MedicalHistory_Unit> drl = RuleUnitProvider.get().createRuleUnitInstance(mu);
                 mu.getMHist().add(mHist);
                 drl.fire();
+                txtSever.setText(mHist.getStringSever());
             } catch (Exception e) {
                 e.printStackTrace();
                 ErrorPopup.errorPopup("Fuck my life 🫠");
                 return;
             }
             buttonSaveChange.setDisable(false);
+            sliderRVmMCR.setValue(0);txtRVHc.setText("");txtRVActv.setText("");txtRVFev.setText("");
             groupEditSeverity.setDisable(true);
             groupEditSeverity.setVisible(false);
         }
