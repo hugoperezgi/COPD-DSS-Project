@@ -11,11 +11,9 @@ public class DbManager {
     private static Connection c;
 
 
-    public static void start_db() throws Exception{
+    public static void start_db()throws Exception{
 
-        try{
-            if(!new File("./db").mkdirs()){throw new Exception();}
-        }catch(Exception e){
+        if(!new File("./db").mkdirs()){            
             String url = "jdbc:sqlite:./db/medical_database.db";
             c = DriverManager.getConnection(url);  
             c.createStatement().execute("PRAGMA foreign_keys=ON");  
