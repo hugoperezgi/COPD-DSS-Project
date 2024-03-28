@@ -64,7 +64,8 @@ public class DoctorController implements Initializable{
         columnMedTestSever.setCellValueFactory(new PropertyValueFactory<>("stringSever"));
         setTFieldCreateReport();
         setTFReportView();
-
+        cbBMI.getItems().addAll(strBMI);
+        cbBmiCreate.getItems().addAll(strBMI);
         hideAll();
         resetAll();
     }
@@ -236,7 +237,7 @@ public class DoctorController implements Initializable{
             tFieldExaT.clear();
             tFieldActivityperDayJEJ.clear();
             tFieldFEV.clear();
-            tFieldHospitalizationCount.clear();
+            cbBmiCreate.getSelectionModel().clearSelection();
         }
         @FXML
         private void checkReport() throws Exception{
@@ -311,7 +312,8 @@ public class DoctorController implements Initializable{
         @FXML
         private TextField txtRVActv;
         @FXML
-        private TextField txtRVHc;
+        private ComboBox<String> cbBMI;
+        private String[] strBMI = {">21","≤21"};
         @FXML
         private TextField txtRVFev;
         @FXML
@@ -336,15 +338,6 @@ public class DoctorController implements Initializable{
                     }
                 }
             });
-            txtRVHc.textProperty().addListener(new ChangeListener<String>() {
-                @Override
-                public void changed(ObservableValue<? extends String> observable, String oldValue, 
-                    String newValue) {
-                    if (!newValue.matches("\\d*")) {
-                        txtRVHc.setText(newValue.replaceAll("[^\\d]", ""));
-                    }
-                }
-            });
             txtRVFev.textProperty().addListener(new ChangeListener<String>() {
                 @Override
                 public void changed(ObservableValue<? extends String> observable, String oldValue, 
@@ -365,12 +358,16 @@ public class DoctorController implements Initializable{
         }
         @FXML
         private void modifySeverity() throws IOException{
-            if(txtRVFev.getText().isEmpty()||txtRVActv.getText().isEmpty()||txtRVHc.getText().isEmpty()){ErrorPopup.errorPopup("Fill all the options.");return;}
+            if(txtRVFev.getText().isEmpty()||txtRVActv.getText().isEmpty()||cbBMI.getSelectionModel().isEmpty()){ErrorPopup.errorPopup("Fill all the options.");return;}
             mHist.signsAndSymptoms = new SignsAndSymptoms();
             mHist.signsAndSymptoms.setmMCR((int)sliderRVmMCR.getValue());
-            mHist.signsAndSymptoms.setHospitalizationCount(Integer.parseInt(txtRVHc.getText()));
+            
+            //Change for Body Mass Index
+            mHist.signsAndSymptoms.setBmi(cbBMI.getSelectionModel().isSelected(1));
+                //BMI==true -> bmi<=21 AKA index 1
             mHist.signsAndSymptoms.setActivityMinutes(Integer.parseInt(txtRVActv.getText()));
             mHist.signsAndSymptoms.setFEV(Integer.parseInt(txtRVFev.getText()));
+            mHist.signsAndSymptoms.calculateBODEx();
 
             try {
                 MedicalHistory_Unit mu = new MedicalHistory_Unit();
@@ -384,7 +381,7 @@ public class DoctorController implements Initializable{
                 return;
             }
             buttonSaveChange.setDisable(false);
-            sliderRVmMCR.setValue(0);txtRVHc.setText("");txtRVActv.setText("");txtRVFev.setText("");
+            sliderRVmMCR.setValue(0);cbBMI.getSelectionModel().clearSelection();txtRVActv.setText("");txtRVFev.setText("");
             groupEditSeverity.setDisable(true);
             groupEditSeverity.setVisible(false);
         }
@@ -481,7 +478,7 @@ public class DoctorController implements Initializable{
         @FXML
         private TextField tFieldActivityperDayJEJ;
         @FXML
-        private TextField tFieldHospitalizationCount;
+        private ComboBox<String> cbBmiCreate;
         @FXML
         private TextField tFieldFEV;
         @FXML
@@ -500,15 +497,6 @@ public class DoctorController implements Initializable{
                     String newValue) {
                     if (!newValue.matches("\\d*")) {
                         tFieldActivityperDayJEJ.setText(newValue.replaceAll("[^\\d]", ""));
-                    }
-                }
-            });
-            tFieldHospitalizationCount.textProperty().addListener(new ChangeListener<String>() {
-                @Override
-                public void changed(ObservableValue<? extends String> observable, String oldValue, 
-                    String newValue) {
-                    if (!newValue.matches("\\d*")) {
-                        tFieldHospitalizationCount.setText(newValue.replaceAll("[^\\d]", ""));
                     }
                 }
             });
@@ -559,7 +547,7 @@ public class DoctorController implements Initializable{
             if(!(rbCoughY.isSelected()||rbCoughN.isSelected())){ErrorPopup.errorPopup("Fill all the options.");return;}
             if(!(rbChronExY.isSelected()||rbChronExN.isSelected())){ErrorPopup.errorPopup("Fill all the options.");return;}
             if(!(rbAATDY.isSelected()||rbAATDN.isSelected())){ErrorPopup.errorPopup("Fill all the options.");return;}
-            if(checkSeverGrp.isSelected()&&(tFieldFEV.getText().isEmpty()||tFieldActivityperDayJEJ.getText().isEmpty()||tFieldHospitalizationCount.getText().isEmpty())){ErrorPopup.errorPopup("Fill all the options.");return;}
+            if(checkSeverGrp.isSelected()&&(tFieldFEV.getText().isEmpty()||tFieldActivityperDayJEJ.getText().isEmpty()||cbBmiCreate.getSelectionModel().isEmpty())){ErrorPopup.errorPopup("Fill all the options.");return;}
 
             SignsAndSymptoms ss = new SignsAndSymptoms();
             ss.setCough(rbCoughY.isSelected());
@@ -570,10 +558,11 @@ public class DoctorController implements Initializable{
             ss.setAatd(rbAATDY.isSelected());
             if(checkSeverGrp.isSelected()){
                 ss.setmMCR((int)sliderDyspneaScale.getValue());
-                ss.setHospitalizationCount(Integer.parseInt(tFieldHospitalizationCount.getText()));
+                ss.setBmi(cbBmiCreate.getSelectionModel().isSelected(1));
                 ss.setActivityMinutes(Integer.parseInt(tFieldActivityperDayJEJ.getText()));
                 ss.setFEV(Integer.parseInt(tFieldFEV.getText()));
             }
+            ss.calculateBODEx();
             MedicalHistory m = new MedicalHistory();
             m.setSignsAndSymptoms(ss);
             
@@ -605,7 +594,7 @@ public class DoctorController implements Initializable{
                 sliderDyspneaScale.setValue(0);
                 tFieldActivityperDayJEJ.clear();
                 tFieldFEV.clear();
-                tFieldHospitalizationCount.clear();
+                cbBmiCreate.getSelectionModel().clearSelection();
             }
         }
 }

@@ -3,25 +3,26 @@ import java.util.*;
 
 public class SignsAndSymptoms{
 
-    private int FEV, activityMinutes, hospitalizationCount, mMCR;
+    private int FEV, activityMinutes, mMCR, bodex;
     private int timeBetweenExacerbations;
     private int exacerbationCount;
 
     private int COPDScore;
-    private boolean cough, chronicExpectoration, mixed_asthma,aatd;
+    private boolean cough, chronicExpectoration, mixed_asthma,aatd,bmi;
 
     public SignsAndSymptoms(SignsAndSymptoms ss) {
         this.FEV = ss.getFEV();
         this.activityMinutes = ss.getActivityMinutes();
-        this.hospitalizationCount = ss.getHospitalizationCount();
         this.exacerbationCount = ss.getExacerbationCount();
         this.timeBetweenExacerbations = ss.getTimeBetweenExacerbations();
         this.mixed_asthma = ss.isMixed_asthma();
+        this.bmi = ss.isBMI();
         this.cough = ss.getCough();
         this.chronicExpectoration = ss.getChronicExpectoration();
         this.mMCR=ss.mMCR;
         this.COPDScore=ss.COPDScore;
         this.aatd=ss.aatd;
+        this.bodex = ss.getBodex();
     }
 
     public SignsAndSymptoms() {
@@ -94,13 +95,18 @@ public class SignsAndSymptoms{
     public void setFEV(int fEV) {
         FEV = fEV;
     }
-    public int getHospitalizationCount() {
-        return hospitalizationCount;
+    public int getBodex() {
+        return bodex;
     }
-    public void setHospitalizationCount(int hospitalizationCount) {
-        this.hospitalizationCount = hospitalizationCount;
+    public void setBodex(int bodex) {
+        this.bodex = bodex;
     }
-
+    public boolean isBMI() {
+        return bmi;
+    }
+    public void setBmi(boolean bmi) {
+        this.bmi = bmi;
+    }
     public int getExacerbationCount() {
         return exacerbationCount;
     }
@@ -125,7 +131,19 @@ public class SignsAndSymptoms{
     public void setCough(boolean cough) {
         this.cough = cough;
     }
-
+    public void calculateBODEx(){
+        int tmp=0;
+        if(bmi){tmp++;}
+        if(activityMinutes<350 && activityMinutes>249){tmp++;}else if(activityMinutes<250 && activityMinutes>149){tmp+=2;}else if(activityMinutes<150){tmp+=3;}
+        if(FEV<65 && FEV>49){tmp++;}else if(FEV<50 && FEV>35){tmp+=2;}else if(FEV<35){tmp+=3;}
+        switch (mMCR) {
+            case 2:tmp++;break;
+            case 3:tmp+=2;break;
+            case 4:tmp+=3;break;
+            default:break;
+        }
+        bodex=tmp;
+    }
 
 
 }

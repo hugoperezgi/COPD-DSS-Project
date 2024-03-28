@@ -266,18 +266,17 @@
                                  </font>
                               </Text>
                               <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dbe2ef" height="135.0" layoutX="-56.0" layoutY="-1.0" stroke="TRANSPARENT" strokeType="INSIDE" width="900.0" />
-                              <Text fx:id="textLine11" layoutX="3.0" layoutY="26.705078125" strokeType="OUTSIDE" strokeWidth="0.0" text="Dyspnea Scale (mMCR)                                            Activity (Minutes per day)" wrappingWidth="779.0000000000002">
+                              <Text fx:id="textLine11" layoutX="3.0" layoutY="26.705078125" strokeType="OUTSIDE" strokeWidth="0.0" text="Dyspnea Scale (mMCR)                                              Distance walked in 6min" wrappingWidth="779.0000000000002">
                                  <font>
                                     <Font name="Arial" size="18.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="textLine21" layoutY="72.705078125" strokeType="OUTSIDE" strokeWidth="0.0" text="Hospitalization count (Last year)                                                        FEV (%)" wrappingWidth="788.0000610351562">
+                              <Text fx:id="textLine21" layoutY="72.705078125" strokeType="OUTSIDE" strokeWidth="0.0" text="Body Mass Index (BMI)                                                                      FEV (%)" wrappingWidth="788.0000610351562">
                                  <font>
                                     <Font name="Arial" size="18.0" />
                                  </font>
                               </Text>
                               <Slider fx:id="sliderRVmMCR" blockIncrement="1.0" layoutX="243.0" layoutY="5.0" majorTickUnit="1.0" max="4.0" minorTickCount="0" prefHeight="32.0" prefWidth="150.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
-                              <TextField fx:id="txtRVHc" layoutX="263.0" layoutY="54.0" prefHeight="25.0" prefWidth="127.0" />
                               <TextField fx:id="txtRVFev" layoutX="631.0" layoutY="54.0" prefHeight="25.0" prefWidth="127.0" />
                               <TextField fx:id="txtRVActv" layoutX="631.0" layoutY="8.0" prefHeight="25.0" prefWidth="127.0" />
                               <Button fx:id="buttonSaveChange1" layoutX="293.0" layoutY="90.0" mnemonicParsing="false" onAction="#modifySeverity" prefHeight="28.0" prefWidth="194.0" stylesheets="@buttonStyle.css" text="Apply Severity Changes" textFill="#ededf5">
@@ -288,6 +287,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
+                              <ComboBox fx:id="cbBMI" layoutX="214.0" layoutY="54.0" prefHeight="25.0" prefWidth="195.0" />
                            </children>
                         </Group>
                      </children>
@@ -316,20 +316,20 @@
                         </CheckBox>
                         <Group fx:id="severityGroup" layoutX="206.0" layoutY="479.0">
                            <children>
-                              <Text fx:id="textLine1" layoutX="3.0" layoutY="26.705078125" opacity="0.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Dyspnea Scale (mMCR)                                            Activity (Minutes per day)" wrappingWidth="779.0000000000002">
+                              <Text fx:id="textLine1" layoutX="3.0" layoutY="26.705078125" opacity="0.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Dyspnea Scale (mMCR)                                              Distance walked in 6min" wrappingWidth="779.0000000000002">
                                  <font>
                                     <Font name="Arial" size="18.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="textLine2" layoutY="72.705078125" opacity="0.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Hospitalization count (Last year)                                                        FEV (%)" wrappingWidth="788.0000610351562">
+                              <Text fx:id="textLine2" layoutY="72.705078125" opacity="0.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Body Mass Index (BMI)                                                                    FEV (%)" wrappingWidth="788.0000610351562">
                                  <font>
                                     <Font name="Arial" size="18.0" />
                                  </font>
                               </Text>
                               <Slider fx:id="sliderDyspneaScale" blockIncrement="1.0" layoutX="243.0" layoutY="5.0" majorTickUnit="1.0" max="4.0" minorTickCount="0" prefHeight="32.0" prefWidth="150.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
-                              <TextField fx:id="tFieldHospitalizationCount" layoutX="263.0" layoutY="54.0" prefHeight="25.0" prefWidth="127.0" />
                               <TextField fx:id="tFieldFEV" layoutX="631.0" layoutY="54.0" prefHeight="25.0" prefWidth="127.0" />
                               <TextField fx:id="tFieldActivityperDayJEJ" layoutX="631.0" layoutY="8.0" prefHeight="25.0" prefWidth="127.0" />
+                              <ComboBox fx:id="cbBmiCreate" layoutX="223.0" layoutY="54.0" prefHeight="25.0" prefWidth="186.0" />
                            </children>
                         </Group>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#5481a4" height="34.0" layoutX="200.0" layoutY="73.0" stroke="TRANSPARENT" strokeType="INSIDE" width="800.0" />
