@@ -32,18 +32,12 @@ public class testSeverityRules {
     @Test
     public void testSeverity1(){
         MedicalHistory m = new MedicalHistory();
-        m.getSignsAndSymptoms().setFEV(51);
-        m.getSignsAndSymptoms().setHospitalizationCount(0);
-        m.getSignsAndSymptoms().setmMCR(0);
-        m.getSignsAndSymptoms().setActivityMinutes(121);
+        m.getSignsAndSymptoms().setBodex(2);
 
         mHistUnit.getMHist().add(m);
         
         MedicalHistory m2 = new MedicalHistory();
-        m2.getSignsAndSymptoms().setFEV(51);
-        m2.getSignsAndSymptoms().setHospitalizationCount(0);
-        m2.getSignsAndSymptoms().setmMCR(1);
-        m2.getSignsAndSymptoms().setActivityMinutes(121);
+        m2.getSignsAndSymptoms().setBodex(1);
         
         mHistUnit.getMHist().add(m2);
         
@@ -52,19 +46,14 @@ public class testSeverityRules {
         Assert.assertEquals(m2.getSeverityLevel(),1);
     }
     @Test
-    public void testSeverity2_0(){
+    public void testSeverity2(){
         MedicalHistory m = new MedicalHistory();
-        m.getSignsAndSymptoms().setFEV(51);
-        m.getSignsAndSymptoms().setHospitalizationCount(0);
-        m.getSignsAndSymptoms().setmMCR(1);
-        m.getSignsAndSymptoms().setActivityMinutes(60);
+        m.getSignsAndSymptoms().setBodex(3);
 
         mHistUnit.getMHist().add(m);
         MedicalHistory m2 = new MedicalHistory();
-        m2.getSignsAndSymptoms().setFEV(51);
-        m2.getSignsAndSymptoms().setHospitalizationCount(1);
+        m2.getSignsAndSymptoms().setBodex(4);
         m2.getSignsAndSymptoms().setmMCR(1);
-        m2.getSignsAndSymptoms().setActivityMinutes(60);
 
         mHistUnit.getMHist().add(m2);
         droolsInstance.fire();
@@ -72,94 +61,23 @@ public class testSeverityRules {
         Assert.assertEquals(m2.getSeverityLevel(),2);
     }
     @Test
-    public void testSeverity2_1(){
+    public void testSeverity3(){
         MedicalHistory m = new MedicalHistory();
-        m.getSignsAndSymptoms().setFEV(51);
-        m.getSignsAndSymptoms().setHospitalizationCount(0); //0,1
-        m.getSignsAndSymptoms().setmMCR(2);
-        m.getSignsAndSymptoms().setActivityMinutes(60);
-
+        m.getSignsAndSymptoms().setBodex(5); 
         mHistUnit.getMHist().add(m);
         
         MedicalHistory m2 = new MedicalHistory();
-        m2.getSignsAndSymptoms().setFEV(51);
-        m2.getSignsAndSymptoms().setHospitalizationCount(1); //0,1
-        m2.getSignsAndSymptoms().setmMCR(2);
-        m2.getSignsAndSymptoms().setActivityMinutes(60);
-        
+        m2.getSignsAndSymptoms().setBodex(6);         
         mHistUnit.getMHist().add(m2);
         droolsInstance.fire();
-        Assert.assertEquals(m.getSeverityLevel(),2);
-        Assert.assertEquals(m2.getSeverityLevel(),2);
-    }
-    @Test
-    public void testSeverity3_0(){
-        MedicalHistory m = new MedicalHistory();
-        m.getSignsAndSymptoms().setFEV(49);
-        m.getSignsAndSymptoms().setHospitalizationCount(1);
-        m.getSignsAndSymptoms().setmMCR(2);
-        m.getSignsAndSymptoms().setActivityMinutes(21);
-
-        mHistUnit.getMHist().add(m);
-        droolsInstance.fire();
         Assert.assertEquals(m.getSeverityLevel(),3);
+        Assert.assertEquals(m2.getSeverityLevel(),3);
     }
     @Test
-    public void testSeverity3_1(){
-        MedicalHistory m = new MedicalHistory();
-        m.getSignsAndSymptoms().setFEV(49);
-        m.getSignsAndSymptoms().setHospitalizationCount(2);
-        m.getSignsAndSymptoms().setmMCR(2);
-        m.getSignsAndSymptoms().setActivityMinutes(21);
 
-        mHistUnit.getMHist().add(m);
-        droolsInstance.fire();
-        Assert.assertEquals(m.getSeverityLevel(),3);
-    }
-    @Test
-    public void testSeverity3_2(){
+    public void testSeverity4(){
         MedicalHistory m = new MedicalHistory();
-        m.getSignsAndSymptoms().setFEV(49);
-        m.getSignsAndSymptoms().setHospitalizationCount(1);
-        m.getSignsAndSymptoms().setmMCR(3);
-        m.getSignsAndSymptoms().setActivityMinutes(21);
-
-        mHistUnit.getMHist().add(m);
-        droolsInstance.fire();
-        Assert.assertEquals(m.getSeverityLevel(),3);
-    }
-    @Test
-    public void testSeverity3_3(){
-        MedicalHistory m = new MedicalHistory();
-        m.getSignsAndSymptoms().setFEV(49);
-        m.getSignsAndSymptoms().setHospitalizationCount(2);
-        m.getSignsAndSymptoms().setmMCR(3);
-        m.getSignsAndSymptoms().setActivityMinutes(21);
-
-        mHistUnit.getMHist().add(m);
-        droolsInstance.fire();
-        Assert.assertEquals(m.getSeverityLevel(),3);
-    }
-    @Test
-    public void testSeverity4_0(){
-        MedicalHistory m = new MedicalHistory();
-        m.getSignsAndSymptoms().setFEV(29);
-        m.getSignsAndSymptoms().setHospitalizationCount(3);
-        m.getSignsAndSymptoms().setmMCR(3);
-        m.getSignsAndSymptoms().setActivityMinutes(29);
-
-        mHistUnit.getMHist().add(m);
-        droolsInstance.fire();
-        Assert.assertEquals(m.getSeverityLevel(),4);
-    }
-    @Test
-    public void testSeverity4_1(){
-        MedicalHistory m = new MedicalHistory();
-        m.getSignsAndSymptoms().setFEV(29);
-        m.getSignsAndSymptoms().setHospitalizationCount(3);
-        m.getSignsAndSymptoms().setmMCR(4);
-        m.getSignsAndSymptoms().setActivityMinutes(29);
-
+        m.getSignsAndSymptoms().setBodex(7);
         mHistUnit.getMHist().add(m);
         droolsInstance.fire();
         Assert.assertEquals(m.getSeverityLevel(),4);

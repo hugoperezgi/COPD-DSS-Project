@@ -3,7 +3,7 @@ import java.util.*;
 
 public class SignsAndSymptoms{
 
-    private int FEV, activityMinutes, mMCR, bodex;
+    private int FEV, activityMinutes, mMCR, bodex=-1;
     private int timeBetweenExacerbations;
     private int exacerbationCount;
 
