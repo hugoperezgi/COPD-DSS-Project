@@ -135,7 +135,7 @@ public class DbManager {
         while (rs.next()) {
             int id = rs.getInt("user_id");
             String username = rs.getString("Username");
-            String password = rs.getString("Password");
+            // String password = rs.getString("Password");
             String role = rs.getString("Role");
             User user = new User(id,username,null,role);
             users.add(user);

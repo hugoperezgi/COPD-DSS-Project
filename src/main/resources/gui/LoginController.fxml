@@ -20,7 +20,7 @@
             <Font name="Arial" size="12.0" />
          </font>
       </PasswordField>
-      <Button layoutX="271.0" layoutY="263.0" mnemonicParsing="false" onAction="#logIn" styleClass="loginButton" stylesheets="@buttonStyle.css" text="Log In!">
+      <Button defaultButton="true" layoutX="271.0" layoutY="263.0" mnemonicParsing="false" onAction="#logIn" styleClass="loginButton" stylesheets="@buttonStyle.css" text="Log In!">
          <font>
             <Font name="Gill Sans MT Bold" size="12.0" />
          </font>

@@ -162,7 +162,7 @@ public class DoctorController implements Initializable{
         @FXML
         private void showPatientInfo() throws Exception{
             if(cbBoxSelectPatient.getSelectionModel().isEmpty()){
-                ErrorPopup.errorPopup(2);
+                ErrorPopup.errorPopup("Please select a patient.");
                 return;
             }
 
@@ -242,7 +242,7 @@ public class DoctorController implements Initializable{
         @FXML
         private void checkReport() throws Exception{
             if(cbBoxSelectReport.getSelectionModel().isEmpty()){
-                ErrorPopup.errorPopup(2);
+                ErrorPopup.errorPopup("Please select a report.");
                 return;
             }
 
@@ -301,14 +301,12 @@ public class DoctorController implements Initializable{
         private Text txtSDate;
         @FXML
         private TextArea txtTreatmnt;
-
         @FXML
         private TextField txtDuration;
         @FXML
         private DatePicker dateSdate;
         @FXML
         private Group groupEditSeverity; 
-
         @FXML
         private TextField txtRVActv;
         @FXML
@@ -358,7 +356,7 @@ public class DoctorController implements Initializable{
         }
         @FXML
         private void modifySeverity() throws IOException{
-            if(txtRVFev.getText().isEmpty()||txtRVActv.getText().isEmpty()||cbBMI.getSelectionModel().isEmpty()){ErrorPopup.errorPopup("Fill all the options.");return;}
+            if(txtRVFev.getText().isEmpty()||txtRVActv.getText().isEmpty()||cbBMI.getSelectionModel().isEmpty()){ErrorPopup.errorPopup("Please fill all the options.");return;}
             mHist.signsAndSymptoms = new SignsAndSymptoms();
             mHist.signsAndSymptoms.setmMCR((int)sliderRVmMCR.getValue());
             
@@ -422,7 +420,7 @@ public class DoctorController implements Initializable{
                     mHist.setBeginDate(Date.valueOf(dateSdate.getValue()));
                 } catch (Exception e) {
                     e.printStackTrace();
-                    ErrorPopup.errorPopup("Fuck my life 🫠");    
+                    ErrorPopup.errorPopup("Not a valid date");    
                 }
             }
             if(trtmntModified){ 
@@ -445,7 +443,6 @@ public class DoctorController implements Initializable{
 
         @FXML
         private CheckBox checkSeverGrp;
-
         @FXML
         private CheckBox checkMinor0;
         @FXML
@@ -458,7 +455,6 @@ public class DoctorController implements Initializable{
         private CheckBox checkMayor1;
         @FXML
         private CheckBox checkMayor2;
-
         @FXML
         private Group severityGroup;
         @FXML
@@ -543,11 +539,11 @@ public class DoctorController implements Initializable{
         @FXML
         private void execCreateReport() throws IOException{
 
-            if(tFieldExaC.getText().isEmpty()||tFieldExaT.getText().isEmpty()){ErrorPopup.errorPopup("Fill all the options.");return;}
-            if(!(rbCoughY.isSelected()||rbCoughN.isSelected())){ErrorPopup.errorPopup("Fill all the options.");return;}
-            if(!(rbChronExY.isSelected()||rbChronExN.isSelected())){ErrorPopup.errorPopup("Fill all the options.");return;}
-            if(!(rbAATDY.isSelected()||rbAATDN.isSelected())){ErrorPopup.errorPopup("Fill all the options.");return;}
-            if(checkSeverGrp.isSelected()&&(tFieldFEV.getText().isEmpty()||tFieldActivityperDayJEJ.getText().isEmpty()||cbBmiCreate.getSelectionModel().isEmpty())){ErrorPopup.errorPopup("Fill all the options.");return;}
+            if(tFieldExaC.getText().isEmpty()||tFieldExaT.getText().isEmpty()){ErrorPopup.errorPopup("Please, fill all the options.");return;}
+            if(!(rbCoughY.isSelected()||rbCoughN.isSelected())){ErrorPopup.errorPopup("Please, fill all the options.");return;}
+            if(!(rbChronExY.isSelected()||rbChronExN.isSelected())){ErrorPopup.errorPopup("Please, fill all the options.");return;}
+            if(!(rbAATDY.isSelected()||rbAATDN.isSelected())){ErrorPopup.errorPopup("Please, fill all the options.");return;}
+            if(checkSeverGrp.isSelected()&&(tFieldFEV.getText().isEmpty()||tFieldActivityperDayJEJ.getText().isEmpty()||cbBmiCreate.getSelectionModel().isEmpty())){ErrorPopup.errorPopup("Please, fill all the options.");return;}
 
             SignsAndSymptoms ss = new SignsAndSymptoms();
             ss.setCough(rbCoughY.isSelected());
