@@ -181,7 +181,7 @@ rule "HUH"
     dialect "java"
     salience -100 
     when
-        $MedicalHistory: /mHist [phenotype == "?"]
+        $MedicalHistory: /mHist [phenotype == "?", severityLevel>0, severityLevel<5]
     then 
         modify ($MedicalHistory) {setSuggestedTreatment("Unknown COPD Phenotype - No treatment available")}
         modify ($MedicalHistory){setBeginDate()}

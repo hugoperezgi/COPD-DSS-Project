@@ -93,7 +93,7 @@ public class PatientController implements Initializable{
     public void chooseID() throws Exception {
         hideAll();
         //show pane de la tabla con todos los medical history
-        myMedHistory = new ArrayList<>(DbManager.getMedicalHistory(myself.getMedicalCardNumber()));
+        myMedHistory = DbManager.getMedicalHistory(myself.getId());
         List<Integer> medhistoryIds = new ArrayList<>();
         tableMedHistory.getItems().setAll(myMedHistory);
         int medhistoryCount = myMedHistory.size();
