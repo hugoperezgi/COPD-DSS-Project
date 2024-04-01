@@ -28,7 +28,7 @@
                         <Image url="@../img/logo.png" />
                      </image>
                   </ImageView>
-                  <Pane fx:id="paneCATTest" disable="true" layoutY="-4.0" prefHeight="722.6666666666666" prefWidth="1200.0" style="-fx-background-color: #f5f5f5;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Pane fx:id="paneCATTest" disable="true" layoutY="-4.0" prefHeight="722.6666666666666" prefWidth="1200.0" style="-fx-background-color: #f5f5f5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#5481a4" height="34.0" layoutX="200.0" layoutY="533.0" stroke="TRANSPARENT" strokeType="INSIDE" width="800.0" />
                         <Text fill="WHITE" layoutX="206.0" layoutY="554.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Provisional CAT Score:" wrappingWidth="788.0000610351562">
@@ -57,7 +57,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button cancelButton="true" layoutX="56.0" layoutY="29.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="61.0" style="-fx-background-color: #f5f5f5;" styleClass="bigButton" stylesheets="@buttonStyle.css" text="&lt;" textFill="#705697">
+                        <Button cancelButton="true" layoutX="56.0" layoutY="29.0" mnemonicParsing="false" onAction="#chooseID" prefHeight="55.0" prefWidth="61.0" style="-fx-background-color: #f5f5f5;" styleClass="bigButton" stylesheets="@buttonStyle.css" text="&lt;" textFill="#705697">
                            <font>
                               <Font name="Gill Sans MT Bold" size="48.0" />
                            </font>
