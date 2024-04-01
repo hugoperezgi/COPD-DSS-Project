@@ -12,7 +12,6 @@ public class User {
         //User login info
 
     private String role;
-        //0:Admin 1:Doctor 2:Patient	
 
     public User(Integer id, String uname, String psw, String role) throws Exception {
         this.userID=id;

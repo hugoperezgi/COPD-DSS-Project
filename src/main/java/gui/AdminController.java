@@ -14,6 +14,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import sql.DbManager;
 
+import static org.kie.internal.task.query.TaskVariableQueryBuilder.OrderBy.id;
+
 public class AdminController implements Initializable{
 
     public ErrorPopup err = new ErrorPopup();
@@ -42,7 +44,7 @@ public class AdminController implements Initializable{
     public TextField textFieldUsernameStaffMember;
     @FXML
     public ComboBox<String> comboBoxRole;
-    public String[] roles = {"Doctor", "Admin"};
+    public String[] roles = {"doctor", "admin"};
     @FXML
     public Button buttonCreateStaffMember;
 
@@ -80,7 +82,7 @@ public class AdminController implements Initializable{
 
     public void createPatient() throws Exception {
         if(textFieldUsernamePatient.getText().isEmpty() || pswFieldPatient.getText().isEmpty() || textFieldNamePatient.getText().isEmpty() || textFieldMedCardNumPatient.getText().isEmpty()){
-            err.errorPopup("Please, fill in all of the mandatory fields: username, password, name, medical card number");
+            err.errorPopup("Fill in all of the mandatory fields");
         } else {
             String username = textFieldUsernamePatient.getText();
             String password = pswFieldPatient.getText();
@@ -94,7 +96,7 @@ public class AdminController implements Initializable{
                 DbManager.createPatient(patientname, medicalCardNumber, birthdate, user_id);
                 succ.successPopup(4);
             } else {
-                err.errorPopup("The combination of user and password is already in use. Please, try again.");
+                err.errorPopup("Combination user and password not valid");
             }
         }
 
@@ -103,7 +105,7 @@ public class AdminController implements Initializable{
 
     public void createStaffMember() throws Exception {
         if(textFieldUsernameStaffMember.getText().isEmpty() || pswFieldStaffMember.getText().isEmpty() || comboBoxRole.getSelectionModel().isEmpty()){
-            err.errorPopup("Please, fill in all of the mandatory fields: username, password and role");
+            err.errorPopup("Fill in all of the mandatory fields");
         } else {
             String username = textFieldUsernameStaffMember.getText();
             String password = pswFieldStaffMember.getText();
@@ -113,7 +115,7 @@ public class AdminController implements Initializable{
                 DbManager.createUser(new_user.getUsername(), new_user.getEncryptedPassword(), new_user.getRole());
                 succ.successPopup(5);
             } else {
-                err.errorPopup("The combination of user and password is already in use. Please, try again.");
+                err.errorPopup("Combination user and password not valid");
             }
         }
     }
@@ -121,6 +123,9 @@ public class AdminController implements Initializable{
 
 
     public void deleteUser() throws Exception {
+        if(comboBoxUsers.getSelectionModel().isEmpty()){
+            err.errorPopup("Fill in all of the mandatory fields");
+        }
         String id = comboBoxUsers.getSelectionModel().getSelectedItem();
         DbManager.deleteUser(Integer.parseInt(id));
         succ.successPopup(6);
